@@ -1,23 +1,47 @@
 ** Drc report for /home/user/PCB/hardware/hubs/hub-c/kicad/agrinode_hub_c.kicad_pcb **
-** Created on 2026-09-27 22:26:51 **
+** Created on 2026-09-27 22:32:17 **
 
-** Found 15 DRC violations **
+** Found 17 DRC violations **
 [silk_overlap]: Silkscreen overlap
     Rule: board setup constraints silk; Severity: warning
-    @(140.4575 mm, 52.1500 mm): PCB Text 'W4' on F.Silkscreen
-    @(141.3950 mm, 52.5000 mm): Reference 'Q3'
-[silk_overlap]: Silkscreen overlap
-    Rule: board setup constraints silk; Severity: warning
-    @(141.7550 mm, 62.8250 mm): Reference 'R19'
-    @(143.2175 mm, 62.8450 mm): PCB Text 'W4' on F.Silkscreen
-[silk_overlap]: Silkscreen overlap
-    Rule: board setup constraints silk; Severity: warning
-    @(-1.1625 mm, -1.5100 mm): Polygon on F.Silkscreen
     @(135.9450 mm, 116.7895 mm): Reference 'D10'
+    @(-1.1625 mm, -1.5100 mm): Polygon on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(91.2500 mm, 51.0200 mm): PCB Text 'W2' on F.Silkscreen
+    @(-9.1250 mm, -8.9750 mm): Polygon on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(83.3650 mm, 57.5250 mm): PCB Text 'W2' on F.Silkscreen
+    @(82.0950 mm, 57.9950 mm): Line on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(131.2500 mm, 58.3300 mm): PCB Text 'W3' on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(176.5500 mm, 61.3500 mm): PCB Text 'W1' on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(91.2500 mm, 51.0200 mm): PCB Text 'W2' on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(140.4575 mm, 54.0500 mm): PCB Text 'W3' on F.Silkscreen
+[starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
+    Local override; Severity: error
+    @(50.0000 mm, 50.0000 mm): Zone [GND] on F.Cu
+    @(117.5250 mm, 59.0250 mm): PTH pad 2 [GND] of SW2
 [starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
     Local override; Severity: error
     @(50.0000 mm, 50.0000 mm): Zone [GND] on F.Cu
     @(91.2500 mm, 51.5500 mm): Pad 1 [GND] of U4 on F.Cu
+[starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
+    Local override; Severity: error
+    @(50.0000 mm, 50.0000 mm): Zone [GND] on F.Cu
+    @(108.7500 mm, 51.5500 mm): Pad 38 [GND] of U4 on F.Cu
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(50.0000 mm, 155.0000 mm): Line on Edge.Cuts
+    @(49.4750 mm, 88.3518 mm): Reference 'J3'
 [silk_edge_clearance]: Silkscreen clipped by board edge
     Rule: board setup constraints silk; Severity: warning
     @(180.0000 mm, 53.0000 mm): Line on Edge.Cuts
@@ -33,51 +57,27 @@
 [silk_edge_clearance]: Silkscreen clipped by board edge
     Rule: board setup constraints silk; Severity: warning
     @(50.0000 mm, 155.0000 mm): Line on Edge.Cuts
-    @(49.4750 mm, 88.3518 mm): Reference 'J3'
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(50.0000 mm, 155.0000 mm): Line on Edge.Cuts
     @(49.4750 mm, 74.6150 mm): Reference 'J2'
 [via_dangling]: Via is not connected or connected on only one layer
     Local override; Severity: warning
-    @(111.9500 mm, 70.9500 mm): Via [MODEM_STATUS] on F.Cu - B.Cu
+    @(176.5500 mm, 57.0500 mm): Via [MODEM_TXD] on F.Cu - B.Cu
 [via_dangling]: Via is not connected or connected on only one layer
     Local override; Severity: warning
-    @(113.9500 mm, 74.6500 mm): Via [MODEM_STATUS] on F.Cu - B.Cu
-[via_dangling]: Via is not connected or connected on only one layer
-    Local override; Severity: warning
-    @(104.7500 mm, 62.4500 mm): Via [MODEM_TXD] on F.Cu - B.Cu
-[via_dangling]: Via is not connected or connected on only one layer
-    Local override; Severity: warning
-    @(87.4500 mm, 74.6500 mm): Via [MODEM_TXD] on F.Cu - B.Cu
-[via_dangling]: Via is not connected or connected on only one layer
-    Local override; Severity: warning
-    @(132.0500 mm, 79.0500 mm): Via [/ESP32, programming, buttons, RTC, LED strip, buzzer/CH_RTS] on F.Cu - B.Cu
-[via_dangling]: Via is not connected or connected on only one layer
-    Local override; Severity: warning
-    @(127.1500 mm, 66.5500 mm): Via [/ESP32, programming, buttons, RTC, LED strip, buzzer/CH_RTS] on F.Cu - B.Cu
+    @(176.5500 mm, 63.1500 mm): Via [MODEM_TXD] on F.Cu - B.Cu
 
-** Found 5 unconnected pads **
+** Found 3 unconnected pads **
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(50.0000 mm, 50.0000 mm): Zone [GND] on F.Cu
-    @(50.0000 mm, 50.0000 mm): Zone [GND] on F.Cu
+    @(91.2500 mm, 52.8200 mm): Pad 2 [+3V3] of U4 on F.Cu
+    @(83.3650 mm, 59.3250 mm): Track [+3V3] on F.Cu, length 1.7341 mm
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(128.8500 mm, 89.5500 mm): Track [MODEM_STATUS] on B.Cu, length 21.0718 mm
-    @(113.0500 mm, 69.8500 mm): Track [MODEM_STATUS] on B.Cu, length 1.5556 mm
+    @(176.9500 mm, 63.5500 mm): Track [MODEM_TXD] on F.Cu, length 0.5657 mm
+    @(174.4500 mm, 54.9500 mm): Track [MODEM_TXD] on F.Cu, length 2.9698 mm
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(88.2500 mm, 81.0500 mm): Track [MODEM_TXD] on B.Cu, length 5.6000 mm
-    @(104.7500 mm, 62.4500 mm): Via [MODEM_TXD] on F.Cu - B.Cu
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(131.2500 mm, 60.1300 mm): Pad 14 [/ESP32, programming, buttons, RTC, LED strip, buzzer/CH_RTS] of U5 on F.Cu
     @(140.4575 mm, 55.8500 mm): Pad 2 [/ESP32, programming, buttons, RTC, LED strip, buzzer/CH_RTS] of Q3 on F.Cu
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(140.4575 mm, 53.9500 mm): Pad 1 [/ESP32, programming, buttons, RTC, LED strip, buzzer/AR_B1] of Q3 on F.Cu
-    @(143.2175 mm, 64.6450 mm): Pad 2 [/ESP32, programming, buttons, RTC, LED strip, buzzer/AR_B1] of R19 on F.Cu
+    @(129.7912 mm, 59.7119 mm): Track [/ESP32, programming, buttons, RTC, LED strip, buzzer/CH_RTS] on B.Cu, length 5.4523 mm
 
 ** Found 0 Footprint errors **
 

@@ -1,0 +1,3 @@
+# insulated wire jumpers (top side) for connections the router could not complete
+W1  +3V3          U5 pad 16  ->  U5 pad 4   6 mm
+W2  CHRG_N        U4 pad 16  ->  U2 pad 7   38 mm
