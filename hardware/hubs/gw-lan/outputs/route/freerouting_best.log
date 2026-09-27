@@ -1,37 +1,23 @@
-2026-09-27 20:31:55.733 INFO   Freerouting v2.4.1 (build-date: 2026-09-03)
-2026-09-27 20:31:55.794 WARN   GUI is disabled and you don't have a console available, so the only feedback from Freerouting is in the log.
-2026-09-27 20:31:55.814 INFO   Configured network proxy: 127.0.0.1:33699
-2026-09-27 20:31:57.432 INFO   [B3E739\2E57F4] Loading board file 'agrinode_gw_lan.dsn'...
-2026-09-27 20:31:57.679 INFO   [B3E739\2E57F4] Job 'B3E739\2E57F4' started at 2026-09-27T20:31:57.679046084Z.
-2026-09-27 20:31:58.005 INFO   [B3E739\2E57F4] Auto-routing stage started on board '62c5ea0ba1d2251e79950f66f123ece8' for 309 unrouted items.
-2026-09-27 20:32:37.753 INFO   [B3E739\2E57F4] Auto-routing pass #1 on board '62c5ea0ba1d2251e79950f66f123ece8' was completed in 39.51 seconds with score 718.06 (84 unrouted and 17 violations), using 32.25 CPU seconds and the job allocated 117.92 GB of memory so far.
-2026-09-27 20:33:22.067 INFO   [B3E739\2E57F4] Auto-routing pass #2 on board 'abbfc85ac324adc20683d15608de4dca' was completed in 44.01 seconds with score 866.44 (38 unrouted and 17 violations), using 75.25 CPU seconds and the job allocated 271.60 GB of memory so far.
-2026-09-27 20:34:00.837 INFO   [B3E739\2E57F4] Auto-routing pass #3 on board 'e15ccbfe0de2813178ed757a25f1dc64' was completed in 38.32 seconds with score 889.02 (31 unrouted and 17 violations), using 111.82 CPU seconds and the job allocated 393.42 GB of memory so far.
-2026-09-27 20:34:02.726 WARN   ShapeSearchTree.overlaps_with_clearance: shape is not bounded
-2026-09-27 20:34:37.633 INFO   [B3E739\2E57F4] Auto-routing pass #4 on board '1d6addbae610c5216ea3b2f202c48d06' was completed in 36.13 seconds with score 914.83 (23 unrouted and 17 violations), using 147.33 CPU seconds and the job allocated 515.29 GB of memory so far.
-2026-09-27 20:35:15.473 INFO   [B3E739\2E57F4] Auto-routing pass #5 on board '4bf2555cbfe8a60011ac506e690b4598' was completed in 37.15 seconds with score 937.41 (16 unrouted and 17 violations), using 183.57 CPU seconds and the job allocated 647.84 GB of memory so far.
-2026-09-27 20:35:48.715 INFO   [B3E739\2E57F4] Auto-routing pass #6 on board '59d00bcda1cf53fb4c8c658331304ee4' was completed in 32.23 seconds with score 937.41 (16 unrouted and 17 violations), using 214.73 CPU seconds and the job allocated 752.32 GB of memory so far.
-2026-09-27 20:36:21.247 INFO   [B3E739\2E57F4] Auto-routing pass #7 on board '0d76a387c339da2a231e958eb6391f93' was completed in 31.55 seconds with score 927.73 (19 unrouted and 17 violations), using 246.58 CPU seconds and the job allocated 859.49 GB of memory so far.
-2026-09-27 20:37:00.043 INFO   [B3E739\2E57F4] Auto-routing pass #8 on board '0d76a387c339da2a231e958eb6391f93' was completed in 0.00 seconds with score 937.41 (16 unrouted and 17 violations), using 284.08 CPU seconds and the job allocated 987.75 GB of memory so far.
-2026-09-27 20:37:30.595 INFO   [B3E739\2E57F4] Auto-routing pass #9 on board '0d76a387c339da2a231e958eb6391f93' was completed in 30.09 seconds with score 921.28 (21 unrouted and 17 violations), using 312.75 CPU seconds and the job allocated 1088.78 GB of memory so far.
-2026-09-27 20:37:47.768 WARN   ShapeSearchTree.overlaps_with_clearance: shape is not bounded
-2026-09-27 20:37:47.771 WARN   ShapeSearchTree.overlaps_with_clearance: shape is not bounded
-2026-09-27 20:38:00.601 WARN   ShapeSearchTree.overlaps_with_clearance: shape is not bounded
-2026-09-27 20:38:00.604 WARN   ShapeSearchTree.overlaps_with_clearance: shape is not bounded
-2026-09-27 20:38:08.797 INFO   [B3E739\2E57F4] Auto-routing pass #10 on board '33161826251d304c9e319ba9f6f2c11b' was completed in 37.34 seconds with score 927.73 (19 unrouted and 17 violations), using 349.32 CPU seconds and the job allocated 1210.12 GB of memory so far.
-2026-09-27 20:38:32.888 WARN   ShapeSearchTree.overlaps_with_clearance: shape is not bounded
-2026-09-27 20:38:32.890 WARN   ShapeSearchTree.overlaps_with_clearance: shape is not bounded
-2026-09-27 20:38:39.681 INFO   [B3E739\2E57F4] Auto-routing pass #11 on board '1e41258daaaed8a448ddc239955e505d' was completed in 30.03 seconds with score 930.96 (18 unrouted and 17 violations), using 378.64 CPU seconds and the job allocated 1313.43 GB of memory so far.
-2026-09-27 20:39:04.757 WARN   ShapeSearchTree.overlaps_with_clearance: shape is not bounded
-2026-09-27 20:39:04.761 WARN   ShapeSearchTree.overlaps_with_clearance: shape is not bounded
-2026-09-27 20:39:13.053 INFO   [B3E739\2E57F4] Auto-routing pass #12 on board '0d76a387c339da2a231e958eb6391f93' was completed in 0.00 seconds with score 937.41 (16 unrouted and 17 violations), using 410.22 CPU seconds and the job allocated 1423.44 GB of memory so far.
-2026-09-27 20:39:13.959 INFO   [B3E739\2E57F4] Auto-routing stage completed: started with 309 unrouted nets, completed in 435.71 seconds, final score: 937.41 (16 unrouted and 17 violations), using 411.15 total CPU seconds, 1427.91 GB total allocated, and 892.9 MB peak heap usage.
-2026-09-27 20:39:14.434 INFO   [B3E739\2E57F4] Optimization stage started on board '1bf8630d488953fff62d328bb363e24d' with score 930.96 (18 unrouted and 17 violations).
-2026-09-27 20:40:01.786 INFO   [B3E739\2E57F4] Stopping optimization pass #1 early after 50 consecutive items could not be improved.
-2026-09-27 20:40:02.296 INFO   [B3E739\2E57F4] Optimizer pass #1 on board 'e63a7c78d9fcba6dd09b4ea28c500fe1' was completed in 46.39 seconds with the score of 930.96 (18 unrouted and 17 violations).
-2026-09-27 20:40:02.745 INFO   [B3E739\2E57F4] Stopping optimizer because the improvement in this pass (0.0000%) is below the threshold (1.00%).
-2026-09-27 20:40:03.193 INFO   [B3E739\2E57F4] Optimization stage completed: started with score 930.96 (18 unrouted and 17 violations), completed in 48.32 seconds, final score: 930.96 (18 unrouted and 17 violations), using 47.33 total CPU seconds, 230.51 GB total allocated, and 530.0 MB peak heap usage.
-2026-09-27 20:40:03.232 INFO   [B3E739\2E57F4] Job 'B3E739\2E57F4' finished with state: COMPLETED (elapsed: 8 minutes 5.55 seconds, finished at UTC: 2026-09-27T20:40:03.231223354Z).
-2026-09-27 20:40:03.269 INFO   Saving output file '/home/user/PCB/hardware/hubs/gw-lan/outputs/route/agrinode_gw_lan.ses' (SES)...
-2026-09-27 20:40:03.273 INFO   Successfully saved output file '/home/user/PCB/hardware/hubs/gw-lan/outputs/route/agrinode_gw_lan.ses' (112701 bytes).
+2026-09-27 20:50:16.198 INFO   Freerouting v2.4.1 (build-date: 2026-09-03)
+2026-09-27 20:50:16.267 WARN   GUI is disabled and you don't have a console available, so the only feedback from Freerouting is in the log.
+2026-09-27 20:50:16.288 INFO   Configured network proxy: 127.0.0.1:33699
+2026-09-27 20:50:17.938 INFO   [570688\FA847C] Loading board file 'agrinode_gw_lan.dsn'...
+2026-09-27 20:50:18.268 INFO   [570688\FA847C] Job '570688\FA847C' started at 2026-09-27T20:50:18.267935002Z.
+2026-09-27 20:50:18.625 INFO   [570688\FA847C] Auto-routing stage started on board 'd28d0b5e8ba69f7602cf3f103a27f0b1' for 309 unrouted items.
+2026-09-27 20:51:09.606 INFO   [570688\FA847C] Auto-routing pass #1 on board 'd28d0b5e8ba69f7602cf3f103a27f0b1' was completed in 50.78 seconds with score 808.38 (56 unrouted and 17 violations), using 43.64 CPU seconds and the job allocated 168.65 GB of memory so far.
+2026-09-27 20:51:50.255 INFO   [570688\FA847C] Auto-routing pass #2 on board '33ab3f71fadf99047d2313e57bb7b5df' was completed in 40.28 seconds with score 872.89 (36 unrouted and 17 violations), using 81.40 CPU seconds and the job allocated 304.08 GB of memory so far.
+2026-09-27 20:52:32.503 INFO   [570688\FA847C] Auto-routing pass #3 on board 'b185fd36c6460d43c1df1d590b540baa' was completed in 41.49 seconds with score 914.83 (23 unrouted and 17 violations), using 122.48 CPU seconds and the job allocated 459.09 GB of memory so far.
+2026-09-27 20:53:01.242 INFO   [570688\FA847C] Auto-routing pass #4 on board 'd4922f84c4960e1da3b2d866e4278eb7' was completed in 27.91 seconds with score 940.63 (15 unrouted and 17 violations), using 149.28 CPU seconds and the job allocated 555.53 GB of memory so far.
+2026-09-27 20:53:31.113 INFO   [570688\FA847C] Auto-routing pass #5 on board 'ba9e56df56e54474020ac12276e8ebda' was completed in 28.98 seconds with score 943.86 (14 unrouted and 17 violations), using 178.07 CPU seconds and the job allocated 655.23 GB of memory so far.
+2026-09-27 20:53:58.003 INFO   [570688\FA847C] Auto-routing pass #6 on board '1bc83abfe4e45e31921efb23729b9041' was completed in 25.95 seconds with score 930.96 (18 unrouted and 17 violations), using 203.21 CPU seconds and the job allocated 736.38 GB of memory so far.
+2026-09-27 20:54:23.315 INFO   [570688\FA847C] Auto-routing pass #7 on board '2550f0e1a1a6d7be60ebb5a03be2e440' was completed in 24.37 seconds with score 937.41 (16 unrouted and 17 violations), using 227.20 CPU seconds and the job allocated 814.17 GB of memory so far.
+2026-09-27 20:54:25.293 INFO   [570688\FA847C] Auto-routing stage completed: started with 309 unrouted nets, completed in 246.40 seconds, final score: 943.86 (14 unrouted and 17 violations), using 228.97 total CPU seconds, 822.08 GB total allocated, and 888.1 MB peak heap usage.
+2026-09-27 20:54:25.709 INFO   [570688\FA847C] Optimization stage started on board '81c6fea8c5c70d29bb6695ad7516e947' with score 937.41 (16 unrouted and 17 violations).
+2026-09-27 20:55:08.194 INFO   [570688\FA847C] Stopping optimization pass #1 early after 50 consecutive items could not be improved.
+2026-09-27 20:55:08.629 INFO   [570688\FA847C] Optimizer pass #1 on board 'd8be4b3e1223928579022b2d192da160' was completed in 41.60 seconds with the score of 937.41 (16 unrouted and 17 violations).
+2026-09-27 20:55:09.022 INFO   [570688\FA847C] Stopping optimizer because the improvement in this pass (0.0000%) is below the threshold (1.00%).
+2026-09-27 20:55:09.413 INFO   [570688\FA847C] Optimization stage completed: started with score 937.41 (16 unrouted and 17 violations), completed in 43.32 seconds, final score: 937.41 (16 unrouted and 17 violations), using 42.47 total CPU seconds, 204.66 GB total allocated, and 669.7 MB peak heap usage.
+2026-09-27 20:55:09.445 INFO   [570688\FA847C] Job '570688\FA847C' finished with state: COMPLETED (elapsed: 4 minutes 51.18 seconds, finished at UTC: 2026-09-27T20:55:09.444191520Z).
+2026-09-27 20:55:09.520 INFO   Saving output file '/home/user/PCB/hardware/hubs/gw-lan/outputs/route/agrinode_gw_lan.ses' (SES)...
+2026-09-27 20:55:09.525 INFO   Successfully saved output file '/home/user/PCB/hardware/hubs/gw-lan/outputs/route/agrinode_gw_lan.ses' (116207 bytes).
 Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -Djavax.net.ssl.trustStoreType=JKS -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=33699 -Dhttp.nonProxyHosts=localhost|127.0.0.1|::1|127.*|0.*|::|169.254.*|api.anthropic.com|api-staging.anthropic.com|api-pr-preview.anthropic.com|mcp-proxy.anthropic.com|mcp-proxy-staging.anthropic.com|registry.npmjs.org|jsr.io|npm.jsr.io|pypi.org|files.pythonhosted.org|index.crates.io|proxy.golang.org|host.docker.internal|10.*|172.16.*|172.17.*|172.18.*|172.19.*|172.20.*|172.21.*|172.22.*|172.23.*|172.24.*|172.25.*|172.26.*|172.27.*|172.28.*|172.29.*|172.30.*|172.31.*|192.168.*|100.64.0.0/10|*.svc.cluster.local|*.svc.cluster.local -Djdk.http.auth.tunneling.disabledSchemes= -Djdk.http.auth.proxying.disabledSchemes=
