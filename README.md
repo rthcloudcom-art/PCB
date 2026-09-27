@@ -7,6 +7,7 @@
 |---|---|
 | [`docs/01-features.md`](docs/01-features.md) | فاز ۱ — فهرست جامع قابلیت‌ها برای هر کاربری و ترجمه‌ی آن به نیازمندی سخت‌افزاری |
 | [`docs/02-architecture.md`](docs/02-architecture.md) | فاز ۲ — معماری سیستم، خانواده‌ی بردها و تصمیم‌های طراحی |
+| [`docs/03-roadmap.md`](docs/03-roadmap.md) | فاز ۳ — نقشه‌ی راه بردهای بعدی |
 | [`hardware/main-controller/`](hardware/main-controller/README.md) | برد کنترلر اصلی **MC-1** (شماتیک + PCB KiCad، BOM، نقشه‌ی پایه‌ها) |
 
 ## ساختار مخزن

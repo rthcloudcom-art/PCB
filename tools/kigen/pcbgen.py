@@ -273,7 +273,7 @@ def freeroute(board_path, dsn, ses, jar, java, passes=40, timeout=3600):
     b = load(board_path)
     if not pcbnew.ExportSpecctraDSN(b, dsn):
         raise RuntimeError("DSN export failed")
-    cmd = [java, "-Djava.awt.headless=true", "-jar", jar, "-de", dsn, "-do", ses, "-mp", str(passes),
+    cmd = [java, "-Djava.awt.headless=true", "-jar", jar, "-de", dsn, "-do", ses, "-mp", str(passes), "-mt", "4",
            "--gui.enabled=false"]
     r = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
     log = r.stdout + r.stderr
