@@ -16,11 +16,11 @@ import os
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, "..", "..", "..", "tools", "kigen"))
+sys.path.insert(0, os.path.join(HERE, "..", "..", "..", "..", "tools", "kigen"))
 
 import symlib  # noqa: E402
 
-symlib.add_lib_dir(os.path.join(HERE, "..", "..", "lib"))
+symlib.add_lib_dir(os.path.join(HERE, "..", "..", "..", "lib"))
 
 from circuit import NC, Circuit  # noqa: E402
 

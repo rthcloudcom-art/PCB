@@ -8,9 +8,10 @@
 | [`docs/01-features.md`](docs/01-features.md) | فاز ۱ — فهرست جامع قابلیت‌ها برای هر کاربری و ترجمه‌ی آن به نیازمندی سخت‌افزاری |
 | [`docs/02-architecture.md`](docs/02-architecture.md) | فاز ۲ — معماری (نودها + هاب)، تغذیه، قوانین ساخت برای دستگاه کم‌دقت، اقدامات صنعتی |
 | [`docs/03-roadmap.md`](docs/03-roadmap.md) | فاز ۳ — نقشه‌ی راه بردهای بعدی |
-| [`hardware/hub/`](hardware/hub/README.md) | **HUB-1** — هاب/گیت‌وی واحد دو لایه (Wi-Fi / LoRa / سیم‌کارت / LAN) |
+| [`hardware/hubs/`](hardware/hubs/README.md) | **بردهای هاب** — HUB-W (Wi-Fi)، HUB-L (LoRa)، HUB-C (4G LTE)، GW-LAN (گیت‌وی LoRa→LAN)؛ هر کدام یک برد دو لایه‌ی جدا با هسته‌ی مشترک |
 | [`hardware/lib/`](hardware/lib) | کتابخانه‌ی سمبل و فوت‌پرینت برای ساخت با دستگاه کم‌دقت (پدهای باریک‌شده، فاصله ≥ 0.55mm) |
 | [`hardware/archive/mc1-4layer/`](hardware/archive/mc1-4layer/README.md) | نسخه‌ی قبلی (برد یکپارچه‌ی ۴ لایه، کنار گذاشته شد) |
+| [`hardware/archive/hub1-universal-2layer/`](hardware/archive/hub1-universal-2layer/README.md) | نسخه‌ی قبلی هاب (یک برد برای همه‌ی انواع، کنار گذاشته شد) |
 
 ## ساختار مخزن
 

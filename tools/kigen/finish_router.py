@@ -236,9 +236,10 @@ def astar(grid, obs, src, dst, via_ok, via_cost):
     return None
 
 
-def finish(board, clearance=0.5, track_w=0.6, via_d=1.2, via_drill=0.6, edge_clear=0.5, log=print):
+def finish(board, clearance=0.5, track_w=0.6, via_d=1.2, via_drill=0.6, edge_clear=0.5, log=print, width_of=None):
+    """width_of(netname) -> track width in mm (defaults to track_w for every net)."""
     board.BuildConnectivity()
-    grid = Grid(board, clearance, track_w, via_d, edge_clear)
+    grids = {}
     nets = {}
     for p in board.GetPads():
         if p.GetNetCode() > 0:
@@ -247,6 +248,8 @@ def finish(board, clearance=0.5, track_w=0.6, via_d=1.2, via_drill=0.6, edge_cle
     for code, net in sorted(nets.items(), key=lambda kv: kv[1].GetNetname()):
         if net.GetNetname() == "GND":
             continue  # handled by the ground pours
+        w = width_of(net.GetNetname()) if width_of else track_w
+        grid = grids.setdefault(w, Grid(board, clearance, w, via_d, edge_clear))
         while True:
             groups = islands(board, code)
             groups = [g for g in groups if any(it.GetClass() == "PAD" for it in g)]
@@ -254,7 +257,7 @@ def finish(board, clearance=0.5, track_w=0.6, via_d=1.2, via_drill=0.6, edge_cle
                 break
             obs = grid.obstacles(code)
             # via allowed where a via disc fits on both layers (obstacles already grown by track_w/2 + clearance)
-            vr = max(0.0, via_d / 2 - track_w / 2)
+            vr = max(0.0, via_d / 2 - w / 2)
             k = int(math.ceil(vr / GRID))
             both = obs[LAYERS[0]] | obs[LAYERS[1]]
             via_ok = ~both.copy()
@@ -273,7 +276,7 @@ def finish(board, clearance=0.5, track_w=0.6, via_d=1.2, via_drill=0.6, edge_cle
                 failed.append(net.GetNetname())
                 log("  no path for %s" % net.GetNetname())
                 break
-            add_path(board, grid, path, net, track_w, via_d, via_drill)
+            add_path(board, grid, path, net, w, via_d, via_drill)
             done += 1
             log("  routed %s (%d cells)" % (net.GetNetname(), len(path)))
     return done, failed
@@ -457,9 +460,15 @@ def _route_net(board, grid, code, net, track_w, via_d, via_drill):
 
 
 def rip_and_reroute(board, protected_names=("GND",), protected_prefix=(), clearance=0.5, track_w=0.6,
-                    via_d=1.2, via_drill=0.6, edge_clear=0.5, max_iter=80, log=print):
-    """Finish all open nets, ripping up blocking signal nets when needed."""
-    grid = Grid(board, clearance, track_w, via_d, edge_clear)
+                    via_d=1.2, via_drill=0.6, edge_clear=0.5, max_iter=80, log=print, width_of=None):
+    """Finish all open nets, ripping up blocking signal nets when needed.
+
+    width_of(netname) -> track width in mm for re-routed nets (defaults to track_w)."""
+    grids = {}
+
+    def grid_for(net):
+        w = width_of(net.GetNetname()) if width_of else track_w
+        return grids.setdefault(w, Grid(board, clearance, w, via_d, edge_clear)), w
     nets = {}
     for p in board.GetPads():
         if p.GetNetCode() > 0:
@@ -476,7 +485,8 @@ def rip_and_reroute(board, protected_names=("GND",), protected_prefix=(), cleara
         it += 1
         code = todo.pop(0)
         net = nets[code]
-        if _route_net(board, grid, code, net, track_w, via_d, via_drill):
+        grid, w = grid_for(net)
+        if _route_net(board, grid, code, net, w, via_d, via_drill):
             log("  [%d] routed %s" % (it, net.GetNetname()))
             continue
         # needs rip-up: find a path through rippable tracks, preferring rarely ripped nets
@@ -497,7 +507,7 @@ def rip_and_reroute(board, protected_names=("GND",), protected_prefix=(), cleara
             for t in [t for t in board.GetTracks() if t.GetNetCode() == v]:
                 board.Remove(t)
                 _GRAVEYARD.append(t)  # keep the Python wrapper alive: SWIG would otherwise free it twice
-        add_path(board, grid, path, net, track_w, via_d, via_drill)
+        add_path(board, grid, path, net, w, via_d, via_drill)
         log("  [%d] %s routed after ripping %s" % (it, net.GetNetname(),
                                                    [nets[v].GetNetname().split("/")[-1] for v in victims]))
         todo = [code] + [v for v in victims if v not in todo] + todo  # finish own islands first

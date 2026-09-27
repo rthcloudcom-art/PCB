@@ -17,19 +17,22 @@ sys.path.insert(0, os.path.join(HERE, "..", "..", "tools", "kigen"))
 
 import schgen  # noqa: E402
 from circuit import NC  # noqa: E402
-from hub import c  # noqa: E402
+import hubs  # noqa: E402
+
+VARIANT = sys.argv[1] if len(sys.argv) > 1 else "hub-w"
+c = hubs.make(VARIANT)
 from sexp import find, find_all, parse  # noqa: E402
 
-KICAD = os.path.join(HERE, "kicad")
-OUT = os.path.join(HERE, "outputs")
+KICAD = os.path.join(HERE, VARIANT, "kicad")
+OUT = os.path.join(HERE, VARIANT, "outputs")
 
 NOTES = [
-    "AgriNode HUB-1 - universal gateway hub (single-sided PCB)",
-    "Variants by assembly option: HUB-W (Wi-Fi), HUB-L (+LORA), HUB-C (+CELL), GW-LAN (+LORA +ETH); BUZ optional",
-    "ESP32-WROOM-32E | LoRa Ra-02 433 MHz | SIM800C 2G | ENC28J60 10BASE-T | I2C expansion header",
-    "Power: 12 V jack/terminal, solar 6-24 V, USB-B 5 V, 18650 cell with TP4056 charger + NTC, power path, MIC29302 3.3 V",
-    "6x PL9823 addressable RGB status LEDs, RESET and BOOT/PAIR buttons, buzzer",
-    "Source of truth: design/hub.py - regenerate with build.py",
+    c.title,
+    "One board per hub type: HUB-W (Wi-Fi), HUB-L (LoRa), HUB-C (4G LTE module board), GW-LAN (LoRa to Ethernet)",
+    "Core: ESP32-WROOM-32E, 12 V / solar / USB-B inputs, 18650 + TP4056 + power path, MIC29302 3.3 V, DS3231M RTC",
+    "USB programming (CH340C, auto-reset) + PROG header, RESET and BOOT/PAIR, WS2813 LED-strip header, buzzer",
+    "Optional RS-485 (Modbus) - leave unpopulated if not needed",
+    "Source of truth: design/hubs.py - regenerate with build.py <variant>",
 ]
 
 
@@ -75,17 +78,11 @@ def compare_netlist(path):
     return missing, extra
 
 
-VARIANTS = {
-    "HUB-W": set(),
-    "HUB-L": {"LORA"},
-    "HUB-C": {"CELL"},
-    "GW-LAN": {"LORA", "ETH"},
-}
-EXTRAS = {"BUZ"}
+
 
 
 def write_lib_tables():
-    lib = "${KIPRJMOD}/../../lib/agrinode"
+    lib = "${KIPRJMOD}/../../../lib/agrinode"
     open(os.path.join(KICAD, "sym-lib-table"), "w").write(
         '(sym_lib_table\n  (lib (name "agrinode")(type "KiCad")(uri "%s.kicad_sym")(options "")(descr "AgriNode parts"))\n)\n' % lib)
     open(os.path.join(KICAD, "fp-lib-table"), "w").write(
@@ -93,24 +90,19 @@ def write_lib_tables():
 
 
 def write_variant_boms():
-    """One BOM per variant (all optional extras fitted) so each hub type can be ordered separately."""
-    for name, opts in VARIANTS.items():
-        fitted = opts | EXTRAS
-        rows = {}
-        for p in c.parts:
-            if not p.bom or p.ref.startswith("#"):
-                continue
-            opt = getattr(p, "option", None)
-            if opt and opt not in fitted:
-                continue
-            if "fit if no NTC" in p.value:
-                continue
-            rows.setdefault((p.value, p.footprint.split(":")[-1]), []).append(p.ref)
-        with open(os.path.join(OUT, "bom_%s.csv" % name), "w", newline="") as f:
-            w = csv.writer(f)
-            w.writerow(["Qty", "Value", "Footprint", "References"])
-            for (val, fp), refs in sorted(rows.items()):
-                w.writerow([len(refs), val, fp, " ".join(sorted(refs))])
+    """BOM without the optional RS-485 block (the full BOM includes it)."""
+    rows = {}
+    for p in c.parts:
+        if not p.bom or p.ref.startswith("#") or getattr(p, "option", None) == "RS485":
+            continue
+        if "fit if no NTC" in p.value:
+            continue
+        rows.setdefault((p.value, p.footprint.split(":")[-1]), []).append(p.ref)
+    with open(os.path.join(OUT, "bom_without_rs485.csv"), "w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["Qty", "Value", "Footprint", "References"])
+        for (val, fp), refs in sorted(rows.items()):
+            w.writerow([len(refs), val, fp, " ".join(sorted(refs))])
 
 
 def write_bom():

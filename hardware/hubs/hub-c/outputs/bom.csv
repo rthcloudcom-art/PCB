@@ -1,0 +1,70 @@
+Qty,Value,Footprint,Symbol,Option,References
+1,18650 Li-ion (protected),BatteryHolder_MPD_BH-18650-PC2,Device:Battery_Cell,CORE,BT1
+1,CR2032,BatteryHolder_Keystone_500,Device:Battery_Cell,CORE,BT2
+1,5V magnetic buzzer,Buzzer_12x9.5RM7.6,Device:Buzzer,CORE,BZ1
+1,220u/35V,CP_Radial_D8.0mm_P3.50mm,Device:C_Polarized,CORE,C1
+1,1u/50V,C_1206_3216Metric,Device:C,CORE,C2
+3,220u/10V,CP_Radial_D8.0mm_P3.50mm,Device:C_Polarized,CORE,C3 C8 C24
+3,1u,C_1206_3216Metric,Device:C,CORE,C4 C11 C17
+4,10u,C_1206_3216Metric,Device:C,CORE,C5 C6 C7 C9
+1,100u/10V,CP_Radial_D8.0mm_P3.50mm,Device:C_Polarized,CORE,C10
+7,100n,C_1206_3216Metric,Device:C,CORE,C12 C13 C15 C16 C18 C19 C23
+2,22u,C_1206_3216Metric,Device:C,CORE,C14 C20
+1,100n,C_1206_3216Metric,Device:C,RS485,C21
+1,1000u/6.3V low ESR,CP_Radial_D10.0mm_P5.00mm,Device:C_Polarized,CORE,C22
+3,SS54 40V/5A,D_SMC,Device:D_Schottky,CORE,D1 D2 D5
+1,SMBJ24CA,D_SMB,Device:D_TVS,CORE,D3
+1,SMBJ6.0CA,D_SMB,Device:D_TVS,CORE,D4
+3,SS34,D_SMA,Device:D_Schottky,CORE,D6 D7 D8
+1,1N4148W,D_SOD-123,Device:D,CORE,D9
+1,SM712,SOT-23,Diode:SM712_SOT23,RS485,D10
+2,PTC 1.5A/30V,Fuse_1812_4532Metric,Device:Polyfuse,CORE,F1 F2
+1,PTC 1.5A/8V,Fuse_1812_4532Metric,Device:Polyfuse,CORE,F3
+1,PTC 3A/16V,Fuse_1812_4532Metric,Device:Polyfuse,CORE,F4
+1,PTC 0.75A/16V,Fuse_1812_4532Metric,Device:Polyfuse,CORE,F5
+4,M3,MountingHole_3.2mm_M3,Mechanical:MountingHole,CORE,H1 H2 H3 H4
+1,DC 12V 5.5/2.1,BarrelJack_Horizontal,Connector:Barrel_Jack_Switch,CORE,J1
+1,DC IN 7-24V,"TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal",Connector:Screw_Terminal_01x02,CORE,J2
+1,SOLAR 6-24V,"TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal",Connector:Screw_Terminal_01x02,CORE,J3
+1,USB 5V / PROG,USB_B_THT_Coarse,Connector:USB_B,CORE,J4
+1,BAT NTC 10k,PinHeader_1x02_P2.54mm_Vertical,Connector_Generic:Conn_01x02,CORE,J5
+1,PROG,PinHeader_1x06_P2.54mm_Vertical,Connector_Generic:Conn_01x06,CORE,J6
+1,I2C,PinHeader_1x04_P2.54mm_Vertical,Connector_Generic:Conn_01x04,CORE,J7
+1,LED STRIP WS2813,PinHeader_1x04_P2.54mm_Vertical,Connector_Generic:Conn_01x04,CORE,J8
+1,RS-485,"TerminalBlock_Phoenix_MKDS-1,5-3-5.08_1x03_P5.08mm_Horizontal",Connector:Screw_Terminal_01x03,RS485,J9
+1,LTE MODULE,PinHeader_1x08_P2.54mm_Vertical,Connector_Generic:Conn_01x08,CORE,J10
+1,0R JP_NTC (fit if no NTC),R_1206_3216Metric,Device:R,CORE,JP1
+1,0R TERM (end of line),R_1206_3216Metric,Device:R,RS485,JP2
+1,33uH 3A,L_12x12mm_H6mm,Device:L,CORE,L1
+3,AO3401A,SOT-23,Transistor_FET:AO3401A,CORE,Q1 Q2 Q7
+5,MMBT3904,SOT-23,Device:Q_NPN_BEC,CORE,Q3 Q4 Q6 Q8 Q9
+1,BSS138,SOT-23,Transistor_FET:BSS138,CORE,Q5
+1,1.2k,R_1206_3216Metric,Device:R,CORE,R1
+1,5.6k,R_1206_3216Metric,Device:R,CORE,R2
+1,75k,R_1206_3216Metric,Device:R,CORE,R3
+7,1k,R_1206_3216Metric,Device:R,CORE,R4 R17 R18 R26 R39 R40 R41
+2,100k,R_1206_3216Metric,Device:R,CORE,R5 R32
+2,47k,R_1206_3216Metric,Device:R,CORE,R6 R38
+1,16.5k 1%,R_1206_3216Metric,Device:R,CORE,R7
+2,10k 1%,R_1206_3216Metric,Device:R,CORE,R8 R34
+2,100k 1%,R_1206_3216Metric,Device:R,CORE,R9 R10
+1,330k 1%,R_1206_3216Metric,Device:R,CORE,R11
+1,47k 1%,R_1206_3216Metric,Device:R,CORE,R12
+6,10k,R_1206_3216Metric,Device:R,CORE,R13 R14 R19 R20 R27 R35
+2,22,R_1206_3216Metric,Device:R,CORE,R15 R16
+5,4.7k,R_1206_3216Metric,Device:R,CORE,R21 R22 R23 R36 R37
+1,2.2k,R_1206_3216Metric,Device:R,CORE,R24
+1,330,R_1206_3216Metric,Device:R,CORE,R25
+1,10k,R_1206_3216Metric,Device:R,RS485,R28
+1,120,R_1206_3216Metric,Device:R,RS485,R29
+2,680,R_1206_3216Metric,Device:R,RS485,R30 R31
+1,22k 1%,R_1206_3216Metric,Device:R,CORE,R33
+1,RESET,SW_PUSH_6mm,Switch:SW_Push,CORE,SW1
+1,BOOT / PAIR,SW_PUSH_6mm,Switch:SW_Push,CORE,SW2
+1,LM2596S-5.0,TO-263-5_TabPin3,Regulator_Switching:LM2596S-5,CORE,U1
+1,TP4056,ESOP-8_TP4056_Coarse,agrinode:TP4056,CORE,U2
+2,MIC29302WU,TO-263-5_TabPin3,Regulator_Linear:MIC29302WU,CORE,U3 U8
+1,ESP32-WROOM-32E-N8,ESP32-WROOM-32E_Coarse,RF_Module:ESP32-WROOM-32E,CORE,U4
+1,CH340C,SOIC-16_3.9x9.9mm_P1.27mm,Interface_USB:CH340C,CORE,U5
+1,DS3231MZ,SOIC-8_3.9x4.9mm_P1.27mm,Timer_RTC:DS3231MZ,CORE,U6
+1,MAX3485ESA,SOIC-8_3.9x4.9mm_P1.27mm,Interface_UART:MAX3485,RS485,U7

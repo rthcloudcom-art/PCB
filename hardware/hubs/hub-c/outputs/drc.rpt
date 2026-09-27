@@ -1,0 +1,80 @@
+** Drc report for /home/user/PCB/hardware/hubs/hub-c/kicad/agrinode_hub_c.kicad_pcb **
+** Created on 2026-09-27 18:13:03 **
+
+** Found 14 DRC violations **
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(146.7953 mm, 101.5000 mm): Reference 'D10'
+    @(-1.1625 mm, -1.5100 mm): Polygon on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(176.5050 mm, 79.0950 mm): Line on F.Silkscreen
+    @(176.0000 mm, 96.8000 mm): Reference 'H2'
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(176.0000 mm, 96.8000 mm): Reference 'H2'
+    @(173.8450 mm, 96.9350 mm): Line on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(176.0000 mm, 96.8000 mm): Reference 'H2'
+[starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
+    Local override; Severity: error
+    @(50.0000 mm, 50.0000 mm): Zone [GND] on B.Cu
+    @(69.0250 mm, 59.0250 mm): PTH pad 2 [GND] of SW1
+[starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
+    Local override; Severity: error
+    @(50.0000 mm, 50.0000 mm): Zone [GND] on B.Cu
+    @(75.5250 mm, 59.0250 mm): PTH pad 2 [GND] of SW1
+[starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
+    Local override; Severity: error
+    @(50.0000 mm, 50.0000 mm): Zone [GND] on B.Cu
+    @(119.0250 mm, 59.0250 mm): PTH pad 2 [GND] of SW2
+[starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
+    Local override; Severity: error
+    @(50.0000 mm, 50.0000 mm): Zone [GND] on F.Cu
+    @(108.7500 mm, 51.5500 mm): Pad 38 [GND] of U4 on F.Cu
+[lib_footprint_mismatch]: Footprint 'USB_B_THT_Coarse' does not match copy in library 'agrinode'.
+    Local override; Severity: warning
+    @(172.9550 mm, 55.3800 mm): Footprint J4
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(50.0000 mm, 143.0000 mm): Line on Edge.Cuts
+    @(49.4750 mm, 86.6150 mm): Reference 'J3'
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(50.0000 mm, 143.0000 mm): Line on Edge.Cuts
+    @(49.4750 mm, 74.6150 mm): Reference 'J2'
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(53.0000 mm, 50.0000 mm): Line on Edge.Cuts
+    @(90.8800 mm, 43.9400 mm): Line on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(53.0000 mm, 50.0000 mm): Line on Edge.Cuts
+    @(109.1200 mm, 43.9400 mm): Line on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(180.0000 mm, 53.0000 mm): Line on Edge.Cuts
+    @(180.5250 mm, 116.1450 mm): Reference 'J9'
+
+** Found 4 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(88.4450 mm, 55.3250 mm): Track [GND] on B.Cu, length 1.6019 mm
+    @(91.2500 mm, 51.5500 mm): Pad 1 [GND] of U4 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(141.4925 mm, 122.1450 mm): Pad 1 [RS485_DE] of R28 on F.Cu
+    @(91.2500 mm, 62.9800 mm): Pad 10 [RS485_DE] of U4 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(130.6000 mm, 60.3000 mm): Pad 6 [/ESP32, programming, buttons, RTC, LED strip, buzzer/USB_DN_C] of U5 on F.Cu
+    @(148.4575 mm, 58.6450 mm): Pad 2 [/ESP32, programming, buttons, RTC, LED strip, buzzer/USB_DN_C] of R16 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(123.5575 mm, 53.9500 mm): Pad 1 [/ESP32, programming, buttons, RTC, LED strip, buzzer/AR_B1] of Q3 on F.Cu
+    @(149.1775 mm, 63.1450 mm): Pad 2 [/ESP32, programming, buttons, RTC, LED strip, buzzer/AR_B1] of R19 on F.Cu
+
+** Found 0 Footprint errors **
+
+** End of Report **

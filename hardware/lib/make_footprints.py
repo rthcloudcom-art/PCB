@@ -111,7 +111,7 @@ def main():
                 p.SetShape(pcbnew.PAD_SHAPE_CIRCLE)
                 p.SetSize(pcbnew.VECTOR2I(MM(dia), MM(dia)))
     build("Connector_USB", "USB_B_OST_USB-B1HSxx_Horizontal", "USB_B_THT_Coarse",
-          lambda fp: round_pads(fp, 1.40, {"1", "2", "3", "4"}),
+          lambda fp: round_pads(fp, 1.45, {"1", "2", "3", "4"}),  # 0.26 mm ring on the 0.92 drill
           "USB Type-B THT receptacle (power input), signal pads reduced for coarse PCB processes")
     def led(fp):
         round_pads(fp, 1.8, {"1", "2", "3", "4"})

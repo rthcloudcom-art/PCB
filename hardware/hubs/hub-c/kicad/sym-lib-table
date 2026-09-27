@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name "agrinode")(type "KiCad")(uri "${KIPRJMOD}/../../../lib/agrinode.kicad_sym")(options "")(descr "AgriNode parts"))
+)
