@@ -8,3 +8,4 @@ fp-info-cache
 **/outputs/route/*.dsn.kicad
 **/outputs/route/t.dsn*
 **/outputs/route/best.*
+**/outputs/route/best_trial/

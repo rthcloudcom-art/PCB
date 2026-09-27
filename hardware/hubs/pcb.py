@@ -233,7 +233,8 @@ def do_route(bb, route):
         board = pcbgen.load(PCB)
         pcbnew.ExportSpecctraDSN(board, dsn + ".kicad")
         if TWO_LAYER:
-            pcbgen.dsn_single_layer(dsn + ".kicad", dsn, top_trace_cost=1.5, via_cost=40, strip_top=False)
+            pcbgen.dsn_single_layer(dsn + ".kicad", dsn, top_trace_cost=float(os.environ.get("FR_TOP_COST", "1.5")),
+                                    via_cost=int(os.environ.get("FR_VIA_COST", "40")), strip_top=False)
         else:
             pcbgen.dsn_single_layer(dsn + ".kicad", dsn)
         run_freerouting(dsn, ses, rdir)
