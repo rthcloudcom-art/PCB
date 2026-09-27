@@ -9,7 +9,7 @@ a label (global when it crosses sheets).
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "..", "tools", "kigen"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "tools", "kigen"))
 
 from circuit import NC, Circuit  # noqa: E402
 

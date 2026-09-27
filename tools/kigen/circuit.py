@@ -67,10 +67,11 @@ class Part:
 
 
 class Block:
-    def __init__(self, sheet, title, notes=""):
+    def __init__(self, sheet, title, notes="", option=None):
         self.sheet = sheet
         self.title = title
         self.notes = notes
+        self.option = option  # assembly option tag (None = always fitted)
         self.parts = []
 
 
@@ -87,13 +88,17 @@ class Sheet:
     def filename(self):
         return self.name + ".kicad_sch"
 
-    def block(self, title, notes=""):
-        b = Block(self, title, notes)
+    def block(self, title, notes="", option=None):
+        b = Block(self, title, notes, option)
         self.blocks.append(b)
         return b
 
     def part(self, lib_id, prefix, value=None, footprint=None, **kw):
         p = Part(self, lib_id, prefix, value if value is not None else lib_id.split(":")[1], footprint, **kw)
+        opt = self.blocks[-1].option
+        p.option = opt
+        if opt and p.bom:
+            p.fields.setdefault("Option", opt)
         self.blocks[-1].parts.append(p)
         self.circuit.parts.append(p)
         return p

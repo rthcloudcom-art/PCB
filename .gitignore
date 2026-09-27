@@ -4,4 +4,6 @@ __pycache__/
 *-backups/
 fp-info-cache
 *.lck
-hardware/*/outputs/route/*.dsn
+**/outputs/route/*.dsn
+**/outputs/route/*.dsn.kicad
+**/outputs/route/t.dsn*

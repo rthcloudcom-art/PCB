@@ -17,19 +17,19 @@ sys.path.insert(0, os.path.join(HERE, "..", "..", "tools", "kigen"))
 
 import schgen  # noqa: E402
 from circuit import NC  # noqa: E402
-from main_controller import c  # noqa: E402
+from hub import c  # noqa: E402
 from sexp import find, find_all, parse  # noqa: E402
 
 KICAD = os.path.join(HERE, "kicad")
 OUT = os.path.join(HERE, "outputs")
 
 NOTES = [
-    "AgriNode MC-1 - main controller for greenhouse / poultry / livestock / aquaculture / farm",
-    "ESP32-S3 (Wi-Fi + BLE) | Ethernet W5500 | LoRa 433 MHz Ra-02 | cellular daughter-card slot | microSD | RTC | secure element",
-    "8x relay 10 A | 4x MOSFET PWM 2 A | 8x isolated DI (2 pulse) | 4x AI 0-10 V/4-20 mA 16 bit | 2x AO 0-10 V",
-    "2x RS-485 Modbus (1 isolated field bus, 1 powered expansion bus) | 1-Wire | external I2C | OLED + 4 buttons + buzzer",
-    "Supply: 9-32 V DC main + backup battery input (diode-OR), mains-fail detection, 5 V/3.5 A + 3.3 V/3 A bucks",
-    "Source of truth: design/main_controller.py - regenerate with build.py",
+    "AgriNode HUB-1 - universal gateway hub (single-sided PCB)",
+    "Variants by assembly option: HUB-W (Wi-Fi), HUB-L (+LORA), HUB-C (+CELL), GW-LAN (+LORA +ETH); BUZ optional",
+    "ESP32-WROOM-32E | LoRa Ra-02 433 MHz | SIM800C 2G | ENC28J60 10BASE-T | I2C expansion header",
+    "Power: 12 V jack/terminal, solar 6-24 V, USB-B 5 V, 18650 cell with TP4056 charger + NTC, power path, MIC29302 3.3 V",
+    "6x PL9823 addressable RGB status LEDs, RESET and BOOT/PAIR buttons, buzzer",
+    "Source of truth: design/hub.py - regenerate with build.py",
 ]
 
 
@@ -75,12 +75,50 @@ def compare_netlist(path):
     return missing, extra
 
 
+VARIANTS = {
+    "HUB-W": set(),
+    "HUB-L": {"LORA"},
+    "HUB-C": {"CELL"},
+    "GW-LAN": {"LORA", "ETH"},
+}
+EXTRAS = {"BUZ"}
+
+
+def write_lib_tables():
+    lib = "${KIPRJMOD}/../../lib/agrinode"
+    open(os.path.join(KICAD, "sym-lib-table"), "w").write(
+        '(sym_lib_table\n  (lib (name "agrinode")(type "KiCad")(uri "%s.kicad_sym")(options "")(descr "AgriNode parts"))\n)\n' % lib)
+    open(os.path.join(KICAD, "fp-lib-table"), "w").write(
+        '(fp_lib_table\n  (lib (name "agrinode")(type "KiCad")(uri "%s.pretty")(options "")(descr "AgriNode coarse-process footprints"))\n)\n' % lib)
+
+
+def write_variant_boms():
+    """One BOM per variant (all optional extras fitted) so each hub type can be ordered separately."""
+    for name, opts in VARIANTS.items():
+        fitted = opts | EXTRAS
+        rows = {}
+        for p in c.parts:
+            if not p.bom or p.ref.startswith("#"):
+                continue
+            opt = getattr(p, "option", None)
+            if opt and opt not in fitted:
+                continue
+            if "fit if no NTC" in p.value:
+                continue
+            rows.setdefault((p.value, p.footprint.split(":")[-1]), []).append(p.ref)
+        with open(os.path.join(OUT, "bom_%s.csv" % name), "w", newline="") as f:
+            w = csv.writer(f)
+            w.writerow(["Qty", "Value", "Footprint", "References"])
+            for (val, fp), refs in sorted(rows.items()):
+                w.writerow([len(refs), val, fp, " ".join(sorted(refs))])
+
+
 def write_bom():
     rows = {}
     for p in c.parts:
         if not p.bom or p.ref.startswith("#"):
             continue
-        key = (p.value, p.footprint, p.lib_id)
+        key = (p.value, p.footprint, p.lib_id, getattr(p, "option", None) or "CORE")
         rows.setdefault(key, []).append(p.ref)
 
     def refkey(r):
@@ -89,10 +127,10 @@ def write_bom():
 
     with open(os.path.join(OUT, "bom.csv"), "w", newline="") as f:
         w = csv.writer(f)
-        w.writerow(["Qty", "Value", "Footprint", "Symbol", "References"])
-        for (val, fp, lib), refs in sorted(rows.items(), key=lambda kv: refkey(sorted(kv[1], key=refkey)[0])):
+        w.writerow(["Qty", "Value", "Footprint", "Symbol", "Option", "References"])
+        for (val, fp, lib, opt), refs in sorted(rows.items(), key=lambda kv: refkey(sorted(kv[1], key=refkey)[0])):
             refs = sorted(refs, key=refkey)
-            w.writerow([len(refs), val, fp.split(":")[-1], lib, " ".join(refs)])
+            w.writerow([len(refs), val, fp.split(":")[-1], lib, opt, " ".join(refs)])
     return sum(len(v) for v in rows.values()), len(rows)
 
 
@@ -101,6 +139,7 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     papers = schgen.write(c, KICAD, NOTES)
     write_project()
+    write_lib_tables()
     print("schematic sheets:", papers)
     root = os.path.join(KICAD, c.name + ".kicad_sch")
     net = os.path.join(OUT, c.name + ".net")
@@ -112,6 +151,7 @@ def main():
     print("netlist check: KiCad connectivity matches design (%d nets)" % len(c.netlist()))
     n, lines = write_bom()
     print("BOM: %d parts, %d lines" % (n, lines))
+    write_variant_boms()
     subprocess.run(["kicad-cli", "sch", "export", "pdf", root, "-o", os.path.join(OUT, c.name + "_schematic.pdf")],
                    check=True, capture_output=True)
     print("PDF written")

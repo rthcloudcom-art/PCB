@@ -105,7 +105,7 @@
       },
       "rules": {
         "max_error": 0.005,
-        "min_clearance": 0.0,
+        "min_clearance": 0.5,
         "min_connection": 0.0,
         "min_copper_edge_clearance": 0.5,
         "min_hole_clearance": 0.25,
@@ -116,10 +116,10 @@
         "min_silk_clearance": 0.0,
         "min_text_height": 0.7999999999999999,
         "min_text_thickness": 0.08,
-        "min_through_hole_diameter": 0.19999999999999998,
-        "min_track_width": 0.0,
-        "min_via_annular_width": 0.09999999999999999,
-        "min_via_diameter": 0.5,
+        "min_through_hole_diameter": 0.6,
+        "min_track_width": 0.5,
+        "min_via_annular_width": 0.25,
+        "min_via_diameter": 1.2,
         "solder_mask_to_copper_clearance": 0.0,
         "use_height_for_length_calcs": true
       },
@@ -179,7 +179,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "agrinode_mc.kicad_pro",
+    "filename": "agrinode_hub.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -196,10 +196,10 @@
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "wire_width": 6,
         "name": "Default",
-        "clearance": 0.2,
-        "track_width": 0.25,
-        "via_diameter": 0.6,
-        "via_drill": 0.3
+        "clearance": 0.5,
+        "track_width": 0.5,
+        "via_diameter": 1.2,
+        "via_drill": 0.6
       },
       {
         "bus_width": 12,
@@ -213,10 +213,10 @@
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "wire_width": 6,
         "name": "Power",
-        "clearance": 0.3,
+        "clearance": 0.5,
         "track_width": 0.8,
-        "via_diameter": 0.8,
-        "via_drill": 0.4
+        "via_diameter": 1.2,
+        "via_drill": 0.6
       },
       {
         "bus_width": 12,
@@ -229,43 +229,9 @@
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "wire_width": 6,
-        "name": "Supply3V3",
-        "clearance": 0.2,
-        "track_width": 0.5,
-        "via_diameter": 0.8,
-        "via_drill": 0.4
-      },
-      {
-        "bus_width": 12,
-        "diff_pair_gap": 0.25,
-        "diff_pair_via_gap": 0.25,
-        "diff_pair_width": 0.2,
-        "line_style": 0,
-        "microvia_diameter": 0.3,
-        "microvia_drill": 0.1,
-        "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "wire_width": 6,
-        "name": "Load",
-        "clearance": 0.3,
-        "track_width": 1.2,
-        "via_diameter": 0.8,
-        "via_drill": 0.4
-      },
-      {
-        "bus_width": 12,
-        "diff_pair_gap": 0.25,
-        "diff_pair_via_gap": 0.25,
-        "diff_pair_width": 0.2,
-        "line_style": 0,
-        "microvia_diameter": 0.3,
-        "microvia_drill": 0.1,
-        "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "wire_width": 6,
-        "name": "Mains",
-        "clearance": 2.5,
-        "track_width": 2.5,
+        "name": "Supply",
+        "clearance": 0.5,
+        "track_width": 0.7,
         "via_diameter": 1.2,
         "via_drill": 0.6
       }
@@ -277,24 +243,20 @@
     "netclass_assignments": null,
     "netclass_patterns": [
       {
-        "netclass": "Mains",
-        "pattern": "*RLY?_COM"
-      },
-      {
-        "netclass": "Mains",
-        "pattern": "*RLY?_NO"
-      },
-      {
-        "netclass": "Mains",
-        "pattern": "*RLY?_NC"
+        "netclass": "Power",
+        "pattern": "*VIN_BUCK"
       },
       {
         "netclass": "Power",
-        "pattern": "*/OUT?"
+        "pattern": "*BUCK_SW"
       },
       {
         "netclass": "Power",
-        "pattern": "*VFIELD"
+        "pattern": "*V5_BUCK"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "*V5"
       },
       {
         "netclass": "Power",
@@ -302,63 +264,27 @@
       },
       {
         "netclass": "Power",
-        "pattern": "*VIN_*_RAW"
+        "pattern": "*VBAT"
       },
       {
         "netclass": "Power",
-        "pattern": "*VIN_*_F"
+        "pattern": "*BATT_*"
       },
       {
         "netclass": "Power",
-        "pattern": "*+5V"
+        "pattern": "*VDC_*"
       },
       {
         "netclass": "Power",
-        "pattern": "*BUCK5_SW"
+        "pattern": "*VSOL_*"
       },
       {
-        "netclass": "Supply3V3",
-        "pattern": "*VBUS_USB"
+        "netclass": "Power",
+        "pattern": "*VUSB_*"
       },
       {
-        "netclass": "Load",
-        "pattern": "*VSENS"
-      },
-      {
-        "netclass": "Load",
-        "pattern": "*V_1W"
-      },
-      {
-        "netclass": "Load",
-        "pattern": "*V_I2C"
-      },
-      {
-        "netclass": "Load",
-        "pattern": "*VISO"
-      },
-      {
-        "netclass": "Load",
-        "pattern": "*GND_ISO"
-      },
-      {
-        "netclass": "Load",
-        "pattern": "*BUCK3_SW"
-      },
-      {
-        "netclass": "Load",
-        "pattern": "*RLY?_COIL"
-      },
-      {
-        "netclass": "Supply3V3",
-        "pattern": "*+3V3"
-      },
-      {
-        "netclass": "Supply3V3",
-        "pattern": "*+3V3A"
-      },
-      {
-        "netclass": "Supply3V3",
-        "pattern": "*GND"
+        "netclass": "Supply",
+        "pattern": "+3V3"
       }
     ]
   },
@@ -379,32 +305,20 @@
   },
   "sheets": [
     [
-      "0ee54039-d16e-5a8c-b6ce-631de1aafd26",
+      "8ebde3e9-2fe8-59da-b55a-e2ffe77901dc",
       ""
     ],
     [
-      "65e68dda-c8ad-5a0f-a183-959c15ca2525",
-      "Power Supply"
+      "0f3acc8f-feed-541e-bb1b-ea4fad9f2b41",
+      "Power - 12V, solar and USB inputs, 18650 charger, rails"
     ],
     [
-      "8c032460-9a31-5a13-90bd-208f707496dd",
-      "MCU, USB, Watchdog, RTC, UI"
+      "eac5a450-64ae-5032-89bf-ead357738092",
+      "ESP32, buttons, status LEDs, buzzer, I2C"
     ],
     [
-      "31bc52ca-20e4-58c4-8916-030fabc2ef3d",
-      "Ethernet, LoRa, microSD, Cellular slot"
-    ],
-    [
-      "61885401-6462-5a02-8b61-f126b62b7c20",
-      "Relay outputs and isolated digital inputs"
-    ],
-    [
-      "0c7aaa95-42b4-5219-bdc3-d922b4590d3d",
-      "Analog IO, MOSFET outputs, 1-Wire, ext. I2C"
-    ],
-    [
-      "56f17d5c-4df0-5c42-b7e5-168aa2381967",
-      "RS-485 buses"
+      "54128762-863d-559c-9d89-1a6082c8e275",
+      "LoRa, Ethernet, cellular (all optional)"
     ]
   ],
   "text_variables": {}

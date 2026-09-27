@@ -1,0 +1,227 @@
+{
+  "meta": {
+    "filename": "agrinode_mc.kicad_pro",
+    "version": 1
+  },
+  "board": {
+    "design_settings": {
+      "defaults": {},
+      "rules": {}
+    }
+  },
+  "net_settings": {
+    "classes": [
+      {
+        "bus_width": 12,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "wire_width": 6,
+        "name": "Default",
+        "clearance": 0.2,
+        "track_width": 0.25,
+        "via_diameter": 0.6,
+        "via_drill": 0.3
+      },
+      {
+        "bus_width": 12,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "wire_width": 6,
+        "name": "Power",
+        "clearance": 0.3,
+        "track_width": 0.8,
+        "via_diameter": 0.8,
+        "via_drill": 0.4
+      },
+      {
+        "bus_width": 12,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "wire_width": 6,
+        "name": "Supply3V3",
+        "clearance": 0.2,
+        "track_width": 0.5,
+        "via_diameter": 0.8,
+        "via_drill": 0.4
+      },
+      {
+        "bus_width": 12,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "wire_width": 6,
+        "name": "Load",
+        "clearance": 0.3,
+        "track_width": 1.2,
+        "via_diameter": 0.8,
+        "via_drill": 0.4
+      },
+      {
+        "bus_width": 12,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "wire_width": 6,
+        "name": "Mains",
+        "clearance": 2.5,
+        "track_width": 2.5,
+        "via_diameter": 1.2,
+        "via_drill": 0.6
+      }
+    ],
+    "meta": {
+      "version": 3
+    },
+    "net_colors": null,
+    "netclass_assignments": null,
+    "netclass_patterns": [
+      {
+        "netclass": "Mains",
+        "pattern": "*RLY?_COM"
+      },
+      {
+        "netclass": "Mains",
+        "pattern": "*RLY?_NO"
+      },
+      {
+        "netclass": "Mains",
+        "pattern": "*RLY?_NC"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "*/OUT?"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "*VFIELD"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "*VSYS"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "*VIN_*_RAW"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "*VIN_*_F"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "*+5V"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "*BUCK5_SW"
+      },
+      {
+        "netclass": "Supply3V3",
+        "pattern": "*VBUS_USB"
+      },
+      {
+        "netclass": "Load",
+        "pattern": "*VSENS"
+      },
+      {
+        "netclass": "Load",
+        "pattern": "*V_1W"
+      },
+      {
+        "netclass": "Load",
+        "pattern": "*V_I2C"
+      },
+      {
+        "netclass": "Load",
+        "pattern": "*VISO"
+      },
+      {
+        "netclass": "Load",
+        "pattern": "*GND_ISO"
+      },
+      {
+        "netclass": "Load",
+        "pattern": "*BUCK3_SW"
+      },
+      {
+        "netclass": "Load",
+        "pattern": "*RLY?_COIL"
+      },
+      {
+        "netclass": "Supply3V3",
+        "pattern": "*+3V3"
+      },
+      {
+        "netclass": "Supply3V3",
+        "pattern": "*+3V3A"
+      },
+      {
+        "netclass": "Supply3V3",
+        "pattern": "*GND"
+      }
+    ]
+  },
+  "schematic": {
+    "legacy_lib_dir": "",
+    "legacy_lib_list": []
+  },
+  "sheets": [
+    [
+      "0ee54039-d16e-5a8c-b6ce-631de1aafd26",
+      ""
+    ],
+    [
+      "65e68dda-c8ad-5a0f-a183-959c15ca2525",
+      "Power Supply"
+    ],
+    [
+      "8c032460-9a31-5a13-90bd-208f707496dd",
+      "MCU, USB, Watchdog, RTC, UI"
+    ],
+    [
+      "31bc52ca-20e4-58c4-8916-030fabc2ef3d",
+      "Ethernet, LoRa, microSD, Cellular slot"
+    ],
+    [
+      "61885401-6462-5a02-8b61-f126b62b7c20",
+      "Relay outputs and isolated digital inputs"
+    ],
+    [
+      "0c7aaa95-42b4-5219-bdc3-d922b4590d3d",
+      "Analog IO, MOSFET outputs, 1-Wire, ext. I2C"
+    ],
+    [
+      "56f17d5c-4df0-5c42-b7e5-168aa2381967",
+      "RS-485 buses"
+    ]
+  ],
+  "text_variables": {}
+}

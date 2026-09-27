@@ -59,7 +59,8 @@ class BoardBuilder:
                     if not p.footprint or p.ref.startswith("#"):
                         continue
                     lib, name = p.footprint.split(":", 1)
-                    fp = pcbnew.FootprintLoad(os.path.join(FP_DIR, lib + ".pretty"), name)
+                    import symlib
+                    fp = pcbnew.FootprintLoad(symlib.fp_lib_path(lib), name)
                     fp.SetFPID(pcbnew.LIB_ID(lib, name))
                     fp.SetReference(p.ref)
                     fp.SetValue(p.value)
@@ -123,6 +124,47 @@ class BoardBuilder:
             x += w + gap
             row_h = max(row_h, h)
         return overflow
+
+    def pack_free(self, refs, x0, y0, x1, y1, gap=0.8, step=0.5):
+        """Place each footprint at the first free spot (scanning rows) inside the rectangle,
+        avoiding everything already placed. Returns refs that found no room."""
+        def side(fp):
+            return "B" if fp.IsFlipped() else "F"
+
+        def tht(fp):
+            return not is_smd(fp)
+        placed = [(self.bbox(f), side(f), tht(f)) for r, f in self.fps.items()
+                  if getattr(f, "_placed", False) and r not in refs]
+        missing = []
+        for ref in refs:
+            fp = self.fps[ref]
+            fp.SetOrientationDegrees(0)
+            bx0, by0, bx1, by1 = self.bbox(fp)
+            w, h = bx1 - bx0, by1 - by0
+            s_me, t_me = side(fp), tht(fp)
+            spot = None
+            y = y0
+            while spot is None and y + h <= y1 + 1e-6:
+                x = x0
+                while x + w <= x1 + 1e-6:
+                    ok = True
+                    for (a0, b0, a1, b1), s_o, t_o in placed:
+                        if s_o != s_me and not (t_o or t_me):
+                            continue
+                        if x < a1 + gap and a0 < x + w + gap and y < b1 + gap and b0 < y + h + gap:
+                            ok = False
+                            x = max(x + step, a1 + gap)
+                            break
+                    if ok:
+                        spot = (x, y)
+                        break
+                y += step
+            if spot is None:
+                missing.append(ref)
+                continue
+            self.put(ref, spot[0], spot[1])
+            placed.append((self.bbox(fp), s_me, t_me))
+        return missing
 
     def overlaps(self, clearance=0.0):
         items = [(r, self.bbox(f)) for r, f in self.fps.items()]
@@ -349,3 +391,135 @@ def write_project_netclasses(pro_path, classes, assign):
     ns["netclass_assignments"] = None
     ns["netclass_patterns"] = [{"netclass": c, "pattern": p} for p, c in assign]
     json.dump(pro, open(pro_path, "w"), indent=2)
+
+
+# ------------------------------------------------------- single-sided boards
+def is_smd(fp):
+    pads = list(fp.Pads())
+    return bool(pads) and all(p.GetAttribute() == pcbnew.PAD_ATTRIB_SMD for p in pads if p.GetNumber())
+
+
+def flip_smd_to_bottom(bb):
+    """Single-sided board: SMD parts sit on the copper (bottom) side."""
+    for fp in bb.fps.values():
+        if is_smd(fp) and not fp.IsFlipped():
+            fp.Flip(fp.GetPosition(), False)
+
+
+def dsn_single_layer(dsn_in, dsn_out, top_trace_cost=None, via_cost=None, strip_top=True):
+    """Prepare a KiCad DSN for single-sided routing with wire jumpers.
+
+    * THT padstacks lose their F.Cu shape, so the top layer can only link via to via:
+      every top-layer run later becomes one insulated wire jumper.
+    * autoroute_settings make top-layer traces and vias expensive so the router
+      uses them only when the bottom layer has no way through.
+    """
+    top_trace_cost = float(os.environ.get("FR_TOP_COST", "25")) if top_trace_cost is None else top_trace_cost
+    via_cost = int(os.environ.get("FR_VIA_COST", "400")) if via_cost is None else via_cost
+    txt = open(dsn_in, encoding="utf-8").read()
+    out, i = [], 0
+    for m in re.finditer(r"\(padstack ", txt):
+        start = m.start()
+        depth, j = 0, start
+        while True:
+            ch = txt[j]
+            if ch == "(":
+                depth += 1
+            elif ch == ")":
+                depth -= 1
+                if depth == 0:
+                    break
+            j += 1
+        block = txt[start:j + 1]
+        if strip_top and "Via[" not in block.split("\n", 1)[0] and "B.Cu" in block:
+            block = re.sub(r"\s*\(shape \((?:circle|rect|polygon|path) F\.Cu[^()]*(?:\([^()]*\)[^()]*)*\)\)", "", block)
+        out.append(txt[i:start])
+        out.append(block)
+        i = j + 1
+    out.append(txt[i:])
+    txt = "".join(out)
+    settings = ("    (autoroute_settings (fanout off) (autoroute on) (postroute on) (vias on)\n"
+                "      (via_costs %d) (plane_via_costs 5) (start_ripup_costs 100)\n"
+                "      (layer_rule F.Cu (active on) (preferred_direction horizontal)"
+                " (preferred_direction_trace_costs %.1f) (against_preferred_direction_trace_costs %.1f))\n"
+                "      (layer_rule B.Cu (active on) (preferred_direction vertical)"
+                " (preferred_direction_trace_costs 1.0) (against_preferred_direction_trace_costs 1.2)))\n"
+                % (via_cost, top_trace_cost, top_trace_cost))
+    # must come right after the layer definitions (before any keepout / plane)
+    last_layer = [m.end() for m in re.finditer(r"\(layer B\.Cu[\s\S]*?\n    \)\n", txt)]
+    pos = last_layer[0] if last_layer else txt.index("(boundary")
+    txt = txt[:pos] + settings + txt[pos:]
+    open(dsn_out, "w", encoding="utf-8").write(txt)
+
+
+def jumperize(board, ox=0.0, oy=0.0, drill=0.9, pad=2.0):
+    """Turn each top-layer track run (via to via) into a wire-jumper footprint W<n>."""
+    tracks = [t for t in board.GetTracks() if t.GetClass() == "PCB_TRACK" and t.GetLayer() == pcbnew.F_Cu]
+    vias = [t for t in board.GetTracks() if t.GetClass() == "PCB_VIA"]
+    key = lambda p: (p.x // 1000, p.y // 1000)  # noqa: E731  (1 um grid)
+    adj = {}
+    for t in tracks:
+        a, b = key(t.GetStart()), key(t.GetEnd())
+        adj.setdefault(a, []).append((b, t))
+        adj.setdefault(b, []).append((a, t))
+    via_at = {key(v.GetPosition()): v for v in vias}
+    seen, jumpers = set(), []
+    for start in list(adj):
+        if start not in via_at:
+            continue
+        for nxt, t in adj[start]:
+            if id(t) in seen:
+                continue
+            chain = [t]
+            seen.add(id(t))
+            cur = nxt
+            while cur not in via_at and len(adj.get(cur, [])) == 2:
+                (n1, t1), (n2, t2) = adj[cur]
+                t_next, n_next = (t2, n2) if id(t1) in seen else (t1, n1)
+                if id(t_next) in seen:
+                    break
+                seen.add(id(t_next))
+                chain.append(t_next)
+                cur = n_next
+            jumpers.append((start, cur, chain))
+    removed_vias = set()
+    for n, (a, b, chain) in enumerate(jumpers, 1):
+        net = chain[0].GetNet()
+        fp = pcbnew.FOOTPRINT(board)
+        fp.SetReference("W%d" % n)
+        fp.SetValue("wire jumper")
+        fp.SetAttributes(pcbnew.FP_THROUGH_HOLE)
+        pa = pcbnew.VECTOR2I(a[0] * 1000, a[1] * 1000)
+        pb = pcbnew.VECTOR2I(b[0] * 1000, b[1] * 1000)
+        fp.SetPosition(pa)
+        for num, pos in (("1", pa), ("2", pb)):
+            p = pcbnew.PAD(fp)
+            p.SetNumber(num)
+            p.SetAttribute(pcbnew.PAD_ATTRIB_PTH)
+            p.SetShape(pcbnew.PAD_SHAPE_CIRCLE)
+            p.SetSize(pcbnew.VECTOR2I(MM(pad), MM(pad)))
+            p.SetDrillSize(pcbnew.VECTOR2I(MM(drill), MM(drill)))
+            p.SetLayerSet(pcbnew.PAD.PTHMask())
+            p.SetPos0(pcbnew.VECTOR2I(pos.x - pa.x, pos.y - pa.y))
+            p.SetPosition(pos)
+            p.SetNet(net)
+            fp.Add(p)
+        ln = pcbnew.FP_SHAPE(fp)
+        ln.SetShape(pcbnew.SHAPE_T_SEGMENT)
+        ln.SetLayer(pcbnew.F_SilkS)
+        ln.SetWidth(MM(0.4))
+        ln.SetStart(pa)
+        ln.SetEnd(pb)
+        ln.SetLocalCoord()
+        fp.Add(ln)
+        fp.Reference().SetPosition(pcbnew.VECTOR2I((pa.x + pb.x) // 2, (pa.y + pb.y) // 2 - MM(1.0)))
+        fp.Reference().SetTextSize(pcbnew.VECTOR2I(MM(0.8), MM(0.8)))
+        fp.Value().SetVisible(False)
+        board.Add(fp)
+        for t in chain:
+            board.Remove(t)
+        removed_vias |= {a, b}
+    for k in removed_vias:
+        if k in via_at:
+            board.Remove(via_at[k])
+    return jumpers

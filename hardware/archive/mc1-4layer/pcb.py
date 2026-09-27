@@ -14,7 +14,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "design"))
-sys.path.insert(0, os.path.join(HERE, "..", "..", "tools", "kigen"))
+sys.path.insert(0, os.path.join(HERE, "..", "..", "..", "tools", "kigen"))
 
 os.environ.setdefault("KICAD7_FOOTPRINT_DIR", "/usr/share/kicad/footprints")
 os.environ.setdefault("KICAD7_SYMBOL_DIR", "/usr/share/kicad/symbols")

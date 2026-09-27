@@ -1,7 +1,7 @@
 (export (version "E")
   (design
-    (source "/home/user/PCB/hardware/main-controller/kicad/agrinode_mc.kicad_sch")
-    (date "Sun Sep 27 04:43:56 2026")
+    (source "/home/user/PCB/hardware/archive/mc1-4layer/kicad/agrinode_mc.kicad_sch")
+    (date "Sun Sep 27 08:54:28 2026")
     (tool "Eeschema 7.0.11+dfsg-1build4")
     (sheet (number "1") (name "/") (tstamps "/")
       (title_block

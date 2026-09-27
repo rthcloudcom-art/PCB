@@ -7,6 +7,27 @@ from sexp import Sym, find, find_all, parse
 
 SYM_DIR = os.environ.get("KICAD_SYMBOL_DIR", "/usr/share/kicad/symbols")
 FP_DIR = os.environ.get("KICAD_FOOTPRINT_DIR", "/usr/share/kicad/footprints")
+# project libraries searched before the stock ones (see add_lib_dir)
+SYM_DIRS = [SYM_DIR]
+FP_DIRS = [FP_DIR]
+
+
+def add_lib_dir(path):
+    """Register a directory holding <lib>.kicad_sym and <lib>.pretty project libraries."""
+    SYM_DIRS.insert(0, path)
+    FP_DIRS.insert(0, path)
+
+
+def _find(dirs, fname):
+    for d in dirs:
+        p = os.path.join(d, fname)
+        if os.path.exists(p):
+            return p
+    return os.path.join(dirs[-1], fname)
+
+
+def fp_lib_path(lib):
+    return _find(FP_DIRS, lib + ".pretty")
 
 _libs = {}
 
@@ -101,7 +122,7 @@ class Symbol:
 
 def _load_lib(lib):
     if lib not in _libs:
-        path = os.path.join(SYM_DIR, lib + ".kicad_sym")
+        path = _find(SYM_DIRS, lib + ".kicad_sym")
         tree = parse(open(path, encoding="utf-8").read())
         _libs[lib] = {s[1]: s for s in find_all(tree, "symbol")}
     return _libs[lib]
@@ -151,11 +172,11 @@ def get(lib_id):
 def footprint_pads(fp_id):
     """Return the set of pad numbers of a footprint (for pin/pad cross-checks)."""
     lib, name = fp_id.split(":", 1)
-    path = os.path.join(FP_DIR, lib + ".pretty", name + ".kicad_mod")
+    path = os.path.join(fp_lib_path(lib), name + ".kicad_mod")
     tree = parse(open(path, encoding="utf-8").read())
     return {str(p[1]) for p in find_all(tree, "pad")}
 
 
 def footprint_exists(fp_id):
     lib, name = fp_id.split(":", 1)
-    return os.path.exists(os.path.join(FP_DIR, lib + ".pretty", name + ".kicad_mod"))
+    return os.path.exists(os.path.join(fp_lib_path(lib), name + ".kicad_mod"))
