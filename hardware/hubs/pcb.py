@@ -36,6 +36,7 @@ JAR = os.environ.get("FREEROUTING_JAR", "/tmp/claude-0/fr/freerouting.jar")
 JAVA = os.environ.get("FREEROUTING_JAVA", "/usr/lib/jvm/java-25-openjdk-amd64/bin/java")
 TWO_LAYER = os.environ.get("HUB_LAYERS", "2") == "2"
 PACK_GAP = float(os.environ.get("PACK_GAP", "2.0"))  # room for routing channels between parts
+STITCH = os.environ.get("GND_STITCH", "1") == "1"   # GND by stitching vias + pours instead of traces
 
 # board size per variant: the core occupies x < CORE_W, the uplink block sits to its right
 CORE_W, H = 100.0, 96.0
@@ -202,6 +203,87 @@ def finish(bb, route):
     fill_and_drc(PCB)
 
 
+def gnd_stitch(board):
+    """Give every SMD ground pad a short stub and a via to the ground pours, so the autorouter
+    does not have to route GND as traces (it cost ~18 % of all copper and blocked signal routes)."""
+    gnd = board.GetNetsByName()["GND"]
+    others = [q for q in board.GetPads() if q.GetNetname() != "GND"]
+    edge = board.GetBoardEdgesBoundingBox()
+    vias = []
+    V_R, CLR, TW = 0.6, 0.5, 0.6
+
+    def clear(pt, r):
+        v = pcbnew.VECTOR2I(pcbgen.MM(pt[0]), pcbgen.MM(pt[1]))
+        for q in others:
+            if q.GetEffectivePolygon().Collide(v, pcbgen.MM(r)):
+                return False
+        return True
+
+    def fits(c, pad_xy):
+        x, y = c
+        if not (pcbnew.ToMM(edge.GetLeft()) + 1.2 < x < pcbnew.ToMM(edge.GetRight()) - 1.2 and
+                pcbnew.ToMM(edge.GetTop()) + 2.5 < y < pcbnew.ToMM(edge.GetBottom()) - 1.2):
+            return False
+        if any((x - vx) ** 2 + (y - vy) ** 2 < (2 * V_R + CLR + 0.1) ** 2 for vx, vy in vias):
+            return False
+        if not clear(c, V_R + CLR + 0.1):
+            return False
+        n = 8   # the stub from the pad to the via
+        return all(clear((pad_xy[0] + (x - pad_xy[0]) * k / n, pad_xy[1] + (y - pad_xy[1]) * k / n), TW / 2 + CLR + 0.1)
+                   for k in range(1, n))
+
+    added = 0
+    for fp in board.GetFootprints():
+        fc = fp.GetPosition()
+        for p in fp.Pads():
+            if p.GetNetname() != "GND" or p.GetAttribute() != pcbnew.PAD_ATTRIB_SMD:
+                continue
+            pc = (pcbnew.ToMM(p.GetPosition().x), pcbnew.ToMM(p.GetPosition().y))
+            sx, sy = pcbnew.ToMM(p.GetBoundingBox().GetWidth()) / 2, pcbnew.ToMM(p.GetBoundingBox().GetHeight()) / 2
+            if min(sx, sy) >= 1.0:   # large pad (exposed pad, TO-263 tab): via in the pad
+                cands = [pc]
+            else:
+                ox, oy = pc[0] - pcbnew.ToMM(fc.x), pc[1] - pcbnew.ToMM(fc.y)
+                dirs = [(1, 0), (-1, 0), (0, 1), (0, -1), (0.7071, 0.7071), (0.7071, -0.7071), (-0.7071, 0.7071),
+                        (-0.7071, -0.7071)]
+                dirs.sort(key=lambda d: -(d[0] * ox + d[1] * oy))   # away from the part first
+                cands = [(pc[0] + d[0] * (abs(d[0]) * sx + abs(d[1]) * sy + extra),
+                          pc[1] + d[1] * (abs(d[0]) * sx + abs(d[1]) * sy + extra))
+                         for extra in (1.0, 1.5, 2.2) for d in dirs]
+            for cnd in cands:
+                if cnd == pc or fits(cnd, pc):
+                    if cnd != pc:
+                        t = pcbnew.PCB_TRACK(board)
+                        t.SetStart(p.GetPosition())
+                        t.SetEnd(pcbnew.VECTOR2I(pcbgen.MM(cnd[0]), pcbgen.MM(cnd[1])))
+                        t.SetWidth(pcbgen.MM(TW))
+                        t.SetLayer(pcbnew.F_Cu)
+                        t.SetNet(gnd)
+                        t.SetLocked(True)
+                        board.Add(t)
+                    v = pcbnew.PCB_VIA(board)
+                    v.SetPosition(pcbnew.VECTOR2I(pcbgen.MM(cnd[0]), pcbgen.MM(cnd[1])))
+                    v.SetWidth(pcbgen.MM(1.2))
+                    v.SetDrill(pcbgen.MM(0.6))
+                    v.SetViaType(pcbnew.VIATYPE_THROUGH)
+                    v.SetLayerPair(pcbnew.F_Cu, pcbnew.B_Cu)
+                    v.SetNet(gnd)
+                    v.SetLocked(True)
+                    board.Add(v)
+                    vias.append(cnd)
+                    added += 1
+                    break
+    return added
+
+
+def dsn_without_gnd(path):
+    """Leave GND out of the autorouter's connection list (pours + stitching vias connect it)."""
+    txt = open(path).read()
+    txt2 = re.sub(r"\(net GND\s*\(pins[^)]*\)", "(net GND (pins)", txt, count=1)
+    open(path, "w").write(txt2)
+    return txt2 != txt
+
+
 def run_freerouting(dsn, ses, rdir):
     """Single-threaded Freerouting is deterministic, but it saves the *last* pass, not the best one.
     Run once, find the pass with the fewest unrouted nets, then re-run stopping at that pass."""
@@ -232,10 +314,16 @@ def do_route(bb, route):
     ses = os.path.join(rdir, c.name + ".ses")
     if route != "import":
         board = pcbgen.load(PCB)
+        if TWO_LAYER and STITCH:
+            print("GND stitching vias: %d" % gnd_stitch(board))
+            board.Save(PCB)
+            board = pcbgen.load(PCB)
         pcbnew.ExportSpecctraDSN(board, dsn + ".kicad")
         if TWO_LAYER:
             pcbgen.dsn_single_layer(dsn + ".kicad", dsn, top_trace_cost=float(os.environ.get("FR_TOP_COST", "1.5")),
                                     via_cost=int(os.environ.get("FR_VIA_COST", "40")), strip_top=False)
+            if STITCH:
+                print("GND left to the pours: %s" % dsn_without_gnd(dsn))
         else:
             pcbgen.dsn_single_layer(dsn + ".kicad", dsn)
         run_freerouting(dsn, ses, rdir)
