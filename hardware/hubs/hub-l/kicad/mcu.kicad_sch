@@ -3905,71 +3905,13 @@
       )
     )
   )
-  (wire
-    (pts
-      (xy 58.42 81.28)
-      (xy 60.96 81.28)
-    )
-    (stroke
-      (width 0)
-      (type default)
-    )
-    (uuid "bba53eef-a209-5434-897e-c722b64eda75")
+  (no_connect
+    (at 58.42 81.28)
+    (uuid "88e616f5-09bf-510a-8a75-c7b8f294cec0")
   )
-  (global_label "RS485_DE"
-    (shape passive)
-    (at 60.96 81.28 0)
-    (fields_autoplaced)
-    (effects
-      (font
-        (size 1.27 1.27)
-      )
-      (justify left)
-    )
-    (uuid "56700243-8b6f-5ddb-90fe-7df1b6b68b2e")
-    (property "Intersheetrefs" "${INTERSHEET_REFS}"
-      (at 60.96 81.28 0)
-      (effects
-        (font
-          (size 1.27 1.27)
-        )
-        (justify left)
-        hide
-      )
-    )
-  )
-  (wire
-    (pts
-      (xy 58.42 83.82)
-      (xy 60.96 83.82)
-    )
-    (stroke
-      (width 0)
-      (type default)
-    )
-    (uuid "18714b0d-cb40-50b0-8d92-b9b30b9dabe4")
-  )
-  (global_label "LORA_DIO0"
-    (shape passive)
-    (at 60.96 83.82 0)
-    (fields_autoplaced)
-    (effects
-      (font
-        (size 1.27 1.27)
-      )
-      (justify left)
-    )
-    (uuid "33294014-7572-55cd-aa12-221a46f7b8f2")
-    (property "Intersheetrefs" "${INTERSHEET_REFS}"
-      (at 60.96 83.82 0)
-      (effects
-        (font
-          (size 1.27 1.27)
-        )
-        (justify left)
-        hide
-      )
-    )
+  (no_connect
+    (at 58.42 83.82)
+    (uuid "9c0afb3c-b0b9-5e2d-aa9d-dfb14738cd10")
   )
   (wire
     (pts
@@ -3993,53 +3935,28 @@
     )
     (uuid "bd2e9780-4ec5-5d9a-baf6-318d30def26f")
   )
+  (no_connect
+    (at 58.42 58.42)
+    (uuid "c4819fba-ea84-53ac-ae53-5ff9e4c42b7f")
+  )
+  (no_connect
+    (at 58.42 53.34)
+    (uuid "050949b4-5b90-56e8-b71d-d0ca4f3dcc7b")
+  )
   (wire
     (pts
-      (xy 58.42 58.42)
-      (xy 60.96 58.42)
+      (xy 58.42 55.88)
+      (xy 60.96 55.88)
     )
     (stroke
       (width 0)
       (type default)
     )
-    (uuid "cd23b9e2-60be-5032-9285-fe66d849067c")
-  )
-  (global_label "LORA_RST"
-    (shape passive)
-    (at 60.96 58.42 0)
-    (fields_autoplaced)
-    (effects
-      (font
-        (size 1.27 1.27)
-      )
-      (justify left)
-    )
-    (uuid "90d46fd1-6c0c-5b57-8913-9b3291e6d6c2")
-    (property "Intersheetrefs" "${INTERSHEET_REFS}"
-      (at 60.96 58.42 0)
-      (effects
-        (font
-          (size 1.27 1.27)
-        )
-        (justify left)
-        hide
-      )
-    )
-  )
-  (wire
-    (pts
-      (xy 58.42 53.34)
-      (xy 60.96 53.34)
-    )
-    (stroke
-      (width 0)
-      (type default)
-    )
-    (uuid "0a165fff-5853-5537-94f1-3d461c31450e")
+    (uuid "64f4d617-e61c-5e17-baae-9613d415ab8c")
   )
   (global_label "CHRG_N"
     (shape passive)
-    (at 60.96 53.34 0)
+    (at 60.96 55.88 0)
     (fields_autoplaced)
     (effects
       (font
@@ -4047,9 +3964,9 @@
       )
       (justify left)
     )
-    (uuid "a7fecd51-d7f6-511a-a7dc-a6d7475deb7f")
+    (uuid "684c102e-0c71-5af7-9336-dd2fbedc9855")
     (property "Intersheetrefs" "${INTERSHEET_REFS}"
-      (at 60.96 53.34 0)
+      (at 60.96 55.88 0)
       (effects
         (font
           (size 1.27 1.27)
@@ -4058,10 +3975,6 @@
         hide
       )
     )
-  )
-  (no_connect
-    (at 58.42 55.88)
-    (uuid "f00d743c-5b38-5378-bcac-2dc2fc028754")
   )
   (no_connect
     (at 30.48 73.66)
@@ -4201,17 +4114,104 @@
     )
     (uuid "71aaa13b-1470-5172-8ad6-a9533f9bc967")
   )
-  (no_connect
-    (at 58.42 48.26)
-    (uuid "0203c7c6-54c1-510b-b177-3d4617f6361e")
+  (wire
+    (pts
+      (xy 58.42 48.26)
+      (xy 60.96 48.26)
+    )
+    (stroke
+      (width 0)
+      (type default)
+    )
+    (uuid "0038455f-0e07-55b9-8d8a-5960c7c5f468")
   )
-  (no_connect
-    (at 58.42 63.5)
-    (uuid "f15e0ce1-e617-5b64-b1e3-5834d3455eeb")
+  (global_label "RS485_DE"
+    (shape passive)
+    (at 60.96 48.26 0)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27)
+      )
+      (justify left)
+    )
+    (uuid "40b9f8ee-281c-5fee-904d-bcfd0c1a0ea9")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 60.96 48.26 0)
+      (effects
+        (font
+          (size 1.27 1.27)
+        )
+        (justify left)
+        hide
+      )
+    )
   )
-  (no_connect
-    (at 58.42 66.04)
-    (uuid "5aedab61-f128-579e-a4b4-73e06021122b")
+  (wire
+    (pts
+      (xy 58.42 63.5)
+      (xy 60.96 63.5)
+    )
+    (stroke
+      (width 0)
+      (type default)
+    )
+    (uuid "31e3959e-97f1-5fa8-a709-c25e18e3edf8")
+  )
+  (global_label "RS485_RX"
+    (shape passive)
+    (at 60.96 63.5 0)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27)
+      )
+      (justify left)
+    )
+    (uuid "99a88afc-c554-527c-a598-5f1600ea8554")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 60.96 63.5 0)
+      (effects
+        (font
+          (size 1.27 1.27)
+        )
+        (justify left)
+        hide
+      )
+    )
+  )
+  (wire
+    (pts
+      (xy 58.42 66.04)
+      (xy 60.96 66.04)
+    )
+    (stroke
+      (width 0)
+      (type default)
+    )
+    (uuid "22d1b44a-a430-5558-a3f2-f883f47b73d8")
+  )
+  (global_label "RS485_TX"
+    (shape passive)
+    (at 60.96 66.04 0)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27)
+      )
+      (justify left)
+    )
+    (uuid "4f608a9d-c289-5cdd-87d3-e6070ed60368")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 60.96 66.04 0)
+      (effects
+        (font
+          (size 1.27 1.27)
+        )
+        (justify left)
+        hide
+      )
+    )
   )
   (wire
     (pts
@@ -4349,16 +4349,27 @@
     )
     (uuid "c1f232eb-3daf-5d72-8563-52549d4d255d")
   )
-  (label "I2C_SDA"
+  (global_label "LORA_DIO0"
+    (shape passive)
     (at 60.96 73.66 0)
     (fields_autoplaced)
     (effects
       (font
         (size 1.27 1.27)
       )
-      (justify left bottom)
+      (justify left)
     )
     (uuid "51989e17-bd2c-578f-8f99-e88a826aa7c2")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 60.96 73.66 0)
+      (effects
+        (font
+          (size 1.27 1.27)
+        )
+        (justify left)
+        hide
+      )
+    )
   )
   (wire
     (pts
@@ -4415,16 +4426,27 @@
     )
     (uuid "2601112f-67a5-51ec-a400-03b984703d28")
   )
-  (label "I2C_SCL"
+  (global_label "LORA_RST"
+    (shape passive)
     (at 60.96 76.2 0)
     (fields_autoplaced)
     (effects
       (font
         (size 1.27 1.27)
       )
-      (justify left bottom)
+      (justify left)
     )
     (uuid "6bb0dc2b-c2d9-59dc-af17-c3e933036978")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 60.96 76.2 0)
+      (effects
+        (font
+          (size 1.27 1.27)
+        )
+        (justify left)
+        hide
+      )
+    )
   )
   (wire
     (pts
@@ -4544,27 +4566,16 @@
     )
     (uuid "f2f56c51-2ec3-5063-9024-1c91243578b3")
   )
-  (global_label "RS485_TX"
-    (shape passive)
+  (label "I2C_SCL"
     (at 60.96 88.9 0)
     (fields_autoplaced)
     (effects
       (font
         (size 1.27 1.27)
       )
-      (justify left)
+      (justify left bottom)
     )
     (uuid "30271cd4-9b7c-53f2-97e2-cf27346fe4ae")
-    (property "Intersheetrefs" "${INTERSHEET_REFS}"
-      (at 60.96 88.9 0)
-      (effects
-        (font
-          (size 1.27 1.27)
-        )
-        (justify left)
-        hide
-      )
-    )
   )
   (wire
     (pts
@@ -4577,27 +4588,16 @@
     )
     (uuid "3b2352ec-e4e3-5f74-8ace-3278fcedb9b9")
   )
-  (global_label "RS485_RX"
-    (shape passive)
+  (label "I2C_SDA"
     (at 60.96 91.44 0)
     (fields_autoplaced)
     (effects
       (font
         (size 1.27 1.27)
       )
-      (justify left)
+      (justify left bottom)
     )
     (uuid "fac9a8c0-a9f9-5f90-a317-3cf1ce69206c")
-    (property "Intersheetrefs" "${INTERSHEET_REFS}"
-      (at 60.96 91.44 0)
-      (effects
-        (font
-          (size 1.27 1.27)
-        )
-        (justify left)
-        hide
-      )
-    )
   )
   (symbol
     (lib_id "Device:C")

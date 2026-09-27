@@ -167,20 +167,26 @@ def make(variant):
     used = {"LORA": "LORA" in opts, "ETH": "ETH" in opts, "LTE": "LTE" in opts}
 
     mc.block("ESP32-WROOM-32E")
+    # GPIOs are chosen by where the parts sit: the module's right column faces the RS-485 / uplink
+    # blocks, its left column the power and front-panel side, its bottom row the charger.
     pins = {"VDD": "+3V3", "GND": "GND", "EN": "ESP_EN", "IO0": "BOOT_BTN", "TXD0/IO1": "ESP_TXD0",
-            "RXD0/IO3": "ESP_RXD0", "IO2": "BUZZER_CTL", "IO12": "CHRG_N",
-            "IO21": "I2C_SDA", "IO22": "I2C_SCL", "IO25": "RS485_DE", "IO27": "LED_DATA",
-            "IO32": "RS485_TX", "IO33": "RS485_RX", "IO34": "VBAT_ADC", "IO35": "VIN_ADC",
-            "IO4": "ETH_CS" if used["ETH"] else NC, "IO5": "LORA_CS" if used["LORA"] else NC,
-            "IO13": "MODEM_PWRKEY_CTL" if used["LTE"] else NC, "IO14": "LORA_RST" if used["LORA"] else NC,
-            "IO15": "MODEM_EN" if used["LTE"] else NC,
-            "IO16": "MODEM_RXD" if used["LTE"] else NC, "IO17": "MODEM_TXD" if used["LTE"] else NC,
-            "IO18": "SPI_SCK" if (used["LORA"] or used["ETH"]) else NC,
-            "IO19": "SPI_MISO" if (used["LORA"] or used["ETH"]) else NC,
-            "IO23": "SPI_MOSI" if (used["LORA"] or used["ETH"]) else NC,
-            "IO26": "LORA_DIO0" if used["LORA"] else NC,
-            "SENSOR_VP": "ETH_INT" if used["ETH"] else NC,
-            "SENSOR_VN": "MODEM_STATUS" if used["LTE"] else NC}
+            "RXD0/IO3": "ESP_RXD0", "IO2": "BUZZER_CTL", "IO13": "CHRG_N",
+            "IO33": "I2C_SDA", "IO32": "I2C_SCL", "IO27": "LED_DATA",
+            "IO34": "VBAT_ADC", "IO35": "VIN_ADC",
+            "IO17": "RS485_TX", "IO16": "RS485_RX", "IO4": "RS485_DE"}
+    for io in ("IO5", "IO12", "IO14", "IO15", "IO18", "IO19", "IO21", "IO22", "IO23", "IO25", "IO26",
+               "SENSOR_VP", "SENSOR_VN"):
+        pins[io] = NC
+    if used["LORA"] or used["ETH"]:
+        pins.update({"IO18": "SPI_SCK", "IO19": "SPI_MISO", "IO23": "SPI_MOSI"})
+    if used["LORA"]:
+        pins.update({"IO5": "LORA_CS", "IO21": "LORA_DIO0"})
+        pins["IO14" if used["ETH"] else "IO22"] = "LORA_RST"
+    if used["ETH"]:
+        pins.update({"IO22": "ETH_CS", "SENSOR_VP": "ETH_INT"})
+    if used["LTE"]:
+        pins.update({"IO19": "MODEM_RXD", "IO23": "MODEM_TXD", "IO21": "MODEM_PWRKEY_CTL",
+                     "IO22": "MODEM_EN", "IO18": "MODEM_STATUS"})
     mc.part("RF_Module:ESP32-WROOM-32E", "U", "ESP32-WROOM-32E-N8", "agrinode:ESP32-WROOM-32E_Coarse").c(pins)
     C(mc, "22u", "+3V3")
     C(mc, "100n", "+3V3")

@@ -230,26 +230,27 @@ def do_route(bb, route):
         done, left = finish_router.finish(board, track_w=0.5, via_d=1.2, via_drill=0.6, log=lambda *_: None,
                                           width_of=width_of)
         print("finishing router: %d routed, still open: %s" % (done, [n.split("/")[-1] for n in left]))
-        if left:
-            # power nets keep their Freerouting copper; only signal nets are ripped and rerouted
-            power = tuple({str(n).split("/")[-1] for n in board.GetNetsByName().keys() if width_of(str(n)) > 0.5})
-            left = finish_router.rip_and_reroute(board, protected_names=("GND",) + power, track_w=0.5, via_d=1.2,
-                                                 via_drill=0.6, max_iter=150, log=lambda *_: None,
-                                                 width_of=width_of)
-            print("rip-up and reroute: still open: %s" % [n.split("/")[-1] for n in left])
-        if left:  # last resort: power nets may be ripped too (rerouted at their net-class width)
-            snap = os.path.join(rdir, "before_power_ripup.kicad_pcb")
+        # rip-up stages; each result is kept only when it leaves fewer open nets (rip-up can make things worse)
+        power = tuple({str(n).split("/")[-1] for n in board.GetNetsByName().keys() if width_of(str(n)) > 0.5})
+        snap = os.path.join(rdir, "best.kicad_pcb")
+        for name, protect, iters in (("signal nets only", ("GND",) + power, 150),
+                                     ("incl. power nets", ("GND",), 60)):
+            if not left:
+                break
             board.Save(snap)
-            left2 = finish_router.rip_and_reroute(board, protected_names=("GND",), track_w=0.5, via_d=1.2,
-                                                  via_drill=0.6, max_iter=60, log=lambda *_: None,
-                                                  width_of=width_of)
-            print("rip-up incl. power nets: still open: %s" % [n.split("/")[-1] for n in left2])
-            if len(left2) >= len(left):
-                board = pcbgen.load(snap)   # no better: keep the first result
-                print("  (kept the result without power-net rip-up)")
-            for ext in (".kicad_pcb", ".kicad_pro", ".kicad_prl"):
-                if os.path.exists(snap[:-10] + ext):
-                    os.remove(snap[:-10] + ext)
+            got = finish_router.rip_and_reroute(board, protected_names=protect, track_w=0.5, via_d=1.2,
+                                                via_drill=0.6, max_iter=iters, log=lambda *_: None,
+                                                width_of=width_of)
+            print("rip-up (%s): still open: %s" % (name, [n.split("/")[-1] for n in got]))
+            if len(got) < len(left):
+                left = got
+            else:
+                board = pcbgen.load(snap)
+                print("  -> no better, kept the previous result")
+        for ext in (".kicad_pcb", ".kicad_pro", ".kicad_prl"):
+            if os.path.exists(snap[:-10] + ext):
+                os.remove(snap[:-10] + ext)
+        print("open connections: %s" % [n.split("/")[-1] for n in left])
     else:
         jumpers = pcbgen.jumperize(board, drill=0.8, pad=1.8)
         print("wire jumpers: %d" % len(jumpers))
