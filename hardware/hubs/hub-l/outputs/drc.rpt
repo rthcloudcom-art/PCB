@@ -1,11 +1,11 @@
 ** Drc report for /home/user/PCB/hardware/hubs/hub-l/kicad/agrinode_hub_l.kicad_pcb **
-** Created on 2026-09-27 20:21:32 **
+** Created on 2026-09-27 21:18:33 **
 
 ** Found 9 DRC violations **
 [silk_overlap]: Silkscreen overlap
     Rule: board setup constraints silk; Severity: warning
-    @(-1.1625 mm, -1.5100 mm): Polygon on F.Silkscreen
     @(162.7497 mm, 98.5000 mm): Reference 'D10'
+    @(-1.1625 mm, -1.5100 mm): Polygon on F.Silkscreen
 [starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
     Local override; Severity: error
     @(50.0000 mm, 50.0000 mm): Zone [GND] on F.Cu
@@ -13,11 +13,15 @@
 [starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
     Local override; Severity: error
     @(50.0000 mm, 50.0000 mm): Zone [GND] on F.Cu
-    @(91.2500 mm, 51.5500 mm): Pad 1 [GND] of U4 on F.Cu
+    @(135.2500 mm, 93.8200 mm): Pad 5 [GND] of U6 on F.Cu
 [starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
     Local override; Severity: error
     @(50.0000 mm, 50.0000 mm): Zone [GND] on F.Cu
-    @(135.2500 mm, 93.8200 mm): Pad 5 [GND] of U6 on F.Cu
+    @(91.2500 mm, 51.5500 mm): Pad 1 [GND] of U4 on F.Cu
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(50.0000 mm, 143.0000 mm): Line on Edge.Cuts
+    @(49.4750 mm, 74.6150 mm): Reference 'J2'
 [silk_edge_clearance]: Silkscreen clipped by board edge
     Rule: board setup constraints silk; Severity: warning
     @(50.0000 mm, 143.0000 mm): Line on Edge.Cuts
@@ -34,10 +38,6 @@
     Rule: board setup constraints silk; Severity: warning
     @(53.0000 mm, 50.0000 mm): Line on Edge.Cuts
     @(109.1200 mm, 43.9400 mm): Line on F.Silkscreen
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(50.0000 mm, 143.0000 mm): Line on Edge.Cuts
-    @(49.4750 mm, 74.6150 mm): Reference 'J2'
 
 ** Found 5 unconnected pads **
 [unconnected_items]: Missing connection between items
