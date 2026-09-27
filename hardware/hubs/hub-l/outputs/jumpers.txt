@@ -1,0 +1,4 @@
+# insulated wire jumpers (top side) for connections the router could not complete
+W1  CH_DTR        R19 pad 1  ->  U5 pad 13   11 mm
+W2  CH_RXD        R18 pad 1  ->  U5 pad 3   18 mm
+W3  LORA_RST      U8 pad 4  ->  U4 pad 36   52 mm
