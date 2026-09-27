@@ -136,6 +136,8 @@ def place(bb):
     bb.put(val("BOOT / PAIR"), 61.0, 3.0, anchor="tl")
     bb.put(val("PROG"), 61.0, 11.5, rot=90, anchor="tl")
     bb.put(val("CR2032"), 62.0, 36.0, anchor="tl")
+    # DS3231 right beside the CR2032 holder, VBAT/SDA/SCL pins facing it
+    bb.put(val("DS3231MZ"), 84.0, 43.0, rot=180, anchor="tl")
     bb.put(val("RS-485"), W, 58.0, rot=270, anchor="tr")
     bz = (110.0, 80.0) if VARIANT == "gw-lan" else (86.0, 28.0)   # gw-lan: core is crowded
     bb.put(val("5V magnetic buzzer"), bz[0], bz[1], anchor="tl")
