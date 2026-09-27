@@ -291,7 +291,7 @@ def add_path(board, grid, path, net, track_w, via_d, via_drill):
             runs.append(cur)
             v = pcbnew.PCB_VIA(board)
             x, y = grid.pos(p[1], p[2])
-            v.SetPosition(pcbnew.VECTOR2I(pcbnew.FromMM(x), pcbnew.FromMM(y)))
+            v.SetPosition(pcbnew.VECTOR2I(pcbnew.FromMM(float(x)), pcbnew.FromMM(float(y))))
             v.SetWidth(pcbnew.FromMM(via_d))
             v.SetDrill(pcbnew.FromMM(via_drill))
             v.SetViaType(pcbnew.VIATYPE_THROUGH)
@@ -314,8 +314,8 @@ def add_path(board, grid, path, net, track_w, via_d, via_drill):
             t = pcbnew.PCB_TRACK(board)
             xa, ya = grid.pos(a[1], a[2])
             xb, yb = grid.pos(b[1], b[2])
-            t.SetStart(pcbnew.VECTOR2I(pcbnew.FromMM(xa), pcbnew.FromMM(ya)))
-            t.SetEnd(pcbnew.VECTOR2I(pcbnew.FromMM(xb), pcbnew.FromMM(yb)))
+            t.SetStart(pcbnew.VECTOR2I(pcbnew.FromMM(float(xa)), pcbnew.FromMM(float(ya))))
+            t.SetEnd(pcbnew.VECTOR2I(pcbnew.FromMM(float(xb)), pcbnew.FromMM(float(yb))))
             t.SetWidth(pcbnew.FromMM(track_w))
             t.SetLayer(a[0])
             t.SetNet(net)
@@ -557,3 +557,93 @@ def rip_and_reroute(board, protected_names=("GND",), protected_prefix=(), cleara
     left = [nets[c].GetNetname() for c in nets if c not in protected and
             len([g for g in islands(board, c) if any(x.GetClass() == "PAD" for x in g)]) > 1]
     return left
+
+
+# ---------------------------------------------------------------- wire jumpers for the last connections
+def _hole(board, grid, cell, net, dia, drill):
+    v = pcbnew.PCB_VIA(board)
+    x, y = grid.pos(cell[0], cell[1])
+    v.SetPosition(pcbnew.VECTOR2I(pcbnew.FromMM(float(x)), pcbnew.FromMM(float(y))))
+    v.SetWidth(pcbnew.FromMM(dia))
+    v.SetDrill(pcbnew.FromMM(drill))
+    v.SetViaType(pcbnew.VIATYPE_THROUGH)
+    v.SetLayerPair(pcbnew.F_Cu, pcbnew.B_Cu)
+    v.SetNet(net)
+    board.Add(v)
+    return v
+
+
+def jumper_route(board, netname, clearance=0.5, track_w=0.5, via_d=1.2, via_drill=0.6, hole_d=1.8, hole_drill=0.8,
+                 edge_clear=0.5, max_len=40.0):
+    """Complete one open net with a short insulated wire: find free spots reachable (by ordinary tracks
+    and vias) from each copper island, as close together as possible; put a wire hole at each spot and
+    route each island to its hole. Returns ((x1, y1), (x2, y2), length) in mm, or None."""
+    from scipy import ndimage
+    from scipy.spatial import cKDTree
+    net = board.GetNetsByName()[netname]
+    code = net.GetNetCode()
+    groups = [g for g in islands(board, code) if any(x.GetClass() == "PAD" for x in g)]
+    if len(groups) < 2:
+        return None
+    groups.sort(key=len, reverse=True)
+    grid = Grid(board, clearance, track_w, via_d, edge_clear)
+    obs = grid.obstacles(code)
+    both = obs[LAYERS[0]] | obs[LAYERS[1]]
+    via_ok = _via_ok(grid, both, via_d)
+    hole_ok = _via_ok(grid, both, hole_d)
+    st = np.ones((3, 3), bool)
+    lab = [ndimage.label(~obs[l], structure=st)[0] for l in LAYERS]
+    n0 = lab[0].max()
+    parent = list(range(n0 + lab[1].max() + 1))
+
+    def find(a):
+        while parent[a] != a:
+            parent[a] = parent[parent[a]]
+            a = parent[a]
+        return a
+    vi = np.argwhere(via_ok & (lab[0] > 0) & (lab[1] > 0))
+    for a, b in set(zip(lab[0][vi[:, 0], vi[:, 1]].tolist(), (lab[1][vi[:, 0], vi[:, 1]] + n0).tolist())):
+        parent[find(a)] = find(b)
+
+    def region(items):
+        own = grid.own_copper(items)
+        comps = set()
+        for k, l in enumerate(LAYERS):
+            sel = own[l] & (lab[k] > 0)
+            comps |= {find(int(c) + (n0 if k else 0)) for c in np.unique(lab[k][sel])}
+        if not comps:
+            return None, own
+        roots = np.vectorize(lambda c: find(int(c)) if c else -1, otypes=[int])
+        r0 = roots(np.where(lab[0] > 0, lab[0], 0))
+        r1 = roots(np.where(lab[1] > 0, lab[1] + n0, 0))
+        reach = np.isin(r0, list(comps)) | np.isin(r1, list(comps))
+        return reach & hole_ok, own
+    ra, own_a = region(groups[0])
+    rb, own_b = region([x for g in groups[1:] for x in g])
+    if ra is None or rb is None or not ra.any() or not rb.any():
+        return None
+    pa = np.argwhere(ra)[::3]
+    pb = np.argwhere(rb)[::3]
+    d, idx = cKDTree(pb).query(pa)
+    k = int(np.argmin(d))
+    ca, cb = tuple(int(v) for v in pa[k]), tuple(int(v) for v in pb[idx[k]])
+    length = float(d[k]) * GRID
+    if length > max_len or length < hole_d + clearance:
+        return None
+    for items, cell in ((groups[0], ca), ([x for g in groups[1:] for x in g], cb)):
+        obs = grid.obstacles(code)
+        vok = _via_ok(grid, obs[LAYERS[0]] | obs[LAYERS[1]], via_d)
+        src = grid.own_copper(items)
+        dst = {l: np.zeros((grid.nx, grid.ny), bool) for l in LAYERS}
+        for l in LAYERS:
+            dst[l][cell] = True
+        if src[LAYERS[0]][cell] or src[LAYERS[1]][cell]:
+            path = None
+        else:
+            path = astar(grid, obs, src, dst, vok, via_cost=25)
+            if not path:
+                return None
+            add_path(board, grid, path, net, track_w, via_d, via_drill)
+        _hole(board, grid, cell, net, hole_d, hole_drill)
+    fa, fb = grid.pos(*ca), grid.pos(*cb)
+    return (float(fa[0]), float(fa[1])), (float(fb[0]), float(fb[1])), length

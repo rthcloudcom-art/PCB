@@ -39,9 +39,16 @@ PACK_GAP = float(os.environ.get("PACK_GAP", "2.0"))  # room for routing channels
 STITCH = os.environ.get("GND_STITCH", "0") == "1"   # optional: GND by stitching vias + pours (tried: no gain)
 
 # board size per variant: the core occupies x < CORE_W, the uplink block sits to its right
-CORE_W, H = 100.0, 96.0
+CORE_W, H0 = 100.0, 96.0
 EXTRA_W = {"hub-w": 14.0, "hub-l": 30.0, "hub-c": 30.0, "gw-lan": 50.0}
+EXTRA_H = {"hub-w": 0.0, "hub-l": 0.0, "hub-c": 12.0, "gw-lan": 12.0}   # denser boards: more routing room
 W = CORE_W + EXTRA_W[VARIANT]
+H = H0 + EXTRA_H[VARIANT]
+
+
+def Y(y):
+    """Core layout coordinates are drawn for a 96 mm board; below the ESP32 row they stretch with H."""
+    return y if y <= 20 else 20 + (y - 20) * (H - 20) / (H0 - 20)
 
 NETCLASSES = {
     "Default": dict(track=0.5, clearance=0.5, via=1.2, drill=0.6),
@@ -112,7 +119,7 @@ def place(bb):
             print("  could not place: %s" % over)
 
     holes = sorted(r for r in bb.fps if r.startswith("H"))
-    for r, (x, y) in zip(holes, ((5, 67), (W - 4, 51), (W - 4, H - 4), (86, H - 4))):
+    for r, (x, y) in zip(holes, ((5, Y(67)), (W - 4, Y(51)), (W - 4, H - 4), (86, H - 4))):
         bb.put(r, x, y, anchor="cc")
 
     # ESP32 on the top edge, antenna overhanging the edge (module mirrored when on the bottom side)
@@ -124,64 +131,64 @@ def place(bb):
     fp._placed = True
 
     # left edge: power inputs; right edge (top): USB-B for power + programming
-    bb.put(val("DC 12V 5.5/2.1"), 0.0, 4.0, rot=0, anchor="tl")
-    bb.put(val("DC IN 7-24V"), 0.0, 19.0, rot=90, anchor="tl")
-    bb.put(val("SOLAR 6-24V"), 0.0, 31.0, rot=90, anchor="tl")
-    bb.put(val("USB 5V / PROG"), W, 3.0, rot=270, anchor="tr")
+    bb.put(val("DC 12V 5.5/2.1"), 0.0, Y(4.0), rot=0, anchor="tl")
+    bb.put(val("DC IN 7-24V"), 0.0, Y(19.0), rot=90, anchor="tl")
+    bb.put(val("SOLAR 6-24V"), 0.0, Y(31.0), rot=90, anchor="tl")
+    bb.put(val("USB 5V / PROG"), W, Y(3.0), rot=270, anchor="tr")
     # bottom: 18650 cell
     bb.put(val("18650 Li-ion (protected)"), 2.0, H - 1.0, rot=0, anchor="bl")
     # buttons and headers along the top edge
-    bb.put(val("RESET"), 17.5, 3.0, anchor="tl")
-    bb.put(val("LED STRIP WS2813"), 29.0, 3.5, rot=90, anchor="tl")
-    bb.put(val("I2C"), 29.0, 7.5, rot=90, anchor="tl")
+    bb.put(val("RESET"), 17.5, Y(3.0), anchor="tl")
+    bb.put(val("LED STRIP WS2813"), 29.0, Y(3.5), rot=90, anchor="tl")
+    bb.put(val("I2C"), 29.0, Y(7.5), rot=90, anchor="tl")
     if VARIANT == "hub-w":
-        bb.put(val("BOOT / PAIR"), 61.0, 3.0, anchor="tl")
-        bb.put(val("PROG"), 61.0, 11.5, rot=90, anchor="tl")
+        bb.put(val("BOOT / PAIR"), 61.0, Y(3.0), anchor="tl")
+        bb.put(val("PROG"), 61.0, Y(11.5), rot=90, anchor="tl")
     else:   # more nets leave the ESP32 right column: keep a 6 mm routing channel beside it
-        bb.put(val("BOOT / PAIR"), 66.0, 3.0, anchor="tl")
-        bb.put(val("PROG"), 64.5, 17.0, rot=90, anchor="tl")
-    bb.put(val("CR2032"), 62.0, 36.0, anchor="tl")
+        bb.put(val("BOOT / PAIR"), 66.0, Y(3.0), anchor="tl")
+        bb.put(val("PROG"), 64.5, Y(17.0), rot=90, anchor="tl")
+    bb.put(val("CR2032"), 62.0, Y(36.0), anchor="tl")
     # DS3231 right beside the CR2032 holder, VBAT/SDA/SCL pins facing it
-    bb.put(val("DS3231MZ"), 84.0, 43.0, rot=180, anchor="tl")
-    bb.put(val("RS-485"), W, 58.0, rot=270, anchor="tr")
-    bz = (110.0, 80.0) if VARIANT == "gw-lan" else (86.0, 28.0)   # gw-lan: core is crowded
+    bb.put(val("DS3231MZ"), 84.0, Y(43.0), rot=180, anchor="tl")
+    bb.put(val("RS-485"), W, Y(58.0), rot=270, anchor="tr")
+    bz = (110.0, Y(80.0)) if VARIANT == "gw-lan" else (86.0, Y(28.0))   # gw-lan: core is crowded
     bb.put(val("5V magnetic buzzer"), bz[0], bz[1], anchor="tl")
     # uplink connectors before the core packing so it flows around them
     if VARIANT == "gw-lan":
-        bb.put(val("LAN"), W, 24.0, rot=90, anchor="tr")
+        bb.put(val("LAN"), W, Y(24.0), rot=90, anchor="tr")
     if VARIANT == "hub-c":
-        bb.put(val("LTE MODULE"), W - 3.0, 26.0, rot=0, anchor="tr")
+        bb.put(val("LTE MODULE"), W - 3.0, Y(26.0), rot=0, anchor="tr")
 
     ldo = [r for r in block("3.3 V rail") if r.startswith("U")][0]
-    bb.put(ldo, 64.0, 24.0, rot=0, anchor="tl")
+    bb.put(ldo, 64.0, Y(24.0), rot=0, anchor="tl")
     if VARIANT != "hub-w":
-        bb.put(val("100u/10V"), 53.5, 23.5, rot=0, anchor="tl")   # LDO output bulk cap, beside the regulator
-    pack("ESP32-WROOM", 40, 22, 62, 30)
+        bb.put(val("100u/10V"), 53.5, Y(23.5), rot=0, anchor="tl")   # LDO output bulk cap, beside the regulator
+    pack("ESP32-WROOM", 40, Y(22), 62, Y(30))
     # uplink block first: its big parts need the free space right of the core
     x0 = CORE_W + 1
     if VARIANT == "hub-l":
-        pack("LoRa", x0, 24, W - 2, 56)
+        pack("LoRa", x0, Y(24), W - 2, Y(56))
     if VARIANT == "gw-lan":
-        pack("LoRa", x0 - 14, 56, W - 20, H - 2)
-        pack("Ethernet", x0, 24, W - 22, 56)
+        pack("LoRa", x0 - 14, Y(56), W - 20, H - 2)
+        pack("Ethernet", x0, Y(24), W - 22, Y(56))
     if VARIANT == "hub-c":
-        pack("4G LTE", x0, 24, W - 6, H - 2)
+        pack("4G LTE", x0, Y(24), W - 6, H - 2)
     # CH340C turned so UD+/UD- (pins 5/6) face the USB-B jack; DTR/RTS face the auto-reset pair
-    bb.put(val("CH340C"), CORE_W - 20.0, 3.0, rot=180, anchor="tl")
-    pack("USB programming", 72, 3, W - 20, 26)
-    pack("Reset and boot", 20, 12, 40, 20)
-    pack("WS2813", 20, 12, 40, 22)
-    pack("Inputs", 14, 22, 40, 44)
-    pack("Supply monitoring", 30, 22, 44, 36)
-    pack("5 V buck", 14, 44, 44, 74)
-    pack("5 V bus", 14, 44, 44, 74)
-    pack("18650 charger", 44, 50, 64, 74)
-    pack("18650 cell", 44, 58, 64, 74)
-    pack("Power path", 44, 40, 62, 52)
-    pack("3.3 V rail", 44, 24, 84, 40)
-    pack("RTC", 62, 36, 86, 58)
+    bb.put(val("CH340C"), CORE_W - 20.0, Y(3.0), rot=180, anchor="tl")
+    pack("USB programming", 72, Y(3), W - 20, Y(26))
+    pack("Reset and boot", 20, Y(12), 40, Y(20))
+    pack("WS2813", 20, Y(12), 40, Y(22))
+    pack("Inputs", 14, Y(22), 40, Y(44))
+    pack("Supply monitoring", 30, Y(22), 44, Y(36))
+    pack("5 V buck", 14, Y(44), 44, Y(74))
+    pack("5 V bus", 14, Y(44), 44, Y(74))
+    pack("18650 charger", 44, Y(50), 64, Y(74))
+    pack("18650 cell", 44, Y(58), 64, Y(74))
+    pack("Power path", 44, Y(40), 62, Y(52))
+    pack("3.3 V rail", 44, Y(24), 84, Y(40))
+    pack("RTC", 62, Y(36), 86, Y(58))
     pack("Buzzer", bz[0] - 2, bz[1], bz[0] + 18, min(H - 2, bz[1] + 18))
-    pack("RS-485", 84, 44, W - 14, 74)
+    pack("RS-485", 84, Y(44), W - 14, Y(74))
 
 
 def finish(bb, route):
@@ -208,38 +215,50 @@ def finish(bb, route):
     fill_and_drc(PCB)
 
 
-def write_jumpers(board, left, finish_router):
+def write_jumpers(board, left, finish_router, wires=()):
     """Connections the router could not finish become insulated wire jumpers W1, W2 ... between the
     nearest pads of the separated copper islands; both ends are marked on the silkscreen."""
     path = os.path.join(OUT, "jumpers.txt")
     if os.path.exists(path):
         os.remove(path)
-    if not left:
+    if not left and not wires:
         return
     lines = []
+
+    def mark(tag, pos):
+        t = pcbnew.PCB_TEXT(board)
+        t.SetText(tag)
+        t.SetLayer(pcbnew.F_SilkS)
+        t.SetTextSize(pcbnew.VECTOR2I(pcbgen.MM(1.0), pcbgen.MM(1.0)))
+        t.SetTextThickness(pcbgen.MM(0.15))
+        t.SetPosition(pos + pcbnew.VECTOR2I(0, pcbgen.MM(-1.8)))
+        board.Add(t)
+    for i, (name, (a, b, length)) in enumerate(wires, 1):
+        tag = "W%d" % i
+        lines.append("%s  %-12s  hole (%.1f, %.1f)  ->  hole (%.1f, %.1f)   %.0f mm" % (
+            tag, name.split("/")[-1], a[0] - 50, a[1] - 50, b[0] - 50, b[1] - 50, length))
+        for xy in (a, b):
+            mark(tag, pcbnew.VECTOR2I(pcbgen.MM(xy[0]), pcbgen.MM(xy[1])))
     nets = board.GetNetsByName()
-    for i, name in enumerate(left, 1):
+    for i, name in enumerate(left, len(wires) + 1):
         code = nets[name].GetNetCode()
         groups = [g for g in finish_router.islands(board, code) if any(x.GetClass() == "PAD" for x in g)]
         groups.sort(key=len, reverse=True)
-        a_pads = [x for x in groups[0] if x.GetClass() == "PAD"]
+        ends = ("PAD", "PCB_VIA")   # a wire can go through a via hole as well as onto a pad
+        a_pads = [x for x in groups[0] if x.GetClass() in ends]
         for g in groups[1:]:
-            b_pads = [x for x in g if x.GetClass() == "PAD"]
+            b_pads = [x for x in g if x.GetClass() in ends]
             pa, pb = min(((u, v) for u in a_pads for v in b_pads),
                          key=lambda uv: (uv[0].GetPosition() - uv[1].GetPosition()).EuclideanNorm())
             dist = pcbnew.ToMM((pa.GetPosition() - pb.GetPosition()).EuclideanNorm())
             tag = "W%d" % i
-            lines.append("%s  %-12s  %s pad %s  ->  %s pad %s   %.0f mm" % (
-                tag, name.split("/")[-1], pa.GetParent().GetReference(), pa.GetNumber(),
-                pb.GetParent().GetReference(), pb.GetNumber(), dist))
+            def where(x):
+                if x.GetClass() == "PAD":
+                    return "%s pad %s" % (x.GetParent().GetReference(), x.GetNumber())
+                return "via at (%.1f, %.1f)" % (pcbnew.ToMM(x.GetPosition().x) - 50, pcbnew.ToMM(x.GetPosition().y) - 50)
+            lines.append("%s  %-12s  %s  ->  %s   %.0f mm" % (tag, name.split("/")[-1], where(pa), where(pb), dist))
             for pd in (pa, pb):
-                t = pcbnew.PCB_TEXT(board)
-                t.SetText(tag)
-                t.SetLayer(pcbnew.F_SilkS)
-                t.SetTextSize(pcbnew.VECTOR2I(pcbgen.MM(1.0), pcbgen.MM(1.0)))
-                t.SetTextThickness(pcbgen.MM(0.15))
-                t.SetPosition(pd.GetPosition() + pcbnew.VECTOR2I(0, pcbgen.MM(-1.6)))
-                board.Add(t)
+                mark(tag, pd.GetPosition())
     with open(path, "w") as f:
         f.write("# insulated wire jumpers (top side) for connections the router could not complete\n")
         f.write("\n".join(lines) + "\n")
@@ -402,7 +421,13 @@ def do_route(bb, route):
             if os.path.exists(snap[:-10] + ext):
                 os.remove(snap[:-10] + ext)
         print("open connections: %s" % [n.split("/")[-1] for n in left])
-        write_jumpers(board, left, finish_router)
+        wires = []
+        for name in list(left):
+            got = finish_router.jumper_route(board, name, track_w=width_of(name))
+            if got:
+                wires.append((name, got))
+                left.remove(name)
+        write_jumpers(board, left, finish_router, wires)
     else:
         jumpers = pcbgen.jumperize(board, drill=0.8, pad=1.8)
         print("wire jumpers: %d" % len(jumpers))
