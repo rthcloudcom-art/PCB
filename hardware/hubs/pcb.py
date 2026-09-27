@@ -175,7 +175,7 @@ def place(bb):
         pack("4G LTE", x0, Y(24), W - 6, H - 2)
     # CH340C turned so UD+/UD- (pins 5/6) face the USB-B jack; DTR/RTS face the auto-reset pair
     bb.put(val("CH340C"), CORE_W - 20.0, Y(3.0), rot=180, anchor="tl")
-    if VARIANT != "hub-w":   # auto-reset pair in a row right under the CH340C (DTR/RTS side), not scattered
+    if VARIANT in ("hub-c", "gw-lan"):   # auto-reset pair in a row under the CH340C (DTR/RTS side)
         ar = sorted(block("USB programming"), key=lambda r: r)
         qs = sorted([r for r in ar if bb.part_of[r].value == "MMBT3904"])
         rs = sorted([r for r in ar if bb.part_of[r].value == "10k"
