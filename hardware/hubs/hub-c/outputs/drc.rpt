@@ -1,15 +1,11 @@
 ** Drc report for /home/user/PCB/hardware/hubs/hub-c/kicad/agrinode_hub_c.kicad_pcb **
-** Created on 2026-09-27 21:00:11 **
+** Created on 2026-09-27 21:13:58 **
 
 ** Found 11 DRC violations **
 [silk_overlap]: Silkscreen overlap
     Rule: board setup constraints silk; Severity: warning
-    @(137.7250 mm, 99.1250 mm): Reference 'U6'
-    @(138.5753 mm, 100.0250 mm): Reference 'C10'
-[silk_overlap]: Silkscreen overlap
-    Rule: board setup constraints silk; Severity: warning
-    @(176.0000 mm, 96.8000 mm): Reference 'H2'
     @(173.8450 mm, 96.9350 mm): Line on F.Silkscreen
+    @(176.0000 mm, 96.8000 mm): Reference 'H2'
 [silk_overlap]: Silkscreen overlap
     Rule: board setup constraints silk; Severity: warning
     @(176.0000 mm, 96.8000 mm): Reference 'H2'
@@ -18,6 +14,10 @@
     Rule: board setup constraints silk; Severity: warning
     @(146.7953 mm, 97.0000 mm): Reference 'D10'
     @(-1.1625 mm, -1.5100 mm): Polygon on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(137.7250 mm, 99.1250 mm): Reference 'U6'
+    @(138.5753 mm, 100.0250 mm): Reference 'C10'
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; Severity: warning
     @(176.0000 mm, 96.8000 mm): Reference 'H2'
@@ -25,10 +25,6 @@
     Local override; Severity: error
     @(50.0000 mm, 50.0000 mm): Zone [GND] on F.Cu
     @(135.2500 mm, 93.8200 mm): Pad 5 [GND] of U6 on F.Cu
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(180.0000 mm, 53.0000 mm): Line on Edge.Cuts
-    @(180.5250 mm, 116.1450 mm): Reference 'J9'
 [silk_edge_clearance]: Silkscreen clipped by board edge
     Rule: board setup constraints silk; Severity: warning
     @(53.0000 mm, 50.0000 mm): Line on Edge.Cuts
@@ -41,6 +37,10 @@
     Rule: board setup constraints silk; Severity: warning
     @(50.0000 mm, 143.0000 mm): Line on Edge.Cuts
     @(49.4750 mm, 86.6150 mm): Reference 'J3'
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(180.0000 mm, 53.0000 mm): Line on Edge.Cuts
+    @(180.5250 mm, 116.1450 mm): Reference 'J9'
 [silk_edge_clearance]: Silkscreen clipped by board edge
     Rule: board setup constraints silk; Severity: warning
     @(50.0000 mm, 143.0000 mm): Line on Edge.Cuts

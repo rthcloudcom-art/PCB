@@ -414,6 +414,35 @@ def _via_ok(grid, both, via_d):
     return ~acc
 
 
+def _blocking_items(grid, path, code, protected, taboo=()):
+    """Tracks and vias of other (rippable) nets that the path would violate."""
+    r = grid.clearance + grid.track_w / 2 + MARGIN
+    pts = np.array([grid.pos(p[1], p[2]) for p in path])
+    lays = np.array([p[0] for p in path])
+    hit = []
+    for t in grid.board.GetTracks():
+        n = t.GetNetCode()
+        if n == code or n in protected or n in taboo:
+            continue
+        if t.GetClass() == "PCB_VIA":
+            c = np.array([mm(t.GetPosition().x), mm(t.GetPosition().y)])
+            if (np.hypot(*(pts - c).T) < r + mm(t.GetWidth()) / 2).any():
+                hit.append(t)
+            continue
+        sel = lays == t.GetLayer()
+        if not sel.any():
+            continue
+        a = np.array([mm(t.GetStart().x), mm(t.GetStart().y)])
+        b = np.array([mm(t.GetEnd().x), mm(t.GetEnd().y)])
+        ab = b - a
+        L2 = (ab ** 2).sum()
+        P = pts[sel]
+        tt = np.clip(((P - a) @ ab) / L2, 0, 1) if L2 > 0 else np.zeros(len(P))
+        if (np.hypot(*(P - (a + np.outer(tt, ab))).T) < r + mm(t.GetWidth()) / 2).any():
+            hit.append(t)
+    return hit
+
+
 def _blocking_nets(grid, path, code, protected, taboo=()):
     r = grid.clearance + grid.track_w / 2
     pts = np.array([grid.pos(p[1], p[2]) for p in path])
@@ -461,7 +490,7 @@ def _route_net(board, grid, code, net, track_w, via_d, via_drill):
 
 
 def rip_and_reroute(board, protected_names=("GND",), protected_prefix=(), clearance=0.5, track_w=0.6,
-                    via_d=1.2, via_drill=0.6, edge_clear=0.5, max_iter=80, log=print, width_of=None):
+                    via_d=1.2, via_drill=0.6, edge_clear=0.5, max_iter=80, log=print, width_of=None, local=True):
     """Finish all open nets, ripping up blocking signal nets when needed.
 
     width_of(netname) -> track width in mm for re-routed nets (defaults to track_w)."""
@@ -501,17 +530,30 @@ def rip_and_reroute(board, protected_names=("GND",), protected_prefix=(), cleara
         if not path:
             log("  [%d] impossible even with rip-up: %s" % (it, net.GetNetname()))
             continue
-        victims = _blocking_nets(grid, path, code, protected, taboo)
+        if local:   # remove only the blocking segments; the victim keeps the rest and needs a short detour
+            items = _blocking_items(grid, path, code, protected, taboo)
+            victims = {t.GetNetCode() for t in items}
+        else:
+            victims = _blocking_nets(grid, path, code, protected, taboo)
+            items = [t for t in board.GetTracks() if t.GetNetCode() in victims]
         for v in victims:
             history[v] = history.get(v, 0) + 1
             ripped_by.setdefault(v, set()).add(code)
-            for t in [t for t in board.GetTracks() if t.GetNetCode() == v]:
-                board.Remove(t)
-                _GRAVEYARD.append(t)  # keep the Python wrapper alive: SWIG would otherwise free it twice
+        for t in items:
+            board.Remove(t)
+            _GRAVEYARD.append(t)  # keep the Python wrapper alive: SWIG would otherwise free it twice
         add_path(board, grid, path, net, w, via_d, via_drill)
         log("  [%d] %s routed after ripping %s" % (it, net.GetNetname(),
                                                    [nets[v].GetNetname().split("/")[-1] for v in victims]))
         todo = [code] + [v for v in victims if v not in todo] + todo  # finish own islands first
+    # local rip-up leaves copper fragments without a pad: remove them
+    for c in history:
+        for g in islands(board, c):
+            if not any(x.GetClass() == "PAD" for x in g):
+                for t in g:
+                    if t.GetClass() in ("PCB_TRACK", "PCB_VIA"):
+                        board.Remove(t)
+                        _GRAVEYARD.append(t)
     left = [nets[c].GetNetname() for c in nets if c not in protected and
             len([g for g in islands(board, c) if any(x.GetClass() == "PAD" for x in g)]) > 1]
     return left
