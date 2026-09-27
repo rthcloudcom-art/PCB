@@ -4,6 +4,7 @@ auto-route it with Freerouting.
 
     python3 pcb.py              # placement + zones only
     python3 pcb.py --route      # also run Freerouting and import the result
+    python3 pcb.py --import-ses # rebuild and import outputs/route/agrinode_mc.ses from an earlier run
 
 Run build.py first (it produces outputs/agrinode_mc.net which provides the
 exact KiCad net names).
@@ -255,10 +256,12 @@ def save_and_report(bb, route):
     os.makedirs(os.path.join(OUT, "route"), exist_ok=True)
     dsn = os.path.join(OUT, "route", c.name + ".dsn")
     ses = os.path.join(OUT, "route", c.name + ".ses")
-    if os.path.exists(ses):
-        os.remove(ses)
-    log = pcbgen.freeroute(PCB, dsn, ses, JAR, JAVA, passes=int(os.environ.get("FR_PASSES", "30")))
-    open(os.path.join(OUT, "route", "freerouting.log"), "w").write(log)
+    if route != "import":  # "import": reuse a session file from an earlier Freerouting run
+        if os.path.exists(ses):
+            os.remove(ses)
+        log = pcbgen.freeroute(PCB, dsn, ses, JAR, JAVA, passes=int(os.environ.get("FR_PASSES", "30")),
+                               timeout=int(os.environ.get("FR_TIMEOUT", "14400")))
+        open(os.path.join(OUT, "route", "freerouting.log"), "w").write(log)
     board = pcbgen.load(PCB)
     nt, nv = pcbgen.import_ses(board, ses)
     print("imported %d track segments, %d vias" % (nt, nv))
@@ -285,4 +288,4 @@ def fill_and_drc(path):
 
 
 if __name__ == "__main__":
-    main(route="--route" in sys.argv)
+    main(route="import" if "--import-ses" in sys.argv else "--route" in sys.argv)
