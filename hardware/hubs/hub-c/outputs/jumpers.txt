@@ -1,4 +1,3 @@
 # insulated wire jumpers (top side) for connections the router could not complete
-W1  AR_B1         Q3 pad 1  ->  R19 pad 2   11 mm
-W2  CH_RTS        U5 pad 14  ->  Q3 pad 2   10 mm
-W3  VBAT_ADC      C12 pad 1  ->  U4 pad 6   25 mm
+W1  MODEM_RXD     hole (68.0, 21.2)  ->  hole (63.9, 18.1)   5 mm
+W2  USB_DP_C      U5 pad 5  ->  R15 pad 2   14 mm
