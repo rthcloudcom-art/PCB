@@ -1,7 +1,7 @@
 ** Drc report for /home/user/PCB/hardware/hubs/gw-lan/kicad/agrinode_gw_lan.kicad_pcb **
-** Created on 2026-09-27 21:50:32 **
+** Created on 2026-09-27 22:01:39 **
 
-** Found 9 DRC violations **
+** Found 8 DRC violations **
 [silk_overlap]: Silkscreen overlap
     Rule: board setup constraints silk; Severity: warning
     @(145.3950 mm, 93.5000 mm): Reference 'D10'
@@ -9,14 +9,18 @@
 [starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
     Local override; Severity: error
     @(50.0000 mm, 50.0000 mm): Zone [GND] on F.Cu
-    @(135.2500 mm, 93.8200 mm): Pad 5 [GND] of U6 on F.Cu
-[starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
-    Local override; Severity: error
-    @(50.0000 mm, 50.0000 mm): Zone [GND] on F.Cu
     @(108.7500 mm, 51.5500 mm): Pad 38 [GND] of U4 on F.Cu
 [lib_footprint_mismatch]: Footprint 'RJ45_Hanrun_HR911105A_Horizontal' does not match copy in library 'Connector_RJ'.
     Local override; Severity: warning
     @(182.2150 mm, 87.9650 mm): Footprint J10
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(200.0000 mm, 53.0000 mm): Line on Edge.Cuts
+    @(200.5250 mm, 116.1450 mm): Reference 'J9'
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(50.0000 mm, 143.0000 mm): Line on Edge.Cuts
+    @(49.4750 mm, 74.6150 mm): Reference 'J2'
 [silk_edge_clearance]: Silkscreen clipped by board edge
     Rule: board setup constraints silk; Severity: warning
     @(53.0000 mm, 50.0000 mm): Line on Edge.Cuts
@@ -28,45 +32,45 @@
 [silk_edge_clearance]: Silkscreen clipped by board edge
     Rule: board setup constraints silk; Severity: warning
     @(50.0000 mm, 143.0000 mm): Line on Edge.Cuts
-    @(49.4750 mm, 74.6150 mm): Reference 'J2'
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(200.0000 mm, 53.0000 mm): Line on Edge.Cuts
-    @(200.5250 mm, 116.1450 mm): Reference 'J9'
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(50.0000 mm, 143.0000 mm): Line on Edge.Cuts
     @(49.4750 mm, 86.6150 mm): Reference 'J3'
 
-** Found 8 unconnected pads **
+** Found 10 unconnected pads **
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(91.2500 mm, 55.3600 mm): Pad 4 [ETH_INT] of U4 on F.Cu
-    @(152.3050 mm, 78.9000 mm): Pad 4 [ETH_INT] of U9 on F.Cu
+    @(108.7500 mm, 65.5200 mm): Pad 27 [RS485_RX] of U4 on F.Cu
+    @(178.7100 mm, 109.9500 mm): Pad 1 [RS485_RX] of U7 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(108.7500 mm, 66.7900 mm): Pad 26 [RS485_DE] of U4 on F.Cu
-    @(143.2432 mm, 100.8123 mm): Track [RS485_DE] on B.Cu, length 0.8801 mm
+    @(108.7500 mm, 62.9800 mm): Pad 29 [LORA_CS] of U4 on F.Cu
+    @(151.6010 mm, 112.2935 mm): Track [LORA_CS] on B.Cu, length 2.2685 mm
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(120.3756 mm, 67.2231 mm): Track [/ESP32, programming, buttons, RTC, LED strip, buzzer/ESP_RXD0] on F.Cu, length 1.0294 mm
-    @(174.8675 mm, 54.1450 mm): Pad 2 [/ESP32, programming, buttons, RTC, LED strip, buzzer/ESP_RXD0] of R17 on F.Cu
+    @(108.7500 mm, 61.7100 mm): Pad 30 [SPI_SCK] of U4 on F.Cu
+    @(152.3050 mm, 83.9800 mm): Track [SPI_SCK] on F.Cu, length 2.1839 mm
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(136.2000 mm, 61.4000 mm): Pad 2 [/ESP32, programming, buttons, RTC, LED strip, buzzer/CH_TXD] of U5 on F.Cu
-    @(171.9425 mm, 54.1450 mm): Pad 1 [/ESP32, programming, buttons, RTC, LED strip, buzzer/CH_TXD] of R17 on F.Cu
+    @(108.7500 mm, 57.9000 mm): Pad 33 [LORA_DIO0] of U4 on F.Cu
+    @(138.2750 mm, 116.0250 mm): Pad 5 [LORA_DIO0] of U8 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(136.2000 mm, 57.5900 mm): Pad 5 [/ESP32, programming, buttons, RTC, LED strip, buzzer/USB_DP_C] of U5 on F.Cu
-    @(161.6475 mm, 54.1450 mm): Pad 2 [/ESP32, programming, buttons, RTC, LED strip, buzzer/USB_DP_C] of R15 on F.Cu
+    @(108.7500 mm, 54.0900 mm): Pad 36 [ETH_CS] of U4 on F.Cu
+    @(152.3050 mm, 85.2500 mm): Pad 9 [ETH_CS] of U9 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(108.7500 mm, 52.8200 mm): Pad 37 [SPI_MOSI] of U4 on F.Cu
+    @(148.5626 mm, 83.5655 mm): Track [SPI_MOSI] on F.Cu, length 1.3637 mm
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(136.2000 mm, 56.3200 mm): Pad 6 [/ESP32, programming, buttons, RTC, LED strip, buzzer/USB_DN_C] of U5 on F.Cu
     @(168.2575 mm, 54.1450 mm): Pad 2 [/ESP32, programming, buttons, RTC, LED strip, buzzer/USB_DN_C] of R16 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(140.4575 mm, 55.8500 mm): Pad 2 [/ESP32, programming, buttons, RTC, LED strip, buzzer/CH_RTS] of Q3 on F.Cu
+    @(140.4575 mm, 56.5418 mm): Track [/ESP32, programming, buttons, RTC, LED strip, buzzer/CH_RTS] on F.Cu, length 1.0807 mm
     @(131.2500 mm, 60.1300 mm): Pad 14 [/ESP32, programming, buttons, RTC, LED strip, buzzer/CH_RTS] of U5 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(140.4575 mm, 53.9500 mm): Pad 1 [/ESP32, programming, buttons, RTC, LED strip, buzzer/AR_B1] of Q3 on F.Cu
+    @(161.6075 mm, 58.6450 mm): Pad 2 [/ESP32, programming, buttons, RTC, LED strip, buzzer/AR_B1] of R19 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(161.6050 mm, 76.3600 mm): Pad 27 [/RS-485 and uplink/ETH_LEDA] of U9 on F.Cu
