@@ -1,52 +1,30 @@
 ** Drc report for /home/user/PCB/hardware/hubs/gw-lan/kicad/agrinode_gw_lan.kicad_pcb **
-** Created on 2026-09-27 23:07:13 **
+** Created on 2026-09-27 23:16:13 **
 
-** Found 21 DRC violations **
+** Found 10 DRC violations **
 [silk_overlap]: Silkscreen overlap
     Rule: board setup constraints silk; Severity: warning
-    @(139.3825 mm, 64.6000 mm): PCB Text 'W5' on F.Silkscreen
-    @(138.4450 mm, 64.0000 mm): Reference 'Q3'
-[silk_overlap]: Silkscreen overlap
-    Rule: board setup constraints silk; Severity: warning
-    @(139.3825 mm, 64.6000 mm): PCB Text 'W5' on F.Silkscreen
-    @(138.4450 mm, 64.8400 mm): Line on F.Silkscreen
-[silk_overlap]: Silkscreen overlap
-    Rule: board setup constraints silk; Severity: warning
-    @(133.7250 mm, 64.1250 mm): Reference 'U5'
-    @(133.3050 mm, 64.3250 mm): Reference 'R19'
-[silk_overlap]: Silkscreen overlap
-    Rule: board setup constraints silk; Severity: warning
-    @(145.3950 mm, 97.2895 mm): Reference 'D10'
     @(-1.1625 mm, -1.5100 mm): Polygon on F.Silkscreen
+    @(145.3950 mm, 97.2895 mm): Reference 'D10'
 [silk_overlap]: Silkscreen overlap
     Rule: board setup constraints silk; Severity: warning
-    @(105.8647 mm, 104.2318 mm): Reference 'J5'
-    @(105.8647 mm, 104.7618 mm): PCB Text 'W4' on F.Silkscreen
-[silk_overlap]: Silkscreen overlap
-    Rule: board setup constraints silk; Severity: warning
-    @(105.8647 mm, 104.7618 mm): PCB Text 'W4' on F.Silkscreen
-    @(104.5347 mm, 105.2318 mm): Line on F.Silkscreen
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; Severity: warning
-    @(152.3050 mm, 85.3516 mm): PCB Text 'W5' on F.Silkscreen
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; Severity: warning
-    @(91.2500 mm, 57.3700 mm): PCB Text 'W6' on F.Silkscreen
+    @(133.3050 mm, 64.3250 mm): Reference 'R19'
+    @(133.7250 mm, 64.1250 mm): Reference 'U5'
+[starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
+    Local override; Severity: error
+    @(50.0000 mm, 50.0000 mm): Zone [GND] on F.Cu
+    @(146.3325 mm, 99.6895 mm): Pad 3 [GND] of D10 on F.Cu
+[starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
+    Local override; Severity: error
+    @(50.0000 mm, 50.0000 mm): Zone [GND] on F.Cu
+    @(91.2500 mm, 51.5500 mm): Pad 1 [GND] of U4 on F.Cu
 [lib_footprint_mismatch]: Footprint 'RJ45_Hanrun_HR911105A_Horizontal' does not match copy in library 'Connector_RJ'.
     Local override; Severity: warning
     @(182.2150 mm, 88.5966 mm): Footprint J10
 [silk_edge_clearance]: Silkscreen clipped by board edge
     Rule: board setup constraints silk; Severity: warning
-    @(53.0000 mm, 50.0000 mm): Line on Edge.Cuts
-    @(111.4500 mm, 49.7500 mm): PCB Text 'W1' on F.Silkscreen
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(200.0000 mm, 53.0000 mm): Line on Edge.Cuts
-    @(200.5250 mm, 122.1450 mm): Reference 'J9'
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
     @(50.0000 mm, 155.0000 mm): Line on Edge.Cuts
-    @(49.4750 mm, 74.6150 mm): Reference 'J2'
+    @(49.4750 mm, 88.3518 mm): Reference 'J3'
 [silk_edge_clearance]: Silkscreen clipped by board edge
     Rule: board setup constraints silk; Severity: warning
     @(53.0000 mm, 50.0000 mm): Line on Edge.Cuts
@@ -57,60 +35,14 @@
     @(109.1200 mm, 43.9400 mm): Line on F.Silkscreen
 [silk_edge_clearance]: Silkscreen clipped by board edge
     Rule: board setup constraints silk; Severity: warning
+    @(200.0000 mm, 53.0000 mm): Line on Edge.Cuts
+    @(200.5250 mm, 122.1450 mm): Reference 'J9'
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
     @(50.0000 mm, 155.0000 mm): Line on Edge.Cuts
-    @(49.4750 mm, 88.3518 mm): Reference 'J3'
-[via_dangling]: Via is not connected or connected on only one layer
-    Local override; Severity: warning
-    @(111.4500 mm, 51.5500 mm): Via [ETH_INT] on F.Cu - B.Cu
-[via_dangling]: Via is not connected or connected on only one layer
-    Local override; Severity: warning
-    @(126.6500 mm, 54.5500 mm): Via [ETH_INT] on F.Cu - B.Cu
-[via_dangling]: Via is not connected or connected on only one layer
-    Local override; Severity: warning
-    @(96.7500 mm, 66.9500 mm): Via [LORA_CS] on F.Cu - B.Cu
-[via_dangling]: Via is not connected or connected on only one layer
-    Local override; Severity: warning
-    @(68.8500 mm, 66.9500 mm): Via [LORA_CS] on F.Cu - B.Cu
-[via_dangling]: Via is not connected or connected on only one layer
-    Local override; Severity: warning
-    @(114.4500 mm, 66.3500 mm): Via [SPI_MISO] on F.Cu - B.Cu
-[via_dangling]: Via is not connected or connected on only one layer
-    Local override; Severity: warning
-    @(140.0500 mm, 74.5500 mm): Via [SPI_MISO] on F.Cu - B.Cu
+    @(49.4750 mm, 74.6150 mm): Reference 'J2'
 
-** Found 8 unconnected pads **
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(90.0469 mm, 55.3250 mm): Track [GND] on B.Cu, length 2.8850 mm
-    @(91.2500 mm, 51.5500 mm): Pad 1 [GND] of U4 on F.Cu
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(50.0000 mm, 50.0000 mm): Zone [GND] on F.Cu
-    @(50.0000 mm, 50.0000 mm): Zone [GND] on F.Cu
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(105.8647 mm, 106.5618 mm): Track [/Power - 12V, solar and USB inputs, 18650 charger, rails/CHG_TEMP] on F.Cu, length 2.3482 mm
-    @(95.8397 mm, 105.6868 mm): Pad 1 [/Power - 12V, solar and USB inputs, 18650 charger, rails/CHG_TEMP] of U2 on F.Cu
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(91.2500 mm, 59.1700 mm): Pad 7 [VIN_ADC] of U4 on F.Cu
-    @(95.7609 mm, 77.1455 mm): Track [VIN_ADC] on B.Cu, length 2.6211 mm
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(139.3825 mm, 66.0457 mm): Track [ESP_EN] on B.Cu, length 6.4228 mm
-    @(152.3050 mm, 87.1516 mm): Pad 10 [ESP_EN] of U9 on F.Cu
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(108.6500 mm, 54.3500 mm): Track [ETH_INT] on B.Cu, length 3.9598 mm
-    @(127.3500 mm, 53.8500 mm): Track [ETH_INT] on B.Cu, length 0.9899 mm
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(100.3500 mm, 63.3500 mm): Track [LORA_CS] on F.Cu, length 5.0912 mm
-    @(76.9500 mm, 92.3500 mm): Track [LORA_CS] on B.Cu, length 6.5000 mm
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(114.4500 mm, 66.3500 mm): Via [SPI_MISO] on F.Cu - B.Cu
-    @(143.3500 mm, 77.8500 mm): Track [SPI_MISO] on B.Cu, length 4.6669 mm
+** Found 0 unconnected pads **
 
 ** Found 0 Footprint errors **
 
