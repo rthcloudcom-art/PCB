@@ -254,7 +254,7 @@ def do_route(bb, route):
         snap = os.path.join(rdir, "best.kicad_pcb")
         for name, protect, iters in (("signal nets only", ("GND",) + power, 150),
                                      ("incl. power nets", ("GND",), 60)):
-            if not left:
+            if not left or os.environ.get("RIPUP", "1") == "0":
                 break
             board.Save(snap)
             got = finish_router.rip_and_reroute(board, protected_names=protect, track_w=0.5, via_d=1.2,

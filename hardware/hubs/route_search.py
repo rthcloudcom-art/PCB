@@ -19,7 +19,7 @@ TRIALS = sys.argv[2:] or ["40:1.5", "20:1.5", "80:1.5", "40:1.0", "40:2.5", "10:
 KICAD = os.path.join(HERE, VARIANT, "kicad")
 OUT = os.path.join(HERE, VARIANT, "outputs")
 PCB = os.path.join(KICAD, [f for f in os.listdir(KICAD) if f.endswith(".kicad_pcb")][0])
-KEEP = [PCB, os.path.join(OUT, "drc.rpt")]
+KEEP = [PCB, os.path.join(OUT, "drc.rpt"), os.path.join(OUT, "route", os.path.basename(PCB)[:-10] + ".ses")]
 
 
 def score(log):
@@ -32,7 +32,7 @@ def score(log):
 best = None
 for i, trial in enumerate(TRIALS):
     via, top = trial.split(":")
-    env = dict(os.environ, FR_VIA_COST=via, FR_TOP_COST=top)
+    env = dict(os.environ, FR_VIA_COST=via, FR_TOP_COST=top, RIPUP="0")
     r = subprocess.run([sys.executable, os.path.join(HERE, "pcb.py"), VARIANT, "--route"], env=env,
                        capture_output=True, text=True)
     log = r.stdout + r.stderr
@@ -48,7 +48,7 @@ for i, trial in enumerate(TRIALS):
     if s[0] == 0:
         break
 store = os.path.join(OUT, "route", "best_trial")
-for f in KEEP:
+for f in KEEP:  # rip-up is skipped during the search: run `pcb.py <variant> --import-ses` on the winner
     shutil.copy(os.path.join(store, os.path.basename(f)), f)
 shutil.rmtree(store, ignore_errors=True)
 print("best: via:top %s -> open %d, DRC %d" % (best[1], best[0][0], best[0][1]))
