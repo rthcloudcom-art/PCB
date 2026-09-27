@@ -208,6 +208,44 @@ def finish(bb, route):
     fill_and_drc(PCB)
 
 
+def write_jumpers(board, left, finish_router):
+    """Connections the router could not finish become insulated wire jumpers W1, W2 ... between the
+    nearest pads of the separated copper islands; both ends are marked on the silkscreen."""
+    path = os.path.join(OUT, "jumpers.txt")
+    if os.path.exists(path):
+        os.remove(path)
+    if not left:
+        return
+    lines = []
+    nets = board.GetNetsByName()
+    for i, name in enumerate(left, 1):
+        code = nets[name].GetNetCode()
+        groups = [g for g in finish_router.islands(board, code) if any(x.GetClass() == "PAD" for x in g)]
+        groups.sort(key=len, reverse=True)
+        a_pads = [x for x in groups[0] if x.GetClass() == "PAD"]
+        for g in groups[1:]:
+            b_pads = [x for x in g if x.GetClass() == "PAD"]
+            pa, pb = min(((u, v) for u in a_pads for v in b_pads),
+                         key=lambda uv: (uv[0].GetPosition() - uv[1].GetPosition()).EuclideanNorm())
+            dist = pcbnew.ToMM((pa.GetPosition() - pb.GetPosition()).EuclideanNorm())
+            tag = "W%d" % i
+            lines.append("%s  %-12s  %s pad %s  ->  %s pad %s   %.0f mm" % (
+                tag, name.split("/")[-1], pa.GetParent().GetReference(), pa.GetNumber(),
+                pb.GetParent().GetReference(), pb.GetNumber(), dist))
+            for pd in (pa, pb):
+                t = pcbnew.PCB_TEXT(board)
+                t.SetText(tag)
+                t.SetLayer(pcbnew.F_SilkS)
+                t.SetTextSize(pcbnew.VECTOR2I(pcbgen.MM(1.0), pcbgen.MM(1.0)))
+                t.SetTextThickness(pcbgen.MM(0.15))
+                t.SetPosition(pd.GetPosition() + pcbnew.VECTOR2I(0, pcbgen.MM(-1.6)))
+                board.Add(t)
+    with open(path, "w") as f:
+        f.write("# insulated wire jumpers (top side) for connections the router could not complete\n")
+        f.write("\n".join(lines) + "\n")
+    print("wire jumpers: %s" % lines)
+
+
 def gnd_stitch(board):
     """Give every SMD ground pad a short stub and a via to the ground pours, so the autorouter
     does not have to route GND as traces (it cost ~18 % of all copper and blocked signal routes)."""
@@ -364,6 +402,7 @@ def do_route(bb, route):
             if os.path.exists(snap[:-10] + ext):
                 os.remove(snap[:-10] + ext)
         print("open connections: %s" % [n.split("/")[-1] for n in left])
+        write_jumpers(board, left, finish_router)
     else:
         jumpers = pcbgen.jumperize(board, drill=0.8, pad=1.8)
         print("wire jumpers: %d" % len(jumpers))
