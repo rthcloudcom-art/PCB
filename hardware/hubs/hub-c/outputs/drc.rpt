@@ -1,7 +1,15 @@
 ** Drc report for /home/user/PCB/hardware/hubs/hub-c/kicad/agrinode_hub_c.kicad_pcb **
-** Created on 2026-09-27 20:38:06 **
+** Created on 2026-09-27 20:44:50 **
 
-** Found 13 DRC violations **
+** Found 34 DRC violations **
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(173.8450 mm, 96.9350 mm): Line on F.Silkscreen
+    @(176.0000 mm, 96.8000 mm): Reference 'H2'
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(176.5050 mm, 79.0950 mm): Line on F.Silkscreen
+    @(176.0000 mm, 96.8000 mm): Reference 'H2'
 [silk_overlap]: Silkscreen overlap
     Rule: board setup constraints silk; Severity: warning
     @(137.7250 mm, 99.1250 mm): Reference 'U6'
@@ -10,29 +18,33 @@
     Rule: board setup constraints silk; Severity: warning
     @(146.7953 mm, 97.0000 mm): Reference 'D10'
     @(-1.1625 mm, -1.5100 mm): Polygon on F.Silkscreen
-[silk_overlap]: Silkscreen overlap
-    Rule: board setup constraints silk; Severity: warning
-    @(176.5050 mm, 79.0950 mm): Line on F.Silkscreen
-    @(176.0000 mm, 96.8000 mm): Reference 'H2'
-[silk_overlap]: Silkscreen overlap
-    Rule: board setup constraints silk; Severity: warning
-    @(176.0000 mm, 96.8000 mm): Reference 'H2'
-    @(173.8450 mm, 96.9350 mm): Line on F.Silkscreen
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; Severity: warning
     @(176.0000 mm, 96.8000 mm): Reference 'H2'
 [starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
     Local override; Severity: error
     @(50.0000 mm, 50.0000 mm): Zone [GND] on F.Cu
-    @(135.2500 mm, 93.8200 mm): Pad 5 [GND] of U6 on F.Cu
+    @(88.4450 mm, 55.3250 mm): PTH pad 4 [GND] of J8
+[starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
+    Local override; Severity: error
+    @(50.0000 mm, 50.0000 mm): Zone [GND] on F.Cu
+    @(112.8250 mm, 63.3250 mm): PTH pad 1 [GND] of J6
+[starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
+    Local override; Severity: error
+    @(50.0000 mm, 50.0000 mm): Zone [GND] on F.Cu
+    @(80.8250 mm, 59.3250 mm): PTH pad 1 [GND] of J7
 [starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
     Local override; Severity: error
     @(50.0000 mm, 50.0000 mm): Zone [GND] on F.Cu
     @(108.7500 mm, 51.5500 mm): Pad 38 [GND] of U4 on F.Cu
-[starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
-    Local override; Severity: error
-    @(50.0000 mm, 50.0000 mm): Zone [GND] on F.Cu
-    @(88.4450 mm, 55.3250 mm): PTH pad 4 [GND] of J8
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(50.0000 mm, 143.0000 mm): Line on Edge.Cuts
+    @(49.4750 mm, 86.6150 mm): Reference 'J3'
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(50.0000 mm, 143.0000 mm): Line on Edge.Cuts
+    @(49.4750 mm, 74.6150 mm): Reference 'J2'
 [silk_edge_clearance]: Silkscreen clipped by board edge
     Rule: board setup constraints silk; Severity: warning
     @(53.0000 mm, 50.0000 mm): Line on Edge.Cuts
@@ -45,28 +57,92 @@
     Rule: board setup constraints silk; Severity: warning
     @(180.0000 mm, 53.0000 mm): Line on Edge.Cuts
     @(180.5250 mm, 116.1450 mm): Reference 'J9'
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(50.0000 mm, 143.0000 mm): Line on Edge.Cuts
-    @(49.4750 mm, 74.6150 mm): Reference 'J2'
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(50.0000 mm, 143.0000 mm): Line on Edge.Cuts
-    @(49.4750 mm, 86.6150 mm): Reference 'J3'
+[clearance]: Clearance violation (netclass 'Default' clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: netclass 'Default'; Severity: error
+    @(107.9065 mm, 114.3260 mm): Track [GND] on F.Cu, length 0.8299 mm
+    @(107.7318 mm, 114.5312 mm): Track [/Power - 12V, solar and USB inputs, 18650 charger, rails/CHG_TEMP] on F.Cu, length 0.1462 mm
+[clearance]: Clearance violation (netclass 'Default' clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: netclass 'Default'; Severity: error
+    @(107.9065 mm, 114.3260 mm): Track [GND] on F.Cu, length 0.8299 mm
+    @(107.7318 mm, 112.6098 mm): Track [/Power - 12V, solar and USB inputs, 18650 charger, rails/CHG_TEMP] on F.Cu, length 1.9214 mm
+[clearance]: Clearance violation (netclass 'Default' clearance 0.5000 mm; actual 0.0404 mm)
+    Rule: netclass 'Default'; Severity: error
+    @(107.9065 mm, 114.3260 mm): Track [GND] on F.Cu, length 0.8299 mm
+    @(107.4376 mm, 114.0306 mm): Track [/Power - 12V, solar and USB inputs, 18650 charger, rails/CHG_TEMP] on F.Cu, length 0.2080 mm
+[clearance]: Clearance violation (netclass 'Default' clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: netclass 'Default'; Severity: error
+    @(107.9065 mm, 114.3260 mm): Track [GND] on F.Cu, length 0.8299 mm
+    @(107.4376 mm, 114.4439 mm): Track [/Power - 12V, solar and USB inputs, 18650 charger, rails/CHG_TEMP] on F.Cu, length 0.4133 mm
+[clearance]: Clearance violation (netclass 'Default' clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: netclass 'Default'; Severity: error
+    @(107.9065 mm, 114.3260 mm): Track [GND] on F.Cu, length 0.8299 mm
+    @(107.6283 mm, 114.6346 mm): Track [/Power - 12V, solar and USB inputs, 18650 charger, rails/CHG_TEMP] on F.Cu, length 0.2697 mm
+[clearance]: Clearance violation (netclass 'Default' clearance 0.5000 mm; actual 0.0471 mm)
+    Rule: netclass 'Default'; Severity: error
+    @(107.9065 mm, 114.3260 mm): Track [GND] on F.Cu, length 0.8299 mm
+    @(107.5847 mm, 113.8835 mm): Track [/Power - 12V, solar and USB inputs, 18650 charger, rails/CHG_TEMP] on F.Cu, length 1.1524 mm
+[clearance]: Clearance violation (netclass 'Default' clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: netclass 'Default'; Severity: error
+    @(107.9065 mm, 114.3260 mm): Track [GND] on F.Cu, length 0.8299 mm
+    @(107.6284 mm, 114.6346 mm): Track [/Power - 12V, solar and USB inputs, 18650 charger, rails/CHG_TEMP] on F.Cu, length 0.0001 mm
+[clearance]: Clearance violation (netclass 'Default' clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: netclass 'Default'; Severity: error
+    @(108.7338 mm, 114.3260 mm): Track [GND] on F.Cu, length 0.8273 mm
+    @(107.7318 mm, 114.5312 mm): Track [/Power - 12V, solar and USB inputs, 18650 charger, rails/CHG_TEMP] on F.Cu, length 0.1462 mm
+[clearance]: Clearance violation (netclass 'Default' clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: netclass 'Default'; Severity: error
+    @(108.7338 mm, 114.3260 mm): Track [GND] on F.Cu, length 0.8273 mm
+    @(107.7318 mm, 112.6098 mm): Track [/Power - 12V, solar and USB inputs, 18650 charger, rails/CHG_TEMP] on F.Cu, length 1.9214 mm
+[clearance]: Clearance violation (netclass 'Default' clearance 0.5000 mm; actual 0.0404 mm)
+    Rule: netclass 'Default'; Severity: error
+    @(108.7338 mm, 114.3260 mm): Track [GND] on F.Cu, length 0.8273 mm
+    @(107.4376 mm, 114.0306 mm): Track [/Power - 12V, solar and USB inputs, 18650 charger, rails/CHG_TEMP] on F.Cu, length 0.2080 mm
+[clearance]: Clearance violation (netclass 'Default' clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: netclass 'Default'; Severity: error
+    @(108.7338 mm, 114.3260 mm): Track [GND] on F.Cu, length 0.8273 mm
+    @(107.4376 mm, 114.4439 mm): Track [/Power - 12V, solar and USB inputs, 18650 charger, rails/CHG_TEMP] on F.Cu, length 0.4133 mm
+[clearance]: Clearance violation (netclass 'Default' clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: netclass 'Default'; Severity: error
+    @(108.7338 mm, 114.3260 mm): Track [GND] on F.Cu, length 0.8273 mm
+    @(107.6283 mm, 114.6346 mm): Track [/Power - 12V, solar and USB inputs, 18650 charger, rails/CHG_TEMP] on F.Cu, length 0.2697 mm
+[clearance]: Clearance violation (netclass 'Default' clearance 0.5000 mm; actual 0.0471 mm)
+    Rule: netclass 'Default'; Severity: error
+    @(108.7338 mm, 114.3260 mm): Track [GND] on F.Cu, length 0.8273 mm
+    @(107.5847 mm, 113.8835 mm): Track [/Power - 12V, solar and USB inputs, 18650 charger, rails/CHG_TEMP] on F.Cu, length 1.1524 mm
+[clearance]: Clearance violation (netclass 'Default' clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: netclass 'Default'; Severity: error
+    @(108.7338 mm, 114.3260 mm): Track [GND] on F.Cu, length 0.8273 mm
+    @(107.6284 mm, 114.6346 mm): Track [/Power - 12V, solar and USB inputs, 18650 charger, rails/CHG_TEMP] on F.Cu, length 0.0001 mm
+[clearance]: Clearance violation (netclass 'Default' clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: netclass 'Default'; Severity: error
+    @(107.3197 mm, 114.9128 mm): Track [GND] on F.Cu, length 1.0023 mm
+    @(107.7318 mm, 114.5312 mm): Track [/Power - 12V, solar and USB inputs, 18650 charger, rails/CHG_TEMP] on F.Cu, length 0.1462 mm
+[clearance]: Clearance violation (netclass 'Default' clearance 0.5000 mm; actual 0.0616 mm)
+    Rule: netclass 'Default'; Severity: error
+    @(107.3197 mm, 114.9128 mm): Track [GND] on F.Cu, length 1.0023 mm
+    @(107.7318 mm, 112.6098 mm): Track [/Power - 12V, solar and USB inputs, 18650 charger, rails/CHG_TEMP] on F.Cu, length 1.9214 mm
+[clearance]: Clearance violation (netclass 'Default' clearance 0.5000 mm; actual 0.3900 mm)
+    Rule: netclass 'Default'; Severity: error
+    @(107.3197 mm, 114.9128 mm): Track [GND] on F.Cu, length 1.0023 mm
+    @(107.4376 mm, 114.0306 mm): Track [/Power - 12V, solar and USB inputs, 18650 charger, rails/CHG_TEMP] on F.Cu, length 0.2080 mm
+[clearance]: Clearance violation (netclass 'Default' clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: netclass 'Default'; Severity: error
+    @(107.3197 mm, 114.9128 mm): Track [GND] on F.Cu, length 1.0023 mm
+    @(107.4376 mm, 114.4439 mm): Track [/Power - 12V, solar and USB inputs, 18650 charger, rails/CHG_TEMP] on F.Cu, length 0.4133 mm
+[clearance]: Clearance violation (netclass 'Default' clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: netclass 'Default'; Severity: error
+    @(107.3197 mm, 114.9128 mm): Track [GND] on F.Cu, length 1.0023 mm
+    @(107.6283 mm, 114.6346 mm): Track [/Power - 12V, solar and USB inputs, 18650 charger, rails/CHG_TEMP] on F.Cu, length 0.2697 mm
+[clearance]: Clearance violation (netclass 'Default' clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: netclass 'Default'; Severity: error
+    @(107.3197 mm, 114.9128 mm): Track [GND] on F.Cu, length 1.0023 mm
+    @(107.6284 mm, 114.6346 mm): Track [/Power - 12V, solar and USB inputs, 18650 charger, rails/CHG_TEMP] on F.Cu, length 0.0001 mm
 
-** Found 3 unconnected pads **
+** Found 1 unconnected pads **
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(50.0000 mm, 50.0000 mm): Zone [GND] on F.Cu
-    @(50.0000 mm, 50.0000 mm): Zone [GND] on F.Cu
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(95.5600 mm, 69.3100 mm): Pad 16 [CHRG_N] of U4 on F.Cu
-    @(111.5397 mm, 106.7200 mm): Pad 7 [CHRG_N] of U2 on F.Cu
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(142.3325 mm, 54.9000 mm): Pad 3 [/ESP32, programming, buttons, RTC, LED strip, buzzer/BOOT_BTN] of Q4 on F.Cu
-    @(119.0250 mm, 54.5250 mm): Track [/ESP32, programming, buttons, RTC, LED strip, buzzer/BOOT_BTN] on B.Cu, length 9.1924 mm
+    @(94.7433 mm, 81.4278 mm): Track [VIN_ADC] on F.Cu, length 5.0246 mm
+    @(91.2500 mm, 59.1700 mm): Pad 7 [VIN_ADC] of U4 on F.Cu
 
 ** Found 0 Footprint errors **
 

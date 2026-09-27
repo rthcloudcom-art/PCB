@@ -22,11 +22,19 @@ PCB = os.path.join(KICAD, [f for f in os.listdir(KICAD) if f.endswith(".kicad_pc
 KEEP = [PCB, os.path.join(OUT, "drc.rpt"), os.path.join(OUT, "route", os.path.basename(PCB)[:-10] + ".ses")]
 
 
+HARD = ("clearance", "shorting_items", "tracks_crossing", "hole_clearance", "copper_edge_clearance",
+        "track_width", "via_diameter", "annular_width", "drill_out_of_range")
+
+
 def score(log):
+    """(open + hard DRC errors, open, all DRC): a short or clearance error counts like an open net."""
     m = re.search(r"open connections: \[(.*)\]", log)
     opened = len([x for x in m.group(1).split(",") if x.strip()]) if m else 999
     m = re.search(r"DRC violations: (\d+)", log)
-    return opened, int(m.group(1)) if m else 999
+    total = int(m.group(1)) if m else 999
+    rpt = open(os.path.join(OUT, "drc.rpt")).read()
+    hard = sum(len(re.findall(r"^\[%s\]" % k, rpt, re.M)) for k in HARD)
+    return opened + hard, opened, hard, total
 
 
 best = None
@@ -37,7 +45,7 @@ for i, trial in enumerate(TRIALS):
                        capture_output=True, text=True)
     log = r.stdout + r.stderr
     s = score(log)
-    print("trial %s  via %s top %s  ->  open %d, DRC %d" % (i, via, top, s[0], s[1]), flush=True)
+    print("trial %s  via %s top %s  ->  open %d, hard DRC %d, DRC %d" % (i, via, top, s[1], s[2], s[3]), flush=True)
     if best is None or s < best[0]:
         store = os.path.join(OUT, "route", "best_trial")
         shutil.rmtree(store, ignore_errors=True)
@@ -51,4 +59,4 @@ store = os.path.join(OUT, "route", "best_trial")
 for f in KEEP:  # rip-up is skipped during the search: run `pcb.py <variant> --import-ses` on the winner
     shutil.copy(os.path.join(store, os.path.basename(f)), f)
 shutil.rmtree(store, ignore_errors=True)
-print("best: via:top %s -> open %d, DRC %d" % (best[1], best[0][0], best[0][1]))
+print("best: via:top %s -> open %d, hard DRC %d, DRC %d" % (best[1], best[0][1], best[0][2], best[0][3]))
