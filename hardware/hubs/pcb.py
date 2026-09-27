@@ -157,6 +157,8 @@ def place(bb):
         pack("Ethernet", x0, 24, W - 22, 56)
     if VARIANT == "hub-c":
         pack("4G LTE", x0, 24, W - 6, H - 2)
+    # CH340C turned so UD+/UD- (pins 5/6) face the USB-B jack; DTR/RTS face the auto-reset pair
+    bb.put(val("CH340C"), CORE_W - 20.0, 3.0, rot=180, anchor="tl")
     pack("USB programming", 72, 3, W - 20, 26)
     pack("Reset and boot", 20, 12, 40, 20)
     pack("WS2813", 20, 12, 40, 22)
