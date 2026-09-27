@@ -1,3 +1,7 @@
 # insulated wire jumpers (top side) for connections the router could not complete
-W1  +3V3          U5 pad 16  ->  U5 pad 4   6 mm
-W2  CHRG_N        U4 pad 16  ->  U2 pad 7   38 mm
+W1  ETH_INT       hole (76.7, 4.6)  ->  hole (61.5, 1.6)   15 mm
+W2  LORA_CS       hole (18.9, 17.0)  ->  hole (46.8, 17.0)   28 mm
+W3  SPI_MISO      hole (90.1, 24.6)  ->  hole (64.5, 16.4)   27 mm
+W4  CHG_TEMP      J5 pad 1  ->  U2 pad 1   10 mm
+W5  ESP_EN        Q3 pad 3  ->  U9 pad 10   24 mm
+W6  VIN_ADC       via at (45.8, 27.1)  ->  U4 pad 7   19 mm
