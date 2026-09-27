@@ -1,2 +1,0 @@
-# insulated wire jumpers (top side) for connections the router could not complete
-W1  +3V3          J7 pad 2  ->  U4 pad 2   10 mm
