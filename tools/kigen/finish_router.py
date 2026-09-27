@@ -11,6 +11,7 @@ import numpy as np
 import pcbnew
 
 GRID = 0.1  # mm per cell
+MARGIN = 0.08  # extra clearance: covers rasterisation error (half a cell diagonal) and diagonal steps
 LAYERS = (pcbnew.F_Cu, pcbnew.B_Cu)
 
 
@@ -112,7 +113,7 @@ class Grid:
             yield p
 
     def obstacles(self, netcode, extra=()):
-        r = self.clearance + self.track_w / 2 + 0.02
+        r = self.clearance + self.track_w / 2 + MARGIN
         obs = {lay: np.zeros((self.nx, self.ny), bool) for lay in LAYERS}
         for it in list(self.copper_items()) + list(extra):
             if it.GetNetCode() == netcode and it.GetNetCode() != 0:
@@ -257,7 +258,7 @@ def finish(board, clearance=0.5, track_w=0.6, via_d=1.2, via_drill=0.6, edge_cle
                 break
             obs = grid.obstacles(code)
             # via allowed where a via disc fits on both layers (obstacles already grown by track_w/2 + clearance)
-            vr = max(0.0, via_d / 2 - w / 2)
+            vr = max(0.0, via_d / 2 - w / 2) + GRID / 2
             k = int(math.ceil(vr / GRID))
             both = obs[LAYERS[0]] | obs[LAYERS[1]]
             via_ok = ~both.copy()
@@ -326,7 +327,7 @@ _GRAVEYARD = []
 
 def _obstacles_split(grid, code, protected, taboo=()):
     """hard: pads, holes, edges, keepouts and protected nets; soft: rippable signal tracks/vias."""
-    r = grid.clearance + grid.track_w / 2 + 0.02
+    r = grid.clearance + grid.track_w / 2 + MARGIN
     hard = {lay: np.zeros((grid.nx, grid.ny), bool) for lay in LAYERS}
     soft = {lay: np.zeros((grid.nx, grid.ny), bool) for lay in LAYERS}
     for it in grid.copper_items():
@@ -400,7 +401,7 @@ def _astar_soft(grid, hard, soft, src, dst, via_ok, via_cost, soft_cost):
 
 
 def _via_ok(grid, both, via_d):
-    vr = max(0.0, via_d / 2 - grid.track_w / 2)
+    vr = max(0.0, via_d / 2 - grid.track_w / 2) + GRID / 2
     k = int(math.ceil(vr / GRID))
     if k == 0:
         return ~both
