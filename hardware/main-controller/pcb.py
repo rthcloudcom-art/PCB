@@ -166,7 +166,7 @@ NETCLASSES = {
 ASSIGN = [  # KiCad wildcard patterns on the full net name (local nets carry a /sheet/ prefix)
     ("*RLY?_COM", "Mains"), ("*RLY?_NO", "Mains"), ("*RLY?_NC", "Mains"),
     ("*/OUT?", "Power"), ("*VFIELD", "Power"), ("*VSYS", "Power"), ("*VIN_*_RAW", "Power"),
-    ("*VIN_*_F", "Power"), ("*+5V", "Power"), ("*BUCK5_SW", "Power"), ("*VBUS_USB", "Power"),
+    ("*VIN_*_F", "Power"), ("*+5V", "Power"), ("*BUCK5_SW", "Power"), ("*VBUS_USB", "Supply3V3"),
     ("*VSENS", "Load"), ("*V_1W", "Load"), ("*V_I2C", "Load"), ("*VISO", "Load"), ("*GND_ISO", "Load"),
     ("*BUCK3_SW", "Load"), ("*RLY?_COIL", "Load"),
     ("*+3V3", "Supply3V3"), ("*+3V3A", "Supply3V3"), ("*GND", "Supply3V3"),
@@ -265,6 +265,19 @@ def save_and_report(bb, route):
     board = pcbgen.load(PCB)
     nt, nv = pcbgen.import_ses(board, ses)
     print("imported %d track segments, %d vias" % (nt, nv))
+    # mains relay contacts: carry them on both outer layers (thick copper, visible, no inner-layer heat)
+    import re
+    for t in [t for t in board.GetTracks() if re.search(r"RLY\d_(COM|NO|NC)$", t.GetNetname())]:
+        if t.GetClass() != "PCB_TRACK":
+            continue
+        t.SetLayer(pcbnew.B_Cu)
+        d = pcbnew.PCB_TRACK(board)
+        d.SetStart(t.GetStart())
+        d.SetEnd(t.GetEnd())
+        d.SetWidth(t.GetWidth())
+        d.SetNet(t.GetNet())
+        d.SetLayer(pcbnew.F_Cu)
+        board.Add(d)
     tmp = pcbgen.BoardBuilder.__new__(pcbgen.BoardBuilder)
     tmp.board, tmp.ox, tmp.oy, tmp.nets = board, bb.ox, bb.oy, {n.GetNetname(): n for n in board.GetNetInfo().NetsByName().values()}
     pours(tmp, main, iso)
@@ -278,6 +291,7 @@ def fill_and_drc(path):
     pcbnew.ZONE_FILLER(board).Fill(board.Zones())
     board.Save(path)
     pcbgen.write_project_netclasses(os.path.join(KICAD, c.name + ".kicad_pro"), NETCLASSES, ASSIGN)
+    board = pcbgen.load(path)  # re-resolve net classes from the rewritten project before DRC
     rpt = os.path.join(OUT, "drc.rpt")
     pcbnew.WriteDRCReport(board, rpt, pcbnew.EDA_UNITS_MILLIMETRES, True)
     txt = open(rpt).read()

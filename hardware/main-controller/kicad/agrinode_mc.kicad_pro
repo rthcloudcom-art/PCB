@@ -317,7 +317,7 @@
         "pattern": "*BUCK5_SW"
       },
       {
-        "netclass": "Power",
+        "netclass": "Supply3V3",
         "pattern": "*VBUS_USB"
       },
       {
