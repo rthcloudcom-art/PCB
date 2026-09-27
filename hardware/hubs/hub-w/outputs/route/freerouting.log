@@ -1,36 +1,48 @@
-2026-09-27 20:05:29.864 INFO   Freerouting v2.4.1 (build-date: 2026-09-03)
-2026-09-27 20:05:29.962 WARN   GUI is disabled and you don't have a console available, so the only feedback from Freerouting is in the log.
-2026-09-27 20:05:29.985 INFO   Configured network proxy: 127.0.0.1:33699
-2026-09-27 20:05:31.492 INFO   [07FE17\7010E2] Loading board file 'agrinode_hub_w.dsn'...
-2026-09-27 20:05:31.828 INFO   [07FE17\7010E2] Job '07FE17\7010E2' started at 2026-09-27T20:05:31.828100202Z.
-2026-09-27 20:05:32.312 INFO   [07FE17\7010E2] Auto-routing stage started on board '74a68b2a3e6f5d8d063f69ab46e835f4' for 229 unrouted items.
-2026-09-27 20:06:20.787 INFO   [07FE17\7010E2] Auto-routing pass #1 on board '74a68b2a3e6f5d8d063f69ab46e835f4' was completed in 47.79 seconds with score 733.04 (58 unrouted and 17 violations), using 20.61 CPU seconds and the job allocated 62.21 GB of memory so far.
-2026-09-27 20:06:41.469 INFO   [07FE17\7010E2] Auto-routing pass #2 on board 'a524a5b6d83472a3fc346481de091e77' was completed in 20.37 seconds with score 854.77 (30 unrouted and 17 violations), using 35.99 CPU seconds and the job allocated 118.79 GB of memory so far.
-2026-09-27 20:06:55.732 INFO   [07FE17\7010E2] Auto-routing pass #3 on board '581b4c79c76cccef93fda14d6883ce5c' was completed in 13.89 seconds with score 885.21 (23 unrouted and 17 violations), using 48.36 CPU seconds and the job allocated 168.15 GB of memory so far.
-2026-09-27 20:07:11.309 INFO   [07FE17\7010E2] Auto-routing pass #4 on board '0e4333700bcebad3df4c67e6434016c6' was completed in 15.17 seconds with score 919.99 (15 unrouted and 17 violations), using 62.12 CPU seconds and the job allocated 222.12 GB of memory so far.
-2026-09-27 20:07:19.456 INFO   [07FE17\7010E2] Auto-routing pass #5 on board 'e8fb8ce9cadba66894f48bc0ed28fdd1' was completed in 7.70 seconds with score 928.68 (13 unrouted and 17 violations), using 69.34 CPU seconds and the job allocated 248.97 GB of memory so far.
-2026-09-27 20:07:27.053 INFO   [07FE17\7010E2] Auto-routing pass #6 on board 'c53c1a6da9d2eb0134f50b54a30d1724' was completed in 7.06 seconds with score 946.08 (9 unrouted and 17 violations), using 76.53 CPU seconds and the job allocated 276.14 GB of memory so far.
-2026-09-27 20:07:35.392 INFO   [07FE17\7010E2] Auto-routing pass #7 on board '0376e57bf29654a7ddf0c870c949ff59' was completed in 7.85 seconds with score 946.08 (9 unrouted and 17 violations), using 83.40 CPU seconds and the job allocated 303.99 GB of memory so far.
-2026-09-27 20:07:43.779 INFO   [07FE17\7010E2] Auto-routing pass #8 on board '2826e4abd1aafa157ac5f2ef8e3e803d' was completed in 7.79 seconds with score 954.77 (7 unrouted and 17 violations), using 90.62 CPU seconds and the job allocated 333.15 GB of memory so far.
-2026-09-27 20:07:49.692 INFO   [07FE17\7010E2] Auto-routing pass #9 on board '83dfeef216127fa73443b97f7b848f58' was completed in 5.31 seconds with score 959.12 (6 unrouted and 17 violations), using 95.94 CPU seconds and the job allocated 353.43 GB of memory so far.
-2026-09-27 20:07:57.362 INFO   [07FE17\7010E2] Auto-routing pass #10 on board 'bfe5a7bf8ba292889535d2c8edb1c939' was completed in 7.05 seconds with score 959.12 (6 unrouted and 17 violations), using 103.08 CPU seconds and the job allocated 378.71 GB of memory so far.
-2026-09-27 20:08:02.606 INFO   [07FE17\7010E2] Auto-routing pass #11 on board '8f3e9d54a83ea1c56c107ad65fd595ff' was completed in 4.61 seconds with score 972.16 (3 unrouted and 17 violations), using 107.45 CPU seconds and the job allocated 395.89 GB of memory so far.
-2026-09-27 20:08:05.260 INFO   [07FE17\7010E2] Auto-routing pass #12 on board '2561e22c9a3ed27d50d73f34cb4fe340' was completed in 1.95 seconds with score 976.51 (2 unrouted and 17 violations), using 110.06 CPU seconds and the job allocated 407.73 GB of memory so far.
-2026-09-27 20:08:07.129 INFO   [07FE17\7010E2] Auto-routing pass #13 on board 'c6c815ed75aeff8e3e5ab7b437612b22' was completed in 1.27 seconds with score 976.51 (2 unrouted and 17 violations), using 111.96 CPU seconds and the job allocated 416.78 GB of memory so far.
-2026-09-27 20:08:08.957 INFO   [07FE17\7010E2] Auto-routing pass #14 on board '64df879c2372bce0727f0b23af7d7f25' was completed in 1.23 seconds with score 976.51 (2 unrouted and 17 violations), using 112.89 CPU seconds and the job allocated 421.48 GB of memory so far.
-2026-09-27 20:08:10.850 INFO   [07FE17\7010E2] Auto-routing pass #15 on board 'fdbce79900c7e2ea12eb38a27bd0acf3' was completed in 1.29 seconds with score 976.51 (2 unrouted and 17 violations), using 114.77 CPU seconds and the job allocated 430.50 GB of memory so far.
-2026-09-27 20:08:12.708 INFO   [07FE17\7010E2] Auto-routing pass #16 on board 'cfc8eb7a641aac76ed93002404953644' was completed in 1.26 seconds with score 976.51 (2 unrouted and 17 violations), using 116.59 CPU seconds and the job allocated 439.31 GB of memory so far.
-2026-09-27 20:08:14.558 INFO   [07FE17\7010E2] Auto-routing pass #17 on board '62b1819f4f00d7afdebd7c3ee2fd4cf5' was completed in 1.24 seconds with score 976.51 (2 unrouted and 17 violations), using 118.48 CPU seconds and the job allocated 448.44 GB of memory so far.
-2026-09-27 20:08:16.304 INFO   [07FE17\7010E2] Auto-routing pass #18 on board '62b1819f4f00d7afdebd7c3ee2fd4cf5' was completed in 1.42 seconds with score 976.51 (2 unrouted and 17 violations), using 120.22 CPU seconds and the job allocated 456.62 GB of memory so far.
-2026-09-27 20:08:17.936 INFO   [07FE17\7010E2] Auto-routing pass #19 on board '62b1819f4f00d7afdebd7c3ee2fd4cf5' was completed in 1.29 seconds with score 976.51 (2 unrouted and 17 violations), using 121.15 CPU seconds and the job allocated 460.83 GB of memory so far.
-2026-09-27 20:08:19.587 INFO   [07FE17\7010E2] Auto-routing pass #20 on board '62b1819f4f00d7afdebd7c3ee2fd4cf5' was completed in 1.31 seconds with score 976.51 (2 unrouted and 17 violations), using 123.00 CPU seconds and the job allocated 469.43 GB of memory so far.
-2026-09-27 20:08:20.226 INFO   [07FE17\7010E2] Auto-routing stage completed: started with 229 unrouted nets, completed in 167.80 seconds, final score: 976.51 (2 unrouted and 17 violations), using 123.94 total CPU seconds, 473.75 GB total allocated, and 725.9 MB peak heap usage.
-2026-09-27 20:08:20.566 INFO   [07FE17\7010E2] Optimization stage started on board '62b1819f4f00d7afdebd7c3ee2fd4cf5' with score 976.51 (2 unrouted and 17 violations).
-2026-09-27 20:08:51.113 INFO   [07FE17\7010E2] Stopping optimization pass #1 early after 50 consecutive items could not be improved.
-2026-09-27 20:08:51.418 INFO   [07FE17\7010E2] Optimizer pass #1 on board '79f15414e76b734fc85f4e6fc6bdf293' was completed in 29.77 seconds with the score of 976.51 (2 unrouted and 17 violations).
-2026-09-27 20:08:51.686 INFO   [07FE17\7010E2] Stopping optimizer because the improvement in this pass (0.0000%) is below the threshold (1.00%).
-2026-09-27 20:08:51.980 INFO   [07FE17\7010E2] Optimization stage completed: started with score 976.51 (2 unrouted and 17 violations), completed in 31.12 seconds, final score: 976.51 (2 unrouted and 17 violations), using 28.95 total CPU seconds, 144.87 GB total allocated, and 293.2 MB peak heap usage.
-2026-09-27 20:08:52.014 INFO   [07FE17\7010E2] Job '07FE17\7010E2' finished with state: COMPLETED (elapsed: 3 minutes 20.18 seconds, finished at UTC: 2026-09-27T20:08:52.012894959Z).
-2026-09-27 20:08:52.423 INFO   Saving output file '/home/user/PCB/hardware/hubs/hub-w/outputs/route/agrinode_hub_w.ses' (SES)...
-2026-09-27 20:08:52.427 INFO   Successfully saved output file '/home/user/PCB/hardware/hubs/hub-w/outputs/route/agrinode_hub_w.ses' (84662 bytes).
+2026-09-27 21:27:08.612 INFO   Freerouting v2.4.1 (build-date: 2026-09-03)
+2026-09-27 21:27:08.733 WARN   GUI is disabled and you don't have a console available, so the only feedback from Freerouting is in the log.
+2026-09-27 21:27:08.764 INFO   Configured network proxy: 127.0.0.1:33699
+2026-09-27 21:27:10.495 INFO   [071EF6\B1E741] Loading board file 'agrinode_hub_w.dsn'...
+2026-09-27 21:27:10.801 INFO   [071EF6\B1E741] Job '071EF6\B1E741' started at 2026-09-27T21:27:10.800938322Z.
+2026-09-27 21:27:11.546 INFO   [071EF6\B1E741] Auto-routing stage started on board '787fa274cfdeac5faec42734168c7591' for 229 unrouted items.
+2026-09-27 21:28:04.067 INFO   [071EF6\B1E741] Auto-routing pass #1 on board '787fa274cfdeac5faec42734168c7591' was completed in 51.99 seconds with score 772.17 (49 unrouted and 17 violations), using 22.11 CPU seconds and the job allocated 71.59 GB of memory so far.
+2026-09-27 21:28:22.630 INFO   [071EF6\B1E741] Auto-routing pass #2 on board '38f9cfcbec647d78790fe7c870656e10' was completed in 18.28 seconds with score 854.77 (30 unrouted and 17 violations), using 35.28 CPU seconds and the job allocated 116.96 GB of memory so far.
+2026-09-27 21:28:40.228 INFO   [071EF6\B1E741] Auto-routing pass #3 on board '0b2c946281229c12825243aa5045fecf' was completed in 17.33 seconds with score 911.29 (17 unrouted and 17 violations), using 50.20 CPU seconds and the job allocated 170.75 GB of memory so far.
+2026-09-27 21:28:50.999 INFO   [071EF6\B1E741] Auto-routing pass #4 on board '7c0969717d3c2d1ee1632cab357d8b29' was completed in 10.33 seconds with score 928.68 (13 unrouted and 17 violations), using 59.82 CPU seconds and the job allocated 205.09 GB of memory so far.
+2026-09-27 21:29:00.750 INFO   [071EF6\B1E741] Auto-routing pass #5 on board 'c8e8b903e787f9bd17550f1fb90be800' was completed in 9.28 seconds with score 928.68 (13 unrouted and 17 violations), using 67.21 CPU seconds and the job allocated 235.25 GB of memory so far.
+2026-09-27 21:29:12.970 INFO   [071EF6\B1E741] Auto-routing pass #6 on board '544cf7d5dd3e9b9d92e324815322f443' was completed in 11.72 seconds with score 946.07 (9 unrouted and 17 violations), using 77.84 CPU seconds and the job allocated 273.08 GB of memory so far.
+2026-09-27 21:29:22.380 INFO   [071EF6\B1E741] Auto-routing pass #7 on board 'ab47e23049d6c43b71599dc156284141' was completed in 8.59 seconds with score 954.77 (7 unrouted and 17 violations), using 86.34 CPU seconds and the job allocated 302.43 GB of memory so far.
+2026-09-27 21:29:29.606 INFO   [071EF6\B1E741] Auto-routing pass #8 on board '04c2eba8aa3f9487749de45e7cee0bf3' was completed in 6.75 seconds with score 967.81 (4 unrouted and 17 violations), using 92.66 CPU seconds and the job allocated 326.40 GB of memory so far.
+2026-09-27 21:29:35.124 INFO   [071EF6\B1E741] Auto-routing pass #9 on board '9c065150abb22499cfcb68352f8bb633' was completed in 4.81 seconds with score 963.47 (5 unrouted and 17 violations), using 98.01 CPU seconds and the job allocated 346.22 GB of memory so far.
+2026-09-27 21:29:41.980 INFO   [071EF6\B1E741] Auto-routing pass #10 on board 'af40c05ea5a2550bb018396b2793593e' was completed in 6.23 seconds with score 954.77 (7 unrouted and 17 violations), using 103.55 CPU seconds and the job allocated 365.19 GB of memory so far.
+2026-09-27 21:29:51.042 INFO   [071EF6\B1E741] Auto-routing pass #11 on board '9f79e78fecf369fa136f32a24680ed12' was completed in 8.48 seconds with score 959.12 (6 unrouted and 17 violations), using 112.55 CPU seconds and the job allocated 396.06 GB of memory so far.
+2026-09-27 21:29:58.987 INFO   [071EF6\B1E741] Auto-routing pass #12 on board '9c065150abb22499cfcb68352f8bb633' was completed in 0.00 seconds with score 967.81 (4 unrouted and 17 violations), using 118.73 CPU seconds and the job allocated 419.29 GB of memory so far.
+2026-09-27 21:30:05.200 INFO   [071EF6\B1E741] Auto-routing pass #13 on board '9c065150abb22499cfcb68352f8bb633' was completed in 5.91 seconds with score 959.12 (6 unrouted and 17 violations), using 124.91 CPU seconds and the job allocated 440.33 GB of memory so far.
+2026-09-27 21:30:12.384 INFO   [071EF6\B1E741] Auto-routing pass #14 on board '2a46d641977aa30b4fdd96d9a8981dae' was completed in 6.48 seconds with score 950.42 (8 unrouted and 17 violations), using 131.20 CPU seconds and the job allocated 461.59 GB of memory so far.
+2026-09-27 21:30:21.701 INFO   [071EF6\B1E741] Auto-routing pass #15 on board '9046d9e35b01c9bd078471b72464ac1c' was completed in 8.69 seconds with score 954.77 (7 unrouted and 17 violations), using 139.32 CPU seconds and the job allocated 491.77 GB of memory so far.
+2026-09-27 21:30:31.318 INFO   [071EF6\B1E741] Auto-routing pass #16 on board '9c065150abb22499cfcb68352f8bb633' was completed in 0.00 seconds with score 967.81 (4 unrouted and 17 violations), using 148.09 CPU seconds and the job allocated 524.48 GB of memory so far.
+2026-09-27 21:30:37.159 INFO   [071EF6\B1E741] Auto-routing pass #17 on board '9c065150abb22499cfcb68352f8bb633' was completed in 5.51 seconds with score 959.12 (6 unrouted and 17 violations), using 153.43 CPU seconds and the job allocated 543.82 GB of memory so far.
+2026-09-27 21:30:43.902 INFO   [071EF6\B1E741] Auto-routing pass #18 on board 'f8260d444d815950f72a2df5001e0f65' was completed in 6.17 seconds with score 950.42 (8 unrouted and 17 violations), using 158.79 CPU seconds and the job allocated 563.37 GB of memory so far.
+2026-09-27 21:30:43.964 INFO   [071EF6\B1E741] The router's best score (967.81) has not improved by more than 0.5 points since pass #8. Stopping the auto-router after 18 passes (4 items still unconnected).
+The following connections could not be routed -- please review your design (e.g. check pad clearances, trace width rules, and available routing space):
+  Net 'GND' (2 unrouted connections):
+    - U4-1  ->  via
+    - U4-38  ->  U4-1
+  Net '/Power - 12V, solar and USB inputs, 18650 charger, rails/CHG_TEMP' (4 unrouted connections):
+    - J5-1  ->  R2-2
+    - U2-1  ->  J5-1
+    - JP1-1  ->  U2-1
+    - U2-1  ->  R3-1
+  Net '/ESP32, programming, buttons, RTC, LED strip, buzzer/BOOT_BTN' (1 unrouted connection):
+    - R14-2  ->  U4-25
+  Net 'RS485_DE' (1 unrouted connection):
+    - via  ->  U4-26
+2026-09-27 21:30:45.253 INFO   [071EF6\B1E741] Auto-routing stage completed: started with 229 unrouted nets, completed in 213.68 seconds, final score: 967.81 (4 unrouted and 17 violations), using 160.46 total CPU seconds, 571.85 GB total allocated, and 751.8 MB peak heap usage.
+2026-09-27 21:30:45.581 INFO   [071EF6\B1E741] Optimization stage started on board 'cc7b5bf624b2f05357b0a193433f7b87' with score 954.77 (7 unrouted and 17 violations).
+2026-09-27 21:31:15.202 INFO   [071EF6\B1E741] Stopping optimization pass #1 early after 50 consecutive items could not be improved.
+2026-09-27 21:31:15.499 INFO   [071EF6\B1E741] Optimizer pass #1 on board 'fe2270589815252636423089618bceb9' was completed in 28.90 seconds with the score of 954.77 (7 unrouted and 17 violations).
+2026-09-27 21:31:15.798 INFO   [071EF6\B1E741] Stopping optimizer because the improvement in this pass (0.0000%) is below the threshold (1.00%).
+2026-09-27 21:31:16.074 INFO   [071EF6\B1E741] Optimization stage completed: started with score 954.77 (7 unrouted and 17 violations), completed in 30.22 seconds, final score: 954.77 (7 unrouted and 17 violations), using 28.10 total CPU seconds, 137.01 GB total allocated, and 660.5 MB peak heap usage.
+2026-09-27 21:31:16.105 INFO   [071EF6\B1E741] Job '071EF6\B1E741' finished with state: COMPLETED (elapsed: 4 minutes 5.30 seconds, finished at UTC: 2026-09-27T21:31:16.100692598Z).
+2026-09-27 21:31:16.129 INFO   Saving output file '/home/user/PCB/hardware/hubs/hub-w/outputs/route/agrinode_hub_w.ses' (SES)...
+2026-09-27 21:31:16.136 INFO   Successfully saved output file '/home/user/PCB/hardware/hubs/hub-w/outputs/route/agrinode_hub_w.ses' (86565 bytes).
 Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -Djavax.net.ssl.trustStoreType=JKS -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=33699 -Dhttp.nonProxyHosts=localhost|127.0.0.1|::1|127.*|0.*|::|169.254.*|api.anthropic.com|api-staging.anthropic.com|api-pr-preview.anthropic.com|mcp-proxy.anthropic.com|mcp-proxy-staging.anthropic.com|registry.npmjs.org|jsr.io|npm.jsr.io|pypi.org|files.pythonhosted.org|index.crates.io|proxy.golang.org|host.docker.internal|10.*|172.16.*|172.17.*|172.18.*|172.19.*|172.20.*|172.21.*|172.22.*|172.23.*|172.24.*|172.25.*|172.26.*|172.27.*|172.28.*|172.29.*|172.30.*|172.31.*|192.168.*|100.64.0.0/10|*.svc.cluster.local|*.svc.cluster.local -Djdk.http.auth.tunneling.disabledSchemes= -Djdk.http.auth.proxying.disabledSchemes=
