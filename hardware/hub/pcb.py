@@ -212,6 +212,11 @@ def do_route(bb, route):
     if not TWO_LAYER:
         jumpers = pcbgen.jumperize(board)
         print("wire jumpers: %d" % len(jumpers))
+    else:
+        import finish_router
+        done, left = finish_router.finish(board, track_w=0.5, log=lambda *_: None)
+        print("finishing router: %d more connections routed, still open: %s"
+              % (done, [n.split("/")[-1] for n in left]))
     # ground pour on the copper side
     tmp = pcbgen.BoardBuilder.__new__(pcbgen.BoardBuilder)
     tmp.board, tmp.ox, tmp.oy = board, bb.ox, bb.oy
