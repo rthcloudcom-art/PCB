@@ -237,6 +237,19 @@ def do_route(bb, route):
                                                  via_drill=0.6, max_iter=150, log=lambda *_: None,
                                                  width_of=width_of)
             print("rip-up and reroute: still open: %s" % [n.split("/")[-1] for n in left])
+        if left:  # last resort: power nets may be ripped too (rerouted at their net-class width)
+            snap = os.path.join(rdir, "before_power_ripup.kicad_pcb")
+            board.Save(snap)
+            left2 = finish_router.rip_and_reroute(board, protected_names=("GND",), track_w=0.5, via_d=1.2,
+                                                  via_drill=0.6, max_iter=60, log=lambda *_: None,
+                                                  width_of=width_of)
+            print("rip-up incl. power nets: still open: %s" % [n.split("/")[-1] for n in left2])
+            if len(left2) >= len(left):
+                board = pcbgen.load(snap)   # no better: keep the first result
+                print("  (kept the result without power-net rip-up)")
+            for ext in (".kicad_pcb", ".kicad_pro", ".kicad_prl"):
+                if os.path.exists(snap[:-10] + ext):
+                    os.remove(snap[:-10] + ext)
     else:
         jumpers = pcbgen.jumperize(board, drill=0.8, pad=1.8)
         print("wire jumpers: %d" % len(jumpers))
