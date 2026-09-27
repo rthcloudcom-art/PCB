@@ -202,12 +202,26 @@ def finish(bb, route):
 
 
 def run_freerouting(dsn, ses, rdir):
-    if os.path.exists(ses):
-        os.remove(ses)
-    cmd = [JAVA, "-Djava.awt.headless=true", "-jar", JAR, "-de", dsn, "-do", ses,
-           "-mp", os.environ.get("FR_PASSES", "20"), "-mt", os.environ.get("FR_THREADS", "4")]
-    r = subprocess.run(cmd, capture_output=True, text=True, timeout=int(os.environ.get("FR_TIMEOUT", "7200")))
-    open(os.path.join(rdir, "freerouting.log"), "w").write(r.stdout[-20000:] + r.stderr[-20000:])
+    """Single-threaded Freerouting is deterministic, but it saves the *last* pass, not the best one.
+    Run once, find the pass with the fewest unrouted nets, then re-run stopping at that pass."""
+    def run(passes, tag):
+        if os.path.exists(ses):
+            os.remove(ses)
+        cmd = [JAVA, "-Djava.awt.headless=true", "-jar", JAR, "-de", dsn, "-do", ses,
+               "-mp", str(passes), "-mt", "1"]
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=int(os.environ.get("FR_TIMEOUT", "7200")))
+        log = r.stdout + r.stderr
+        open(os.path.join(rdir, "freerouting%s.log" % tag), "w").write(log[-40000:])
+        return [(int(m.group(1)), int(m.group(2))) for m in
+                re.finditer(r"Auto-routing pass #(\d+) .*?\((\d+) unrouted", log)]
+    passes = int(os.environ.get("FR_PASSES", "20"))
+    hist = run(passes, "")
+    if not hist:
+        return
+    best_pass, best = min(hist, key=lambda pu: (pu[1], pu[0]))
+    print("freerouting: best pass #%d with %d unrouted (last pass: %d unrouted)" % (best_pass, best, hist[-1][1]))
+    if best < hist[-1][1]:
+        run(best_pass, "_best")
 
 
 def do_route(bb, route):
