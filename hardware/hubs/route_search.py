@@ -34,6 +34,8 @@ def score(log):
     total = int(m.group(1)) if m else 999
     rpt = open(os.path.join(OUT, "drc.rpt")).read()
     hard = sum(len(re.findall(r"^\[%s\]" % k, rpt, re.M)) for k in HARD)
+    m = re.search(r"Found (\d+) unconnected", rpt)   # includes GND pour islands
+    opened = max(opened, int(m.group(1)) if m else 0)
     return opened + hard, opened, hard, total
 
 
