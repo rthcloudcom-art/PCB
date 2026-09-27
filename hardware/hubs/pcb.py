@@ -133,8 +133,8 @@ def place(bb):
     bb.put(val("RESET"), 17.5, 3.0, anchor="tl")
     bb.put(val("LED STRIP WS2813"), 29.0, 3.5, rot=90, anchor="tl")
     bb.put(val("I2C"), 29.0, 7.5, rot=90, anchor="tl")
-    bb.put(val("BOOT / PAIR"), 61.0, 3.0, anchor="tl")
-    bb.put(val("PROG"), 61.0, 11.5, rot=90, anchor="tl")
+    bb.put(val("BOOT / PAIR"), 66.0, 3.0, anchor="tl")      # 6 mm routing channel beside the ESP32 pins
+    bb.put(val("PROG"), 64.5, 17.0, rot=90, anchor="tl")
     bb.put(val("CR2032"), 62.0, 36.0, anchor="tl")
     # DS3231 right beside the CR2032 holder, VBAT/SDA/SCL pins facing it
     bb.put(val("DS3231MZ"), 84.0, 43.0, rot=180, anchor="tl")
@@ -149,6 +149,7 @@ def place(bb):
 
     ldo = [r for r in block("3.3 V rail") if r.startswith("U")][0]
     bb.put(ldo, 64.0, 24.0, rot=0, anchor="tl")
+    bb.put(val("100u/10V"), 53.5, 23.5, rot=0, anchor="tl")   # LDO output bulk cap, beside the regulator
     pack("ESP32-WROOM", 40, 22, 62, 30)
     # uplink block first: its big parts need the free space right of the core
     x0 = CORE_W + 1
