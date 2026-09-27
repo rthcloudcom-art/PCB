@@ -232,7 +232,7 @@ def do_route(bb, route):
         print("finishing router: %d routed, still open: %s" % (done, [n.split("/")[-1] for n in left]))
         if left:
             # power nets keep their Freerouting copper; only signal nets are ripped and rerouted
-            power = tuple({n.split("/")[-1] for n in board.GetNetsByName().keys() if width_of(str(n)) > 0.5})
+            power = tuple({str(n).split("/")[-1] for n in board.GetNetsByName().keys() if width_of(str(n)) > 0.5})
             left = finish_router.rip_and_reroute(board, protected_names=("GND",) + power, track_w=0.5, via_d=1.2,
                                                  via_drill=0.6, max_iter=150, log=lambda *_: None,
                                                  width_of=width_of)
