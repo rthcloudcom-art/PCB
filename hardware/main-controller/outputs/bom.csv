@@ -1,0 +1,139 @@
+Qty,Value,Footprint,Symbol,References
+1,CR2032,BatteryHolder_MPD_BC2003_1x2032,Device:Battery_Cell,BT1
+1,5V magnetic buzzer,Buzzer_12x9.5RM7.6,Device:Buzzer,BZ1
+1,100u/50V,CP_Elec_10x10.5,Device:C_Polarized,C1
+3,2.2u/100V,C_1210_3225Metric,Device:C,C2 C7 C8
+2,1u/50V,C_1206_3216Metric,Device:C,C3 C4
+35,100n,C_0603_1608Metric,Device:C,C5 C6 C10 C15 C17 C18 C23 C26 C27 C28 C29 C31 C32 C33 C34 C41 C43 C45 C47 C48 C58 C59 C60 C61 C62 C63 C66 C67 C68 C69 C70 C72 C73 C75 C76
+1,100n/100V,C_0805_2012Metric,Device:C,C9
+2,6.8n,C_0603_1608Metric,Device:C,C11 C39
+1,33p,C_0603_1608Metric,Device:C,C12
+2,47u/10V,C_1210_3225Metric,Device:C,C13 C14
+9,10u/10V,C_0805_2012Metric,Device:C,C16 C22 C30 C42 C44 C49 C64 C71 C74
+2,22u/10V,C_1206_3216Metric,Device:C,C19 C20
+1,22u/10V,C_0805_2012Metric,Device:C,C21
+1,1u,C_0603_1608Metric,Device:C,C24
+1,1u/16V,C_0603_1608Metric,Device:C,C25
+1,4.7u,C_0805_2012Metric,Device:C,C35
+2,10n,C_0603_1608Metric,Device:C,C36 C40
+2,18p,C_0603_1608Metric,Device:C,C37 C38
+1,470u/10V,CP_Elec_8x10.5,Device:C_Polarized,C46
+8,1n,C_0603_1608Metric,Device:C,C50 C51 C52 C53 C54 C55 C56 C57
+1,100n/50V,C_0603_1608Metric,Device:C,C65
+2,SS510 100V/5A,D_SMC,Device:D_Schottky,D1 D2
+1,SMBJ33CA,D_SMB,Device:D_TVS,D3
+1,B560C 60V/5A,D_SMC,Device:D_Schottky,D4
+1,LED green PWR,LED_0603_1608Metric,Device:LED,D5
+1,SS34,D_SMA,Device:D_Schottky,D6
+1,LED blue STATUS,LED_0603_1608Metric,Device:LED,D7
+1,LED green NET,LED_0603_1608Metric,Device:LED,D8
+1,LED red ALARM,LED_0603_1608Metric,Device:LED,D9
+1,1N4148W,D_SOD-123,Device:D,D10
+1,LED red K1,LED_0603_1608Metric,Device:LED,D11
+1,LED red K2,LED_0603_1608Metric,Device:LED,D12
+1,LED red K3,LED_0603_1608Metric,Device:LED,D13
+1,LED red K4,LED_0603_1608Metric,Device:LED,D14
+1,LED red K5,LED_0603_1608Metric,Device:LED,D15
+1,LED red K6,LED_0603_1608Metric,Device:LED,D16
+1,LED red K7,LED_0603_1608Metric,Device:LED,D17
+1,LED red K8,LED_0603_1608Metric,Device:LED,D18
+6,SMAJ12CA,D_SMA,Device:D_TVS,D19 D21 D23 D25 D27 D28
+4,BAT54S,SOT-23,Diode:BAT54S,D20 D22 D24 D26
+4,SS26 60V/2A,D_SMA,Device:D_Schottky,D29 D30 D31 D32
+1,PESD5V0S1BL,D_SOD-323,Device:D_TVS,D33
+2,SM712,SOT-23,Diode:SM712_SOT23,D34 D35
+2,PTC 2.5A/60V 2920,Fuse_2920_7451Metric,Device:Fuse,F1 F2
+1,PTC 3A/60V 2920,Fuse_2920_7451Metric,Device:Polyfuse,F3
+1,PTC 0.5A/60V 1812,Fuse_1812_4532Metric,Device:Polyfuse,F4
+4,PTC 50mA/30V,Fuse_1206_3216Metric,Device:Polyfuse,F5 F6 F7 F8
+2,PTC 100mA,Fuse_0805_2012Metric,Device:Polyfuse,F9 F10
+1,600R@100MHz,L_0603_1608Metric,Device:FerriteBead_Small,FB1
+4,M3,MountingHole_3.2mm_M3_Pad_Via,Mechanical:MountingHole_Pad,H1 H2 H3 H4
+1,MAIN IN 9-32V,"PhoenixContact_MSTBA_2,5_2-G-5,08_1x02_P5.08mm_Horizontal",Connector:Screw_Terminal_01x02,J1
+1,BATTERY IN 9-32V,"PhoenixContact_MSTBA_2,5_2-G-5,08_1x02_P5.08mm_Horizontal",Connector:Screw_Terminal_01x02,J2
+1,USB-C,USB_C_Receptacle_HRO_TYPE-C-31-M-12,Connector:USB_C_Receptacle_USB2.0_16P,J3
+1,SPARE IO,PinHeader_1x05_P2.54mm_Vertical,Connector_Generic:Conn_01x05,J4
+1,OLED I2C,PinSocket_1x04_P2.54mm_Vertical,Connector_Generic:Conn_01x04,J5
+1,ETHERNET,RJ45_Hanrun_HR911105A_Horizontal,Connector:RJ45_Hanrun_HR911105A_Horizontal,J6
+1,microSD,microSD_HC_Hirose_DM3AT-SF-PEJM5,Connector:Micro_SD_Card_Det_Hirose_DM3AT,J7
+1,MODEM SLOT,PinSocket_2x08_P2.54mm_Vertical,Connector_Generic:Conn_02x08_Odd_Even,J8
+1,RELAY 1,"PhoenixContact_MSTBA_2,5_3-G-5,08_1x03_P5.08mm_Horizontal",Connector:Screw_Terminal_01x03,J9
+1,RELAY 2,"PhoenixContact_MSTBA_2,5_3-G-5,08_1x03_P5.08mm_Horizontal",Connector:Screw_Terminal_01x03,J10
+1,RELAY 3,"PhoenixContact_MSTBA_2,5_3-G-5,08_1x03_P5.08mm_Horizontal",Connector:Screw_Terminal_01x03,J11
+1,RELAY 4,"PhoenixContact_MSTBA_2,5_3-G-5,08_1x03_P5.08mm_Horizontal",Connector:Screw_Terminal_01x03,J12
+1,RELAY 5,"PhoenixContact_MSTBA_2,5_3-G-5,08_1x03_P5.08mm_Horizontal",Connector:Screw_Terminal_01x03,J13
+1,RELAY 6,"PhoenixContact_MSTBA_2,5_3-G-5,08_1x03_P5.08mm_Horizontal",Connector:Screw_Terminal_01x03,J14
+1,RELAY 7,"PhoenixContact_MSTBA_2,5_3-G-5,08_1x03_P5.08mm_Horizontal",Connector:Screw_Terminal_01x03,J15
+1,RELAY 8,"PhoenixContact_MSTBA_2,5_3-G-5,08_1x03_P5.08mm_Horizontal",Connector:Screw_Terminal_01x03,J16
+1,DI 1-4,"PhoenixContact_MSTBA_2,5_5-G-5,08_1x05_P5.08mm_Horizontal",Connector:Screw_Terminal_01x05,J17
+1,DI 5-8,"PhoenixContact_MSTBA_2,5_5-G-5,08_1x05_P5.08mm_Horizontal",Connector:Screw_Terminal_01x05,J18
+1,AI 1-2,"PhoenixContact_MSTBA_2,5_4-G-5,08_1x04_P5.08mm_Horizontal",Connector:Screw_Terminal_01x04,J19
+1,AI 3-4,"PhoenixContact_MSTBA_2,5_4-G-5,08_1x04_P5.08mm_Horizontal",Connector:Screw_Terminal_01x04,J20
+1,AO 1-2,"PhoenixContact_MSTBA_2,5_3-G-5,08_1x03_P5.08mm_Horizontal",Connector:Screw_Terminal_01x03,J21
+1,OUT 1-2,"PhoenixContact_MSTBA_2,5_3-G-5,08_1x03_P5.08mm_Horizontal",Connector:Screw_Terminal_01x03,J22
+1,OUT 3-4,"PhoenixContact_MSTBA_2,5_3-G-5,08_1x03_P5.08mm_Horizontal",Connector:Screw_Terminal_01x03,J23
+1,1-WIRE,"PhoenixContact_MSTBA_2,5_3-G-5,08_1x03_P5.08mm_Horizontal",Connector:Screw_Terminal_01x03,J24
+1,I2C EXT,"PhoenixContact_MSTBA_2,5_4-G-5,08_1x04_P5.08mm_Horizontal",Connector:Screw_Terminal_01x04,J25
+1,RS485-A EXP BUS,"PhoenixContact_MSTBA_2,5_4-G-5,08_1x04_P5.08mm_Horizontal",Connector:Screw_Terminal_01x04,J26
+1,RS485-B FIELD,"PhoenixContact_MSTBA_2,5_3-G-5,08_1x03_P5.08mm_Horizontal",Connector:Screw_Terminal_01x03,J27
+1,WDT_EN,SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm,Jumper:SolderJumper_2_Bridged,JP1
+4,4-20mA,PinHeader_1x02_P2.54mm_Vertical,Jumper:Jumper_2_Open,JP2 JP3 JP4 JP5
+1,TERM A,PinHeader_1x02_P2.54mm_Vertical,Jumper:Jumper_2_Open,JP6
+1,TERM B,PinHeader_1x02_P2.54mm_Vertical,Jumper:Jumper_2_Open,JP7
+8,SRD-05VDC-SL-C,Relay_SPDT_SANYOU_SRD_Series_Form_C,Relay:SANYOU_SRD_Form_C,K1 K2 K3 K4 K5 K6 K7 K8
+1,10uH 6A SRP1245A-100M,L_Bourns_SRP1245A,Device:L,L1
+1,2.2uH 4A NR5040,L_Taiyo-Yuden_NR-50xx,Device:L,L2
+1,MMBT3904,SOT-23,Device:Q_NPN_BEC,Q1
+4,IRLR2905,TO-252-2,Device:Q_NMOS_GDS,Q2 Q3 Q4 Q5
+2,150k 1%,R_0603_1608Metric,Device:R,R1 R3
+5,10k 1%,R_0603_1608Metric,Device:R,R2 R4 R13 R86 R89
+1,294k 1%,R_0603_1608Metric,Device:R,R5
+1,46.4k 1%,R_0603_1608Metric,Device:R,R6
+1,243k 1%,R_0603_1608Metric,Device:R,R7
+1,53.6k 1%,R_0603_1608Metric,Device:R,R8
+1,10.2k 1%,R_0603_1608Metric,Device:R,R9
+1,16.9k,R_0603_1608Metric,Device:R,R10
+9,100k,R_0603_1608Metric,Device:R,R11 R91 R93 R94 R96 R97 R99 R100 R102
+1,33.2k 1%,R_0603_1608Metric,Device:R,R12
+5,1k,R_0603_1608Metric,Device:R,R14 R27 R28 R29 R30
+30,10k,R_0603_1608Metric,Device:R,R15 R16 R17 R18 R22 R23 R24 R25 R26 R31 R33 R34 R41 R42 R43 R44 R45 R46 R47 R48 R58 R60 R62 R64 R66 R68 R70 R72 R105 R109
+2,5.1k,R_0603_1608Metric,Device:R,R19 R20
+1,57.6k 1%,R_0603_1608Metric,Device:R,R21
+1,12.4k 1%,R_0603_1608Metric,Device:R,R32
+4,49.9 1%,R_0603_1608Metric,Device:R,R35 R36 R37 R38
+2,330,R_0603_1608Metric,Device:R,R39 R40
+8,2.2k,R_0603_1608Metric,Device:R,R49 R50 R51 R52 R53 R54 R55 R56
+8,4.7k 1206,R_1206_3216Metric,Device:R,R57 R59 R61 R63 R65 R67 R69 R71
+4,150 0.1%,R_0805_2012Metric,Device:R,R73 R76 R79 R82
+4,30k 0.1%,R_0603_1608Metric,Device:R,R74 R77 R80 R83
+4,10k 0.1%,R_0603_1608Metric,Device:R,R75 R78 R81 R84
+2,39k 1%,R_0603_1608Metric,Device:R,R85 R88
+2,100,R_0603_1608Metric,Device:R,R87 R90
+5,22,R_0603_1608Metric,Device:R,R92 R95 R98 R101 R104
+1,4.7k,R_0603_1608Metric,Device:R,R103
+2,120,R_0805_2012Metric,Device:R,R106 R110
+4,680,R_0603_1608Metric,Device:R,R107 R108 R111 R112
+1,RESET,SW_SPST_PTS645,Switch:SW_Push,SW1
+1,BOOT / OK,SW_SPST_PTS645,Switch:SW_Push,SW2
+1,UP,SW_SPST_PTS645,Switch:SW_Push,SW3
+1,DOWN,SW_SPST_PTS645,Switch:SW_Push,SW4
+1,BACK,SW_SPST_PTS645,Switch:SW_Push,SW5
+1,TPS54360DDA,TI_SO-PowerPAD-8_ThermalVias,Regulator_Switching:TPS54360DDA,U1
+1,TPS563200,SOT-23-6,Regulator_Switching:TPS563200,U2
+1,ESP32-S3-WROOM-1-N16R2,ESP32-S3-WROOM-1,RF_Module:ESP32-S3-WROOM-1,U3
+2,USBLC6-2SC6,SOT-23-6,Power_Protection:USBLC6-2SC6,U4 U22
+1,TPL5010,SOT-23-6,Timer:TPL5010,U5
+1,DS3231MZ,SOIC-8_3.9x4.9mm_P1.27mm,Timer_RTC:DS3231MZ,U6
+1,ATECC608B-TNGTLS (I2C 0x35),SOIC-8_3.9x4.9mm_P1.27mm,Security:ATECC608B-SSHDA,U7
+2,PCA9555D,SOIC-24W_7.5x15.4mm_P1.27mm,Interface_Expansion:PCA9555D,U8 U11
+1,W5500,LQFP-48_7x7mm_P0.5mm,Interface_Ethernet:W5500,U9
+1,Ra-02 SX1278 433MHz,Ai-Thinker-Ra-01-LoRa,RF_Module:Ai-Thinker-Ra-02,U10
+1,ULN2803A,SOIC-18W_7.5x11.6mm_P1.27mm,Transistor_Array:ULN2803A,U12
+2,TLP290-4,SOP-16_4.55x10.3mm_P1.27mm,Isolator:TLP290-4,U13 U14
+1,ADS1115IDGS,TSSOP-10_3x3mm_P0.5mm,Analog_ADC:ADS1115IDGS,U15
+1,MCP4728,MSOP-10_3x3mm_P0.5mm,Analog_DAC:MCP4728,U16
+1,OPA2196xD,SOIC-8_3.9x4.9mm_P1.27mm,Amplifier_Operational:OPA2196xD,U17
+4,74AHCT1G125,SOT-23-5,74xGxx:74AHCT1G125,U18 U19 U20 U21
+1,THVD1420D,SOIC-8_3.9x4.9mm_P1.27mm,Interface_UART:THVD1420D,U23
+1,ADM2587E,SOIC-20W_7.5x12.8mm_P1.27mm,Interface_UART:ADM2587E,U24
+1,25MHz 18pF,Crystal_SMD_3225-4Pin_3.2x2.5mm,Device:Crystal_GND24,Y1

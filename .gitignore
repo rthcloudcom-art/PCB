@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.kicad_prl
+*-backups/
+fp-info-cache
+*.lck
+hardware/*/outputs/route/*.dsn
