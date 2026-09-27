@@ -1,23 +1,19 @@
 ** Drc report for /home/user/PCB/hardware/hubs/hub-c/kicad/agrinode_hub_c.kicad_pcb **
-** Created on 2026-09-27 22:59:41 **
+** Created on 2026-09-27 23:03:04 **
 
-** Found 9 DRC violations **
+** Found 8 DRC violations **
 [silk_overlap]: Silkscreen overlap
     Rule: board setup constraints silk; Severity: warning
     @(135.9450 mm, 116.7895 mm): Reference 'D10'
     @(-1.1625 mm, -1.5100 mm): Polygon on F.Silkscreen
 [silk_overlap]: Silkscreen overlap
     Rule: board setup constraints silk; Severity: warning
-    @(133.7250 mm, 64.1250 mm): Reference 'U5'
     @(133.3050 mm, 64.3250 mm): Reference 'R19'
+    @(133.7250 mm, 64.1250 mm): Reference 'U5'
 [starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
     Local override; Severity: error
     @(50.0000 mm, 50.0000 mm): Zone [GND] on F.Cu
     @(91.2500 mm, 51.5500 mm): Pad 1 [GND] of U4 on F.Cu
-[starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
-    Local override; Severity: error
-    @(50.0000 mm, 50.0000 mm): Zone [GND] on F.Cu
-    @(108.7500 mm, 51.5500 mm): Pad 38 [GND] of U4 on F.Cu
 [silk_edge_clearance]: Silkscreen clipped by board edge
     Rule: board setup constraints silk; Severity: warning
     @(180.0000 mm, 53.0000 mm): Line on Edge.Cuts
@@ -39,11 +35,7 @@
     @(53.0000 mm, 50.0000 mm): Line on Edge.Cuts
     @(109.1200 mm, 43.9400 mm): Line on F.Silkscreen
 
-** Found 1 unconnected pads **
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(91.2500 mm, 51.5500 mm): Pad 1 [GND] of U4 on F.Cu
-    @(88.4450 mm, 55.3250 mm): Track [GND] on B.Cu, length 1.6019 mm
+** Found 0 unconnected pads **
 
 ** Found 0 Footprint errors **
 
